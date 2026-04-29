@@ -399,19 +399,27 @@
     const summary = r.case_summary||'No AI summary yet — run the pipeline with ANTHROPIC_API_KEY set.';
 
     // Pills row
-    body.appendChild(el('div',{class:'flex flex-wrap gap-2'},[
+    body.appendChild(el('div',{class:'flex flex-wrap gap-2 pb-1'},[
       recPill(r.recommendation),
       confPill(r.confidence),
       r.is_zombie ? el('span',{class:'pill pill-refer',text:'Zombie ≤12mo'}) : null,
       r.funding_dependency ? depPill(r.funding_dependency) : null,
     ].filter(Boolean)));
 
-    // AI Summary
-    body.appendChild(sectionCard('AI case summary',[
+    // ── Two-column grid on large panel ───────────────────────────────────────
+    const leftCol = el('div',{class:'space-y-5'});
+    const rightCol = el('div',{class:'space-y-5'});
+    const twoCol = el('div',{class:'grid grid-cols-1 lg:grid-cols-2 gap-5'});
+    twoCol.appendChild(leftCol);
+    twoCol.appendChild(rightCol);
+    body.appendChild(twoCol);
+
+    // LEFT — AI Summary
+    leftCol.appendChild(sectionCard('AI case summary',[
       el('p',{class:'text-[15px] text-ink-800 leading-relaxed',text:summary}),
     ]));
 
-    // ROI Breakdown
+    // LEFT — ROI Breakdown
     const scoreRows = [
       ['Recoverable amount', bd.recoverable, 35],
       ['Evidence strength',  bd.evidence,    30],
@@ -432,43 +440,46 @@
       el('span',{class:'text-ink-900',text:'Total ROI score'}),
       el('span',{class:'font-mono tabular-nums text-ink-900',text:total.toFixed(1)+' / 100'}),
     ]));
-    body.appendChild(sectionCard('ROI score breakdown',scoreRows));
+    leftCol.appendChild(sectionCard('ROI score breakdown',scoreRows));
 
-    // Evidence
+    // RIGHT — Evidence
     const dl = el('dl',{class:'grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm'});
     const ev = [
-      ['Matched name',   r.matched_name],
-      ['Corp status',    r.status],
-      ['Dissolution',    r.dissolution_date],
-      ['Last award',     r.last_award_date ? String(r.last_award_date).slice(0,10) : null],
-      ['Months to diss.',r.months_to_dissolution==null?null:(+r.months_to_dissolution).toFixed(0)],
-      ['Match score',    r.match_confidence!=null ? r.match_confidence+'/100' : null],
-      ['Jurisdiction',   r.jurisdiction],
-      ['# grants',       r.num_grants],
+      ['Matched name',    r.matched_name],
+      ['Corp status',     r.status],
+      ['Dissolution',     r.dissolution_date],
+      ['Last award',      r.last_award_date ? String(r.last_award_date).slice(0,10) : null],
+      ['Months to diss.', r.months_to_dissolution==null?null:(+r.months_to_dissolution).toFixed(0)],
+      ['Match score',     r.match_confidence!=null ? r.match_confidence+'/100' : null],
+      ['Jurisdiction',    r.jurisdiction],
+      ['# grants',        r.num_grants],
+      ['Province',        r.province],
+      ['Awarded',         fmtMoney(r.total_awarded)],
+      ['Recoverable',     fmtMoney(r.estimated_recoverable)],
     ];
     ev.forEach(([label,value])=>{
       dl.appendChild(el('dt',{class:'text-ink-500 font-medium',text:label}));
       dl.appendChild(el('dd',{class:'font-mono text-ink-900 truncate',text:String(value||'—')}));
     });
-    body.appendChild(sectionCard('Evidence',[ dl ]));
+    rightCol.appendChild(sectionCard('Evidence',[ dl ]));
 
-    // Programs
+    // RIGHT — Programs
     const pBox = el('div',{class:'flex flex-wrap gap-2'});
     if (programs.length) {
       programs.forEach(p => pBox.appendChild(el('span',{class:'rounded-lg bg-ink-100 px-2.5 py-1 font-mono text-xs text-ink-700',text:p})));
     } else {
       pBox.appendChild(el('span',{class:'text-sm text-ink-400',text:'none recorded'}));
     }
-    body.appendChild(sectionCard('Programs ('+programs.length+')',[pBox]));
+    rightCol.appendChild(sectionCard('Programs ('+programs.length+')',[pBox]));
 
-    // Flags
+    // RIGHT — Flags
     if (flags.length) {
       const fBox = el('div',{class:'flex flex-wrap gap-2'});
       flags.forEach(f => fBox.appendChild(el('span',{class:'rounded-lg bg-accent-50 border border-accent-400 px-2.5 py-1 text-xs font-semibold text-accent-600',text:f})));
-      body.appendChild(sectionCard('Flags',[fBox]));
+      rightCol.appendChild(sectionCard('Flags',[fBox]));
     }
 
-    // Caveat
+    // Caveat (full width)
     body.appendChild(el('p',{class:'text-xs text-ink-400 leading-relaxed border-t border-ink-100 pt-4',text:'Phantom Flow surfaces public-record patterns only. Do not assert wrongdoing based on this summary alone. Verify against authoritative sources before acting.'}));
 
     const panel = $('#casePanel');
@@ -633,7 +644,18 @@
   /* ── pipeline runner ───────────────────────────────────────────────────── */
   function runPipeline(demo) {
     if (!state.serverAvailable) {
-      showPipelineStatus('Local server not running. Start it with: PYTHONPATH=src python server.py', true);
+      if (demo) {
+        // Static hosting (Vercel) — just reload from bundled results.json
+        showPipelineStatus('Loading demo data…');
+        loadData().then(rows => {
+          hidePipelineStatus();
+          if (!rows.length) { showPipelineStatus('No data found. Run server locally for live pipeline.', true); return; }
+          state.rows = rows;
+          setKpis(); buildFilterChips(); applyFilters();
+        });
+      } else {
+        showPipelineStatus('Live pipeline needs local server: PYTHONPATH=src python server.py', true);
+      }
       return;
     }
     showPipelineStatus('Pipeline running…');
