@@ -181,6 +181,11 @@
     } catch(_) {}
     state.serverAvailable = false;
     updateKeyBadge(!!localStorage.getItem('pf_api_key'));
+    // Hide "Run live" button — not usable without local server
+    const liveBtn = $('#runLiveBtn');
+    if (liveBtn) {
+      liveBtn.classList.add('hidden');
+    }
     return null;
   }
 
@@ -654,17 +659,15 @@
   function runPipeline(demo) {
     if (!state.serverAvailable) {
       if (demo) {
-        // Static hosting (Vercel) — just reload from bundled results.json
-        showPipelineStatus('Loading demo data…');
+        showPipelineStatus('Loading demo data…', false, 10);
         loadData().then(rows => {
-          hidePipelineStatus();
-          if (!rows.length) { showPipelineStatus('No data found. Run server locally for live pipeline.', true); return; }
+          if (!rows.length) { showPipelineStatus('No data found.', true); return; }
           state.rows = rows;
           setKpis(); buildFilterChips(); applyFilters();
+          showPipelineStatus('Demo data loaded — ' + rows.length + ' entities', false, 100, true);
         });
-      } else {
-        showPipelineStatus('Live pipeline needs local server: PYTHONPATH=src python server.py', true);
       }
+      // Live button is hidden when server unavailable — nothing to do
       return;
     }
     showPipelineStatus('Pipeline running…');
@@ -711,7 +714,9 @@
     }, 1500);
   }
 
-  function showPipelineStatus(msg, error=false, pct=null) {
+  let _statusTimer = null;
+  function showPipelineStatus(msg, error=false, pct=null, autoDismiss=false) {
+    if (_statusTimer) { clearTimeout(_statusTimer); _statusTimer = null; }
     const box = $('#pipelineStatus');
     box.classList.remove('hidden');
     box.className = 'mt-3 text-sm rounded-xl p-3 border '+(error?'bg-danger-50 text-danger-700 border-danger-200':'bg-brand-50 text-brand-800 border-brand-200');
@@ -722,6 +727,9 @@
       const track = el('div',{class:'mt-2 h-1.5 rounded-full bg-brand-200 overflow-hidden'});
       track.appendChild(el('div',{class:'h-full bg-brand-600 rounded-full transition-all',style:{width:pct+'%'}}));
       box.appendChild(track);
+    }
+    if (autoDismiss || error) {
+      _statusTimer = setTimeout(hidePipelineStatus, error ? 5000 : 3000);
     }
   }
   function hidePipelineStatus() { $('#pipelineStatus').classList.add('hidden'); }
