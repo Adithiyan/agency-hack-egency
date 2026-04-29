@@ -1,0 +1,566 @@
+[
+  {
+    "name_clean": "TRUE NORTH MANUFACTURING",
+    "total_awarded": 4980000,
+    "num_grants": 2,
+    "first_award_date": "2019-09-08 00:00:00",
+    "last_award_date": "2020-01-19 00:00:00",
+    "display_name": "True North Manufacturing Inc.",
+    "recipient_type": "F",
+    "province": "ON",
+    "programs": [
+      "fednor",
+      "ised"
+    ],
+    "program_titles": [
+      "Federal Economic Development Agency Northern ON",
+      "Innovation Science Economic Development"
+    ],
+    "sample_descriptions": [
+      "Advanced manufacturing program scale-up",
+      "Capital expansion final phase"
+    ],
+    "naics_codes": [
+      "332310"
+    ],
+    "funding_years": [
+      2019,
+      2020
+    ],
+    "annual_totals": {
+      "2019": 4200000.0,
+      "2020": 780000.0
+    },
+    "matched_name": "True North Manufacturing Inc.",
+    "match_confidence": 90,
+    "confidence": "medium",
+    "status": "Dissolved",
+    "dissolution_date": "2020-03-30",
+    "incorporation_date": "2009-11-22",
+    "jurisdiction": "FED",
+    "is_zombie": true,
+    "roi_score": 93.3,
+    "score_breakdown": {
+      "recoverable": 31.89,
+      "evidence": 30.0,
+      "pursuit_cost": 20.0,
+      "exposure": 11.38
+    },
+    "recommendation": "immediate referral",
+    "flags": [
+      "zombie_12mo",
+      "funding_dependency_medium",
+      "large_award"
+    ],
+    "funding_dependency": "medium",
+    "estimated_recoverable": 4390700,
+    "months_to_dissolution": 2.3666666666666667,
+    "is_zombie_candidate": true,
+    "case_summary": "True North Manufacturing Inc. received $4,980,000 across 2 federal program(s) and dissolved roughly 2 months after its last award. Evidence flags: zombie_12mo, funding_dependency_medium, large_award; match confidence is medium. Recommended action: immediate referral."
+  },
+  {
+    "name_clean": "NORTHSTAR LOGISTICS",
+    "total_awarded": 2000000,
+    "num_grants": 3,
+    "first_award_date": "2021-06-15 00:00:00",
+    "last_award_date": "2021-12-22 00:00:00",
+    "display_name": "Northstar Logistics Inc.",
+    "recipient_type": "F",
+    "province": "ON",
+    "programs": [
+      "fednor",
+      "ised",
+      "nrcan"
+    ],
+    "program_titles": [
+      "Federal Economic Development Agency Northern ON",
+      "Innovation Science Economic Development",
+      "Natural Resources Canada"
+    ],
+    "sample_descriptions": [
+      "Wage subsidy and capital support for logistics tech",
+      "Regional development grant phase 2",
+      "Clean tech adoption pilot logistics fleet"
+    ],
+    "naics_codes": [
+      "488510"
+    ],
+    "funding_years": [
+      2021
+    ],
+    "annual_totals": {
+      "2021": 2000000.0
+    },
+    "matched_name": "Northstar Logistics Inc.",
+    "match_confidence": 88,
+    "confidence": "medium",
+    "status": "Dissolved",
+    "dissolution_date": "2022-03-04",
+    "incorporation_date": "2014-08-21",
+    "jurisdiction": "FED",
+    "is_zombie": true,
+    "roi_score": 86.5,
+    "score_breakdown": {
+      "recoverable": 31.85,
+      "evidence": 30.0,
+      "pursuit_cost": 20.0,
+      "exposure": 4.65
+    },
+    "recommendation": "immediate referral",
+    "flags": [
+      "zombie_12mo",
+      "multi_program",
+      "large_award"
+    ],
+    "funding_dependency": "low",
+    "estimated_recoverable": 1760000,
+    "months_to_dissolution": 2.4,
+    "is_zombie_candidate": true,
+    "case_summary": "Northstar Logistics Inc. received $2,000,000 across 3 federal program(s) and dissolved roughly 2 months after its last award. Evidence flags: zombie_12mo, multi_program, large_award; match confidence is medium. Recommended action: immediate referral."
+  },
+  {
+    "name_clean": "PRAIRIEROOT TECH",
+    "total_awarded": 4600000,
+    "num_grants": 2,
+    "first_award_date": "2021-03-04 00:00:00",
+    "last_award_date": "2021-07-30 00:00:00",
+    "display_name": "PrairieRoot Tech Corp",
+    "recipient_type": "F",
+    "province": "SK",
+    "programs": [
+      "ised",
+      "nrcan"
+    ],
+    "program_titles": [
+      "Innovation Science Economic Development",
+      "Natural Resources Canada"
+    ],
+    "sample_descriptions": [
+      "SIF growth stream prairie digital hub",
+      "Energy R&D clean prairie initiative"
+    ],
+    "naics_codes": [
+      "541510"
+    ],
+    "funding_years": [
+      2021
+    ],
+    "annual_totals": {
+      "2021": 4600000.0
+    },
+    "matched_name": "PrairieRoot Tech Corp.",
+    "match_confidence": 84,
+    "confidence": "medium",
+    "status": "Dissolved",
+    "dissolution_date": "2022-01-22",
+    "incorporation_date": "2017-06-30",
+    "jurisdiction": "FED",
+    "is_zombie": true,
+    "roi_score": 85.1,
+    "score_breakdown": {
+      "recoverable": 27.3,
+      "evidence": 30.0,
+      "pursuit_cost": 20.0,
+      "exposure": 7.77
+    },
+    "recommendation": "immediate referral",
+    "flags": [
+      "zombie_12mo",
+      "large_award"
+    ],
+    "funding_dependency": "low",
+    "estimated_recoverable": 3250667,
+    "months_to_dissolution": 5.866666666666666,
+    "is_zombie_candidate": true,
+    "case_summary": "PrairieRoot Tech Corp received $4,600,000 across 2 federal program(s) and dissolved roughly 6 months after its last award. Evidence flags: zombie_12mo, large_award; match confidence is medium. Recommended action: immediate referral."
+  },
+  {
+    "name_clean": "AURORA BIOGREEN",
+    "total_awarded": 2850000,
+    "num_grants": 2,
+    "first_award_date": "2021-11-01 00:00:00",
+    "last_award_date": "2022-01-15 00:00:00",
+    "display_name": "Aurora BioGreen Ltd.",
+    "recipient_type": "N",
+    "province": "QC",
+    "programs": [
+      "ised",
+      "nserc"
+    ],
+    "program_titles": [
+      "Innovation Science Economic Development",
+      "Natural Sciences Engineering Research Council"
+    ],
+    "sample_descriptions": [
+      "Industrial biofuel research partnership",
+      "Innovation Solutions Canada clean tech stream"
+    ],
+    "naics_codes": [
+      "325190"
+    ],
+    "funding_years": [
+      2021,
+      2022
+    ],
+    "annual_totals": {
+      "2021": 2100000.0,
+      "2022": 750000.0
+    },
+    "matched_name": "Aurora BioGreen Ltd.",
+    "match_confidence": 85,
+    "confidence": "medium",
+    "status": "Bankrupt",
+    "dissolution_date": "2022-08-30",
+    "incorporation_date": "2012-02-11",
+    "jurisdiction": "FED",
+    "is_zombie": true,
+    "roi_score": 83.9,
+    "score_breakdown": {
+      "recoverable": 25.07,
+      "evidence": 30.0,
+      "pursuit_cost": 20.0,
+      "exposure": 8.82
+    },
+    "recommendation": "immediate referral",
+    "flags": [
+      "zombie_12mo",
+      "funding_dependency_medium",
+      "large_award"
+    ],
+    "funding_dependency": "medium",
+    "estimated_recoverable": 1771750,
+    "months_to_dissolution": 7.566666666666666,
+    "is_zombie_candidate": true,
+    "case_summary": "Aurora BioGreen Ltd. received $2,850,000 across 2 federal program(s) and dissolved roughly 8 months after its last award. Evidence flags: zombie_12mo, funding_dependency_medium, large_award; match confidence is medium. Recommended action: immediate referral."
+  },
+  {
+    "name_clean": "QUARTZ VALLEY HOLDINGS",
+    "total_awarded": 900000,
+    "num_grants": 2,
+    "first_award_date": "2020-08-25 00:00:00",
+    "last_award_date": "2021-01-12 00:00:00",
+    "display_name": "Quartz Valley Holdings Ltd.",
+    "recipient_type": "F",
+    "province": "AB",
+    "programs": [
+      "wd"
+    ],
+    "program_titles": [
+      "Prairies Economic Development"
+    ],
+    "sample_descriptions": [
+      "Western diversification energy transition",
+      "Continuation diversification phase 2"
+    ],
+    "naics_codes": [
+      "213118"
+    ],
+    "funding_years": [
+      2020,
+      2021
+    ],
+    "annual_totals": {
+      "2020": 660000.0,
+      "2021": 240000.0
+    },
+    "matched_name": "Quartz Valley Holdings Ltd.",
+    "match_confidence": 89,
+    "confidence": "medium",
+    "status": "Cancelled",
+    "dissolution_date": "2021-06-15",
+    "incorporation_date": "2013-03-05",
+    "jurisdiction": "FED",
+    "is_zombie": true,
+    "roi_score": 82.8,
+    "score_breakdown": {
+      "recoverable": 26.34,
+      "evidence": 30.0,
+      "pursuit_cost": 20.0,
+      "exposure": 6.48
+    },
+    "recommendation": "immediate referral",
+    "flags": [
+      "zombie_12mo",
+      "funding_dependency_medium"
+    ],
+    "funding_dependency": "medium",
+    "estimated_recoverable": 669000,
+    "months_to_dissolution": 5.133333333333334,
+    "is_zombie_candidate": true,
+    "case_summary": "Quartz Valley Holdings Ltd. received $900,000 across 1 federal program(s) and dissolved roughly 5 months after its last award. Evidence flags: zombie_12mo, funding_dependency_medium; match confidence is medium. Recommended action: immediate referral."
+  },
+  {
+    "name_clean": "GREENLEAF COOPERATIVE",
+    "total_awarded": 220000,
+    "num_grants": 2,
+    "first_award_date": "2020-07-01 00:00:00",
+    "last_award_date": "2021-11-12 00:00:00",
+    "display_name": "Greenleaf Cooperative",
+    "recipient_type": "N",
+    "province": "MB",
+    "programs": [
+      "heritage"
+    ],
+    "program_titles": [
+      "Canadian Heritage"
+    ],
+    "sample_descriptions": [
+      "Cultural community support arts program",
+      "Continuation heritage programming 2022"
+    ],
+    "naics_codes": [
+      "711120"
+    ],
+    "funding_years": [
+      2020,
+      2021
+    ],
+    "annual_totals": {
+      "2020": 125000.0,
+      "2021": 95000.0
+    },
+    "matched_name": "Greenleaf Cooperative",
+    "match_confidence": 100,
+    "confidence": "high",
+    "status": "Active",
+    "dissolution_date": null,
+    "incorporation_date": "2015-01-15",
+    "jurisdiction": "FED",
+    "is_zombie": false,
+    "roi_score": 63.0,
+    "score_breakdown": {
+      "recoverable": 7.39,
+      "evidence": 30.0,
+      "pursuit_cost": 20.0,
+      "exposure": 5.66
+    },
+    "recommendation": "monitor",
+    "flags": [
+      "funding_dependency_medium"
+    ],
+    "funding_dependency": "medium",
+    "estimated_recoverable": 22000,
+    "months_to_dissolution": null,
+    "is_zombie_candidate": false,
+    "case_summary": "Greenleaf Cooperative received $220,000 across 1 federal program(s) and dissolution timing not confirmed. Evidence flags: funding_dependency_medium; match confidence is high. Recommended action: monitor."
+  },
+  {
+    "name_clean": "HALIFAX HYDROPONICS",
+    "total_awarded": 90000,
+    "num_grants": 1,
+    "first_award_date": "2021-06-01 00:00:00",
+    "last_award_date": "2021-06-01 00:00:00",
+    "display_name": "Halifax Hydroponics Co.",
+    "recipient_type": "N",
+    "province": "NS",
+    "programs": [
+      "acoa"
+    ],
+    "program_titles": [
+      "Atlantic Canada Opportunities Agency"
+    ],
+    "sample_descriptions": [
+      "Pilot hydroponic urban agriculture grant"
+    ],
+    "naics_codes": [
+      "111419"
+    ],
+    "funding_years": [
+      2021
+    ],
+    "annual_totals": {
+      "2021": 90000.0
+    },
+    "matched_name": "Halifax Hydroponics Co.",
+    "match_confidence": 90,
+    "confidence": "medium",
+    "status": "Active",
+    "dissolution_date": null,
+    "incorporation_date": "2019-05-01",
+    "jurisdiction": "FED",
+    "is_zombie": false,
+    "roi_score": 54.2,
+    "score_breakdown": {
+      "recoverable": 4.88,
+      "evidence": 27.0,
+      "pursuit_cost": 20.0,
+      "exposure": 2.36
+    },
+    "recommendation": "monitor",
+    "flags": [],
+    "funding_dependency": "low",
+    "estimated_recoverable": 9000,
+    "months_to_dissolution": null,
+    "is_zombie_candidate": false,
+    "case_summary": "Halifax Hydroponics Co. received $90,000 across 1 federal program(s) and dissolution timing not confirmed. Evidence flags: no additional flags; match confidence is medium. Recommended action: monitor."
+  },
+  {
+    "name_clean": "MARITIME MOSAIC OP",
+    "total_awarded": 1240000,
+    "num_grants": 2,
+    "first_award_date": "2017-05-20 00:00:00",
+    "last_award_date": "2019-09-15 00:00:00",
+    "display_name": "Maritime Mosaic Co-op",
+    "recipient_type": "N",
+    "province": "NS",
+    "programs": [
+      "acoa"
+    ],
+    "program_titles": [
+      "Atlantic Canada Opportunities Agency"
+    ],
+    "sample_descriptions": [
+      "Atlantic Innovation Fund co-operative",
+      "Sector support bridge funding"
+    ],
+    "naics_codes": [
+      "522130"
+    ],
+    "funding_years": [
+      2017,
+      2019
+    ],
+    "annual_totals": {
+      "2017": 980000.0,
+      "2019": 260000.0
+    },
+    "matched_name": null,
+    "match_confidence": 0,
+    "confidence": "none",
+    "status": null,
+    "dissolution_date": null,
+    "incorporation_date": null,
+    "jurisdiction": null,
+    "is_zombie": false,
+    "roi_score": 38.3,
+    "score_breakdown": {
+      "recoverable": 22.4,
+      "evidence": 0.0,
+      "pursuit_cost": 9.0,
+      "exposure": 6.89
+    },
+    "recommendation": "insufficient evidence",
+    "flags": [
+      "funding_dependency_medium",
+      "weak_match",
+      "large_award"
+    ],
+    "funding_dependency": "medium",
+    "estimated_recoverable": 124000,
+    "months_to_dissolution": null,
+    "is_zombie_candidate": false,
+    "case_summary": "Maritime Mosaic Co-op received $1,240,000 across 1 federal program(s) and dissolution timing not confirmed. Evidence flags: funding_dependency_medium, weak_match, large_award; match confidence is none. Recommended action: insufficient evidence."
+  },
+  {
+    "name_clean": "WHITEWATER SKILLS",
+    "total_awarded": 880000,
+    "num_grants": 2,
+    "first_award_date": "2018-09-01 00:00:00",
+    "last_award_date": "2020-01-12 00:00:00",
+    "display_name": "Whitewater Skills Foundation",
+    "recipient_type": "N",
+    "province": "BC",
+    "programs": [
+      "esdc"
+    ],
+    "program_titles": [
+      "Employment Social Development Canada"
+    ],
+    "sample_descriptions": [
+      "Apprenticeship training support",
+      "Skills continuation grant cohort 2"
+    ],
+    "naics_codes": [
+      "611430"
+    ],
+    "funding_years": [
+      2018,
+      2020
+    ],
+    "annual_totals": {
+      "2018": 550000.0,
+      "2020": 330000.0
+    },
+    "matched_name": null,
+    "match_confidence": 0,
+    "confidence": "none",
+    "status": null,
+    "dissolution_date": null,
+    "incorporation_date": null,
+    "jurisdiction": null,
+    "is_zombie": false,
+    "roi_score": 35.5,
+    "score_breakdown": {
+      "recoverable": 20.09,
+      "evidence": 0.0,
+      "pursuit_cost": 9.0,
+      "exposure": 6.46
+    },
+    "recommendation": "insufficient evidence",
+    "flags": [
+      "funding_dependency_medium",
+      "weak_match"
+    ],
+    "funding_dependency": "medium",
+    "estimated_recoverable": 88000,
+    "months_to_dissolution": null,
+    "is_zombie_candidate": false,
+    "case_summary": "Whitewater Skills Foundation received $880,000 across 1 federal program(s) and dissolution timing not confirmed. Evidence flags: funding_dependency_medium, weak_match; match confidence is none. Recommended action: insufficient evidence."
+  },
+  {
+    "name_clean": "PACIFIC STONE",
+    "total_awarded": 630000,
+    "num_grants": 2,
+    "first_award_date": "2019-04-10 00:00:00",
+    "last_award_date": "2020-02-02 00:00:00",
+    "display_name": "Pacific Stone Society",
+    "recipient_type": "N",
+    "province": "BC",
+    "programs": [
+      "heritage"
+    ],
+    "program_titles": [
+      "Canadian Heritage"
+    ],
+    "sample_descriptions": [
+      "Community arts development 2019",
+      "Emergency bridge arts sector COVID"
+    ],
+    "naics_codes": [
+      "712110"
+    ],
+    "funding_years": [
+      2019,
+      2020
+    ],
+    "annual_totals": {
+      "2019": 480000.0,
+      "2020": 150000.0
+    },
+    "matched_name": null,
+    "match_confidence": 0,
+    "confidence": "none",
+    "status": null,
+    "dissolution_date": null,
+    "incorporation_date": null,
+    "jurisdiction": null,
+    "is_zombie": false,
+    "roi_score": 30.4,
+    "score_breakdown": {
+      "recoverable": 15.28,
+      "evidence": 0.0,
+      "pursuit_cost": 9.0,
+      "exposure": 6.16
+    },
+    "recommendation": "insufficient evidence",
+    "flags": [
+      "funding_dependency_medium",
+      "weak_match"
+    ],
+    "funding_dependency": "medium",
+    "estimated_recoverable": 63000,
+    "months_to_dissolution": null,
+    "is_zombie_candidate": false,
+    "case_summary": "Pacific Stone Society received $630,000 across 1 federal program(s) and dissolution timing not confirmed. Evidence flags: funding_dependency_medium, weak_match; match confidence is none. Recommended action: insufficient evidence."
+  }
+]

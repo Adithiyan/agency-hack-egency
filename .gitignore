@@ -222,7 +222,6 @@ __marimo__/
 data/raw/
 data/interim/
 data/processed/
-web/data/results.json
 
 # Python
 .env

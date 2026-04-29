@@ -633,7 +633,7 @@
   /* ── pipeline runner ───────────────────────────────────────────────────── */
   function runPipeline(demo) {
     if (!state.serverAvailable) {
-      alert('Server not available. Run:\n\n  PYTHONPATH=src python server.py\n\nthen refresh.');
+      showPipelineStatus('Local server not running. Start it with: PYTHONPATH=src python server.py', true);
       return;
     }
     showPipelineStatus('Pipeline running…');
@@ -650,8 +650,7 @@
         if (d.running) { showPipelineStatus('Pipeline running…'); return; }
         clearInterval(interval);
         hidePipelineStatus();
-        if (d.error) { alert('Pipeline error:\n'+d.error); return; }
-        // Reload results
+        if (d.error) { showPipelineStatus('Pipeline error: '+d.error, true); return; }
         state.rows = await loadData();
         setKpis(); buildFilterChips(); applyFilters();
       } catch(e) { clearInterval(interval); hidePipelineStatus(); }
@@ -757,7 +756,7 @@
 
     async function doUpload(andRun) {
       if (!selectedFile) return;
-      if (!state.serverAvailable) { alert('Run the server first: PYTHONPATH=src python server.py'); return; }
+      if (!state.serverAvailable) { showUploadStatus('Local server not running. Start with: PYTHONPATH=src python server.py', 'error'); return; }
       const form = new FormData();
       form.append('file', selectedFile);
       showUploadStatus('Uploading…', 'info');
