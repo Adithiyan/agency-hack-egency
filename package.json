@@ -1,0 +1,28 @@
+{
+  "name": "agency-hack-egency-main",
+  "version": "1.0.0",
+  "description": "Enforcement triage for Canadian public grants. Match grant recipients against\r federal corporate status records, flag entities that dissolved within a short\r window after their last award, and rank by recovery ROI with an evidence-backed\r case file for each entry.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adithiyan/agency-hack-egency.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Adithiyan/agency-hack-egency/issues"
+  },
+  "homepage": "https://github.com/Adithiyan/agency-hack-egency#readme",
+  "devDependencies": {
+    "tailwindcss": "3.4.19"
+  }
+}
