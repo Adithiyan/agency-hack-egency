@@ -337,9 +337,23 @@ def api_investigate():
     })
 
 
-CHAT_SYSTEM = """You are a public-sector enforcement analyst assistant for Phantom Flow, a zombie-grant detection tool.
-Answer concisely in plain language. Use only the data context provided. Never speculate beyond the data.
-If asked about specific entities, quote the numbers from the context."""
+CHAT_SYSTEM = """You are the AI assistant for Phantom Flow, a Canadian federal grant enforcement triage tool.
+
+You have deep knowledge of:
+- The Phantom Flow system: detects zombie recipients (organizations that received federal grants and dissolved within 12 months)
+- ROI scoring (4 components: recoverable 35pts, evidence 30pts, pursuit cost 20pts, exposure 15pts)
+- Recommendation tiers: immediate referral, compliance letter, review, monitor, write off
+- Canadian grants data from open.canada.ca proactive disclosure portal (~200K rows)
+- Corporate matching via Corporations Canada using fuzzy name matching
+- Funding dependency proxy: multi-year × multi-department concentration
+- The 12-month zombie window from the Ottawa AI Hackathon challenge spec
+
+Rules:
+- Answer questions even when no data is loaded — explain methodology, system design, how to use the tool
+- When data context is provided, use it to answer specific questions about entities
+- Be concise, direct, and plain-language — like briefing a government analyst
+- Never assert fraud, criminality, or legal liability
+- If the user hasn't loaded data yet, explain how to get started"""
 
 @app.route("/api/chat", methods=["POST"])
 def api_chat():
@@ -347,10 +361,12 @@ def api_chat():
     data = request.get_json(force=True, silent=True) or {}
     question = str(data.get("question", "")).strip()
     context  = str(data.get("context", "")).strip()
+    has_data = bool(data.get("has_data", False))
     if not question:
         return jsonify({"error": "question required"}), 400
 
-    prompt = f"Current zombie candidate data:\n{context}\n\nUser question: {question}"
+    data_section = f"Current enforcement data:\n{context}" if has_data and context else "No data loaded yet in the user's session."
+    prompt = f"{data_section}\n\nUser question: {question}"
     try:
         from phantom_flow.llm import TemplateLLMClient, build_llm_client
         llm = build_llm_client()

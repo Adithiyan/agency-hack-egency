@@ -208,6 +208,12 @@ body { font-feature-settings: 'cv02','cv03','cv04','cv11'; text-rendering: optim
   background: #EFF6FF;
 }
 
+/* ── Chat typing bounce ────────────────────────────────────────────────────── */
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+}
+
 /* ── Canvas charts ─────────────────────────────────────────────────────────── */
 #roiChart { max-height: 520px; }
 #depChart { max-height: 200px; }

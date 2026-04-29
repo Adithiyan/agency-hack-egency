@@ -55,7 +55,6 @@
     "funding_dependency": "medium",
     "estimated_recoverable": 4390700,
     "months_to_dissolution": 2.3666666666666667,
-    "is_zombie_candidate": true,
     "case_summary": "True North Manufacturing Inc. received $4,980,000 across 2 federal program(s) and dissolved roughly 2 months after its last award. Evidence flags: zombie_12mo, funding_dependency_medium, large_award; match confidence is medium. Recommended action: immediate referral."
   },
   {
@@ -115,7 +114,6 @@
     "funding_dependency": "low",
     "estimated_recoverable": 1760000,
     "months_to_dissolution": 2.4,
-    "is_zombie_candidate": true,
     "case_summary": "Northstar Logistics Inc. received $2,000,000 across 3 federal program(s) and dissolved roughly 2 months after its last award. Evidence flags: zombie_12mo, multi_program, large_award; match confidence is medium. Recommended action: immediate referral."
   },
   {
@@ -171,7 +169,6 @@
     "funding_dependency": "low",
     "estimated_recoverable": 3250667,
     "months_to_dissolution": 5.866666666666666,
-    "is_zombie_candidate": true,
     "case_summary": "PrairieRoot Tech Corp received $4,600,000 across 2 federal program(s) and dissolved roughly 6 months after its last award. Evidence flags: zombie_12mo, large_award; match confidence is medium. Recommended action: immediate referral."
   },
   {
@@ -230,7 +227,6 @@
     "funding_dependency": "medium",
     "estimated_recoverable": 1771750,
     "months_to_dissolution": 7.566666666666666,
-    "is_zombie_candidate": true,
     "case_summary": "Aurora BioGreen Ltd. received $2,850,000 across 2 federal program(s) and dissolved roughly 8 months after its last award. Evidence flags: zombie_12mo, funding_dependency_medium, large_award; match confidence is medium. Recommended action: immediate referral."
   },
   {
@@ -286,7 +282,6 @@
     "funding_dependency": "medium",
     "estimated_recoverable": 669000,
     "months_to_dissolution": 5.133333333333334,
-    "is_zombie_candidate": true,
     "case_summary": "Quartz Valley Holdings Ltd. received $900,000 across 1 federal program(s) and dissolved roughly 5 months after its last award. Evidence flags: zombie_12mo, funding_dependency_medium; match confidence is medium. Recommended action: immediate referral."
   },
   {
@@ -341,8 +336,7 @@
     "funding_dependency": "medium",
     "estimated_recoverable": 22000,
     "months_to_dissolution": null,
-    "is_zombie_candidate": false,
-    "case_summary": ""
+    "case_summary": "Greenleaf Cooperative received $220,000 across 1 federal program(s) and dissolution timing not confirmed. Evidence flags: funding_dependency_medium; match confidence is high. Recommended action: monitor."
   },
   {
     "name_clean": "HALIFAX HYDROPONICS",
@@ -391,8 +385,7 @@
     "funding_dependency": "low",
     "estimated_recoverable": 9000,
     "months_to_dissolution": null,
-    "is_zombie_candidate": false,
-    "case_summary": ""
+    "case_summary": "Halifax Hydroponics Co. received $90,000 across 1 federal program(s) and dissolution timing not confirmed. Evidence flags: no additional flags; match confidence is medium. Recommended action: monitor."
   },
   {
     "name_clean": "MARITIME MOSAIC OP",
@@ -448,8 +441,7 @@
     "funding_dependency": "medium",
     "estimated_recoverable": 124000,
     "months_to_dissolution": null,
-    "is_zombie_candidate": false,
-    "case_summary": ""
+    "case_summary": "Maritime Mosaic Co-op received $1,240,000 across 1 federal program(s) and dissolution timing not confirmed. Evidence flags: funding_dependency_medium, weak_match, large_award; match confidence is none. Recommended action: insufficient evidence."
   },
   {
     "name_clean": "WHITEWATER SKILLS",
@@ -504,8 +496,7 @@
     "funding_dependency": "medium",
     "estimated_recoverable": 88000,
     "months_to_dissolution": null,
-    "is_zombie_candidate": false,
-    "case_summary": ""
+    "case_summary": "Whitewater Skills Foundation received $880,000 across 1 federal program(s) and dissolution timing not confirmed. Evidence flags: funding_dependency_medium, weak_match; match confidence is none. Recommended action: insufficient evidence."
   },
   {
     "name_clean": "PACIFIC STONE",
@@ -560,7 +551,6 @@
     "funding_dependency": "medium",
     "estimated_recoverable": 63000,
     "months_to_dissolution": null,
-    "is_zombie_candidate": false,
-    "case_summary": ""
+    "case_summary": "Pacific Stone Society received $630,000 across 1 federal program(s) and dissolution timing not confirmed. Evidence flags: funding_dependency_medium, weak_match; match confidence is none. Recommended action: insufficient evidence."
   }
 ]

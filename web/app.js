@@ -33,6 +33,7 @@
     sort: { key:'roi_score', dir:'desc' },
     filters: { search:'', rec:new Set(), province:'', confidence:'', dep:'', minScore:0, zombiesOnly:true },
     source: '',
+    isLive: false,
     serverAvailable: false,
   };
 
@@ -157,13 +158,20 @@
 
   /* ── data loading ──────────────────────────────────────────────────────── */
   async function loadData() {
-    const candidates = ['/api/results', './data/results.json', '../data/processed/results.json', '../data/demo/results_demo.json'];
+    // Always try bundled static file first (fast, works on Vercel)
+    // Live API is used only when explicitly running a live pipeline
+    const candidates = ['./data/results.json', '/api/results'];
+
     for (const url of candidates) {
       try {
-        const r = await fetch(url, {cache:'no-store'});
+        const r = await fetch(url + '?_=' + Date.now(), {cache:'no-store'});
         if (!r.ok) continue;
         const rows = await r.json();
-        if (Array.isArray(rows) && rows.length) { state.source = url; return rows; }
+        if (Array.isArray(rows) && rows.length) {
+          state.source = url;
+          state.isLive = url.includes('/api/');
+          return rows;
+        }
       } catch(_) {}
     }
     return [];
@@ -190,6 +198,20 @@
   }
 
   /* ── KPIs ──────────────────────────────────────────────────────────────── */
+  function updateDataBadge() {
+    let badge = $('#dataBadge');
+    if (!badge) return;
+    if (!state.rows.length) { badge.classList.add('hidden'); return; }
+    badge.classList.remove('hidden');
+    if (state.isLive) {
+      badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-ok-50 text-ok-700 border border-ok-200';
+      badge.innerHTML = '<span class="h-1.5 w-1.5 rounded-full bg-ok-500 animate-pulse inline-block"></span> Live data';
+    } else {
+      badge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200';
+      badge.innerHTML = '<span class="h-1.5 w-1.5 rounded-full bg-amber-400 inline-block"></span> Demo data';
+    }
+  }
+
   function setKpis() {
     const rows = state.rows;
     $('[data-kpi="entities"]').textContent = fmtNum(rows.length);
@@ -197,26 +219,32 @@
     $('[data-kpi="referrals"]').textContent = fmtNum(rows.filter(r=>r.recommendation==='immediate referral').length);
     $('[data-kpi="awarded"]').textContent = fmtMoney(rows.reduce((s,r)=>s+(+r.total_awarded||0),0));
     $('[data-kpi="recoverable"]').textContent = fmtMoney(rows.filter(r=>r.is_zombie).reduce((s,r)=>s+(+r.estimated_recoverable||0),0));
+    updateDataBadge();
   }
 
   /* ── filters ───────────────────────────────────────────────────────────── */
   function buildFilterChips() {
     const box = $('#filterRec');
-    clear(box);
-    Object.keys(REC).forEach(rec => {
-      const cb = el('input',{type:'checkbox',value:rec,class:'sr-only'});
-      cb.addEventListener('change', () => {
-        if (cb.checked) state.filters.rec.add(rec); else state.filters.rec.delete(rec);
-        applyFilters();
+    if (box) {
+      clear(box);
+      Object.keys(REC).forEach(rec => {
+        const cb = el('input',{type:'checkbox',value:rec,class:'sr-only'});
+        cb.addEventListener('change', () => {
+          if (cb.checked) state.filters.rec.add(rec); else state.filters.rec.delete(rec);
+          applyFilters();
+        });
+        const chip = el('label',{class:'filter-chip'},[cb, el('span',{text:(REC[rec]||{}).short||rec})]);
+        box.appendChild(chip);
+        cb.addEventListener('change', () => chip.classList.toggle('selected', cb.checked));
       });
-      const chip = el('label',{class:'filter-chip'},[cb, el('span',{text:(REC[rec]||{}).short||rec})]);
-      box.appendChild(chip);
-      cb.addEventListener('change', () => chip.classList.toggle('selected', cb.checked));
-    });
-
+    }
     const provSel = $('#filterProvince');
-    const provs = Array.from(new Set(state.rows.map(r=>r.province).filter(Boolean))).sort();
-    provs.forEach(p => provSel.appendChild(el('option',{value:p,text:p})));
+    if (provSel) {
+      // Only add new options (avoid duplicates on re-call)
+      const existing = new Set(Array.from(provSel.options).map(o=>o.value));
+      const provs = Array.from(new Set(state.rows.map(r=>r.province).filter(Boolean))).sort();
+      provs.forEach(p => { if (!existing.has(p)) provSel.appendChild(el('option',{value:p,text:p})); });
+    }
   }
 
   function bindFilterEvents() {
@@ -657,26 +685,25 @@
 
   /* ── pipeline runner ───────────────────────────────────────────────────── */
   function runPipeline(demo) {
-    if (!state.serverAvailable) {
-      if (demo) {
-        showPipelineStatus('Loading demo data…', false, 10);
-        loadData().then(rows => {
-          if (!rows.length) { showPipelineStatus('No data found.', true); return; }
-          state.rows = rows;
+    // Demo always loads bundled static JSON — no server needed
+    if (demo) {
+      showPipelineStatus('Loading demo data…', false, 10);
+      fetch('./data/results.json?_=' + Date.now(), {cache:'no-store'})
+        .then(r => r.ok ? r.json() : Promise.reject(r.status))
+        .then(rows => {
+          if (!Array.isArray(rows) || !rows.length) throw new Error('Empty data');
+          state.rows = rows; state.isLive = false;
           setKpis(); buildFilterChips(); applyFilters();
           showPipelineStatus('Demo data loaded — ' + rows.length + ' entities', false, 100, true);
-        });
-      }
-      // Live button is hidden when server unavailable — nothing to do
+        })
+        .catch(() => showPipelineStatus('Could not load demo data. Check web/data/results.json.', true));
       return;
     }
-    if (!demo) {
-      showPipelineStatus('Downloading real grants CSV (~200MB). This takes 2–5 min…', false, 3);
-    } else {
-      showPipelineStatus('Running demo pipeline…', false, 10);
-    }
+    // Live: requires local server
+    if (!state.serverAvailable) return;
+    showPipelineStatus('Downloading real grants CSV (~200MB). This takes 2–5 min…', false, 3);
     setRunState('running');
-    fetch(API.run, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({demo,top_n:25})})
+    fetch(API.run, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({demo:false,top_n:25})})
       .then(r => {
         if (!r.ok) throw new Error('Server returned ' + r.status + ' — is python server.py running?');
         return r.json();
@@ -702,27 +729,39 @@
   let _pollStep = 0;
   let _pollTick = 0;
 
+  let _pollInterval = null;
   function pollPipeline() {
+    if (_pollInterval) { clearInterval(_pollInterval); _pollInterval = null; }
     _pollStep = 0; _pollTick = 0;
-    const interval = setInterval(async () => {
+    let _pollTimeout = setTimeout(() => {
+      if (_pollInterval) { clearInterval(_pollInterval); _pollInterval = null; }
+      hidePipelineStatus(); setRunState('error');
+      showPipelineStatus('Pipeline timed out after 5 minutes.', true);
+    }, 300_000); // 5 min max
+
+    _pollInterval = setInterval(async () => {
       try {
         const d = await fetch(API.pipelineStatus).then(r=>r.json());
         if (d.running) {
-          // Advance progress label every ~3 ticks
           _pollTick++;
           if (_pollTick % 3 === 0 && _pollStep < PIPELINE_STEPS.length - 1) _pollStep++;
           const [pct, msg] = PIPELINE_STEPS[_pollStep];
           showPipelineStatus(msg, false, pct);
           return;
         }
-        clearInterval(interval);
+        clearInterval(_pollInterval); _pollInterval = null;
+        clearTimeout(_pollTimeout);
         hidePipelineStatus();
         if (d.error) { setRunState('error'); showPipelineStatus('Pipeline error: '+d.error, true, 0); return; }
         setRunState('done');
         state.rows = await loadData();
         setKpis(); buildFilterChips(); applyFilters();
         showLiveBadge();
-      } catch(e) { clearInterval(interval); hidePipelineStatus(); setRunState('error'); }
+      } catch(e) {
+        clearInterval(_pollInterval); _pollInterval = null;
+        clearTimeout(_pollTimeout);
+        hidePipelineStatus(); setRunState('error');
+      }
     }, 1500);
   }
 
@@ -1110,11 +1149,17 @@ ${flags}`;
     const messages = $('#chatMessages');
     if (!fab || !modal) return;
 
-    function openChat()  { modal.classList.remove('hidden'); input?.focus(); }
-    function closeChat() { modal.classList.add('hidden'); }
+    function openChat()  { modal.style.display = 'flex'; modal.removeAttribute('aria-hidden'); input?.focus(); }
+    function closeChat() { modal.style.display = 'none'; modal.setAttribute('aria-hidden','true'); }
 
     fab.addEventListener('click', openChat);
-    $$('[data-close-chat]', modal).forEach(el => el.addEventListener('click', closeChat));
+    // Close button (×) — direct click
+    $$('[data-close-chat]', modal).forEach(btn => {
+      if (btn.tagName === 'BUTTON') btn.addEventListener('click', closeChat);
+    });
+    // Backdrop — only close when clicking the backdrop itself, not children
+    const backdrop = modal.querySelector('[data-close-chat]:not(button)');
+    if (backdrop) backdrop.addEventListener('click', e => { if (e.target === backdrop) closeChat(); });
 
     // suggestion chips
     $$('.chat-suggestion').forEach(chip => {
@@ -1144,69 +1189,159 @@ ${flags}`;
     }
 
     function buildContext() {
-      const zombies = state.filtered.filter(r => r.is_zombie).slice(0, 8);
-      if (!zombies.length) return 'No zombie candidates in current view.';
-      return zombies.map((r, i) =>
+      const zombies = state.filtered.filter(r => r.is_zombie).slice(0, 10);
+      const all = state.filtered.slice(0, 5);
+      const dataSource = state.isLive ? 'live Government of Canada grants data' : state.rows.length ? 'demo dataset (20 sample entities)' : 'no data loaded yet';
+      const header = `Data source: ${dataSource}. Total entities: ${state.rows.length}. Zombie candidates: ${state.filtered.filter(r=>r.is_zombie).length}.`;
+      if (!zombies.length) return header + '\nNo zombie candidates in current view.';
+      return header + '\nTop zombie candidates:\n' + zombies.map((r, i) =>
         `#${i+1} ${r.display_name||r.name_clean} — $${Number(r.total_awarded||0).toLocaleString()} awarded, `+
         `status: ${r.status||'?'}, dissolved: ${r.dissolution_date||'?'}, `+
-        `ROI: ${(r.roi_score||0).toFixed(0)}/100, province: ${r.province||'?'}`
+        `ROI: ${(r.roi_score||0).toFixed(0)}/100, province: ${r.province||'?'}, `+
+        `recommendation: ${r.recommendation||'?'}`
       ).join('\n');
+    }
+
+    // Animated typing indicator
+    function appendTyping() {
+      const wrap = el('div', { class: 'flex justify-start' });
+      const bubble = el('div', { class: 'flex items-center gap-1 bg-white border border-ink-100 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm' });
+      for (let i = 0; i < 3; i++) {
+        const dot = el('span', { class: 'h-2 w-2 rounded-full bg-ink-400', style: { animation: `bounce 1.2s ease-in-out ${i * 0.2}s infinite` } });
+        bubble.appendChild(dot);
+      }
+      wrap.appendChild(bubble);
+      messages.appendChild(wrap);
+      messages.scrollTop = messages.scrollHeight;
+      return wrap;
     }
 
     async function sendMessage() {
       const text = input?.value.trim();
       if (!text) return;
       input.value = '';
+      sendBtn.disabled = true;
       appendMsg(text, 'user');
 
-      // hide suggestions after first message
       const sugg = $('#chatSuggestions');
       if (sugg) sugg.classList.add('hidden');
 
-      const thinkingBubble = appendMsg('…', 'assistant');
+      const typingWrap = appendTyping();
 
-      // try server first, fall back to local heuristic
+      let answer = null;
+
+      // Try server LLM first
       if (state.serverAvailable) {
         try {
           const resp = await fetch('/api/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ question: text, context: buildContext() }),
+            body: JSON.stringify({ question: text, context: buildContext(), has_data: state.rows.length > 0 }),
           });
           const d = await resp.json();
-          if (resp.ok && d.answer) { thinkingBubble.textContent = d.answer; return; }
+          if (resp.ok && d.answer) answer = d.answer;
         } catch(_) {}
       }
-      // local fallback answer
-      thinkingBubble.textContent = localAnswer(text);
+
+      typingWrap.remove();
+      sendBtn.disabled = false;
+      appendMsg(answer || localAnswer(text), 'assistant');
     }
 
+    // Comprehensive local knowledge base — works with or without loaded data
     function localAnswer(q) {
       const lq = q.toLowerCase();
       const zombies = state.filtered.filter(r => r.is_zombie);
-      if (lq.includes('how many zombie') || lq.includes('total zombie')) {
-        return `There are ${zombies.length} zombie candidates in the current view out of ${state.filtered.length} total entities.`;
+      const hasData = state.rows.length > 0;
+
+      // ── Greetings
+      if (/^(hi|hello|hey|sup|yo)\b/.test(lq)) {
+        return `Hi! I'm Phantom Flow's enforcement assistant. I can help you understand zombie grant recipients, explain the scoring methodology, or query the${hasData ? ' loaded' : ''} data. What would you like to know?`;
       }
-      if (lq.includes('top') || lq.includes('highest') || lq.includes('most')) {
-        const top = zombies.sort((a,b)=>(b.roi_score||0)-(a.roi_score||0)).slice(0,3);
-        if (!top.length) return 'No zombie candidates found.';
-        return 'Top zombie candidates by ROI score:\n' +
-          top.map((r,i)=>`${i+1}. ${r.display_name||r.name_clean} — ROI ${(r.roi_score||0).toFixed(0)}/100, $${Number(r.total_awarded||0).toLocaleString()} awarded`).join('\n');
+
+      // ── What is Phantom Flow
+      if (lq.includes('what is phantom flow') || lq.includes('what does this') || lq.includes('how does this work') || lq.includes('what is this')) {
+        return `Phantom Flow is an enforcement triage tool for the Ottawa AI Hackathon "Zombie Recipients" challenge.\n\nIt identifies Canadian companies and nonprofits that:\n1. Received federal grants from open.canada.ca\n2. Dissolved or went inactive within 12 months of their last award\n\nThose are called "zombie recipients" — public funds went to entities that no longer exist to account for them. Phantom Flow ranks them by ROI score to help enforcement analysts prioritize recovery actions.`;
       }
-      if (lq.includes('province') || lq.includes('region')) {
-        const counts = {};
-        zombies.forEach(r => { const p = r.province||'Unknown'; counts[p]=(counts[p]||0)+1; });
-        const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,5);
-        return 'Zombie candidates by province:\n' + sorted.map(([p,n])=>`${p}: ${n}`).join('\n');
+
+      // ── What is a zombie
+      if (lq.includes('zombie') && (lq.includes('what') || lq.includes('explain') || lq.includes('define') || lq.includes('mean'))) {
+        return `A zombie recipient is an organization that:\n• Received public grant money from the Government of Canada\n• Then dissolved, was struck off, or went inactive\n• Within 12 months of receiving the last award\n\nThe 12-month window is the challenge spec from the Ottawa AI Hackathon. It suggests the entity may have dissolved specifically to avoid accountability for the funds received.`;
       }
-      if (lq.includes('total') && lq.includes('award')) {
+
+      // ── Scoring methodology
+      if (lq.includes('score') || lq.includes('roi') || lq.includes('how is') || lq.includes('methodology') || lq.includes('algorithm') || lq.includes('rank')) {
+        return `ROI score (0–100) has 4 components:\n\n• Recoverable amount (35 pts) — estimated recoverable = total awarded × zombie flag multiplier\n• Evidence strength (30 pts) — corporate match confidence × dissolution timing sharpness\n• Pursuit cost (20 pts) — inverse of complexity (simpler = higher score)\n• Public exposure (15 pts) — funding size relative to peers\n\nScore ≥ 70 → Immediate referral\nScore 50–69 → Compliance letter\nScore 30–49 → Review\nBelow 30 → Monitor or write off`;
+      }
+
+      // ── Recommendations
+      if (lq.includes('recommend') || lq.includes('referral') || lq.includes('compliance') || lq.includes('action')) {
+        return `Phantom Flow generates 5 recommendation tiers:\n\n🔴 Immediate referral — high ROI, high confidence, strong dissolution evidence\n🟡 Compliance letter — moderate risk, worth formal outreach\n🔵 Review — needs more investigation before action\n⚫ Monitor — low confidence, keep watching\n⬜ Write off — recovery cost exceeds likely return`;
+      }
+
+      // ── Data source
+      if (lq.includes('data') && (lq.includes('source') || lq.includes('come from') || lq.includes('where'))) {
+        return `Grant data comes from the Government of Canada's proactive disclosure portal:\nopen.canada.ca — ~200K rows of federal grants since 2011\n\nCorporate status is matched against Corporations Canada (federal registry) using fuzzy name matching (rapidfuzz).\n\nDemo mode uses 20 representative sample entities. Live mode downloads the full dataset (~200MB CSV).`;
+      }
+
+      // ── Demo vs live
+      if (lq.includes('demo') || lq.includes('live') || lq.includes('real data') || lq.includes('difference')) {
+        return `Demo data: 20 hand-picked sample entities that illustrate different zombie patterns — dissolved companies, inactive nonprofits, various provinces and sectors. Great for exploring the UI.\n\nLive data: Full Government of Canada grants dataset (~200K rows, ~200MB). Requires running the local Python server (PYTHONPATH=src python server.py) and takes 2–5 minutes to process.\n\n${state.isLive ? 'You are currently viewing live data.' : 'You are currently viewing ' + (hasData ? 'demo data.' : 'no data yet — click "Run demo pipeline" to load samples.')}`;
+      }
+
+      // ── How to use
+      if (lq.includes('how to') || lq.includes('get started') || lq.includes('use this') || lq.includes('tutorial')) {
+        return `Getting started:\n\n1. Click "Run demo pipeline" in the sidebar to load 20 sample entities\n2. Browse the Queue tab — sorted by ROI score\n3. Click any row to open a detailed case view\n4. Click "AI Investigator" to get an autonomous AI case selection\n5. Use filters (province, confidence, dependency) to narrow the queue\n6. Export to CSV for your own analysis\n\nFor live data: start the Python server locally and click "Run live (real data)".`;
+      }
+
+      // ── Funding dependency
+      if (lq.includes('depend') || lq.includes('concentration')) {
+        return `Funding dependency measures how reliant an entity was on government grants:\n\nHIGH — funded 3+ consecutive years across 3+ departments (structurally dependent)\nMEDIUM — funded 2+ years across 2+ departments\nLOW — single year or single department\n\nHigh dependency + dissolution = stronger zombie signal, as the entity had no apparent path to self-sufficiency.`;
+      }
+
+      // ── Province / geography
+      if (lq.includes('province') || lq.includes('region') || lq.includes('ontario') || lq.includes('quebec') || lq.includes('bc') || lq.includes('alberta')) {
+        if (hasData && zombies.length) {
+          const counts = {};
+          zombies.forEach(r => { const p = r.province||'Unknown'; counts[p]=(counts[p]||0)+1; });
+          const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+          return `Zombie candidates by province in current view:\n${sorted.map(([p,n])=>`  ${p}: ${n} candidate${n>1?'s':''}`).join('\n')}\n\nTotal: ${zombies.length} zombies across ${sorted.length} province(s).`;
+        }
+        return `In the full federal grants dataset, Ontario and Quebec typically have the most grant recipients. Load the data to see the province breakdown for your current filter.`;
+      }
+
+      // ── Data queries (need loaded data)
+      if (lq.includes('how many') || lq.includes('count')) {
+        if (!hasData) return `No data loaded yet. Click "Run demo pipeline" in the sidebar to load 20 sample entities, then I can answer counts and statistics.`;
+        return `Current view: ${state.filtered.length} entities total, ${zombies.length} zombie candidates (dissolved ≤12 months after last award).`;
+      }
+
+      if (lq.includes('top') || lq.includes('highest') || lq.includes('worst') || lq.includes('biggest')) {
+        if (!hasData) return `Load the demo data first (sidebar → "Run demo pipeline"), then ask me about top cases.`;
+        const top = [...zombies].sort((a,b)=>(b.roi_score||0)-(a.roi_score||0)).slice(0,3);
+        if (!top.length) return `No zombie candidates in the current view. Try removing filters.`;
+        return `Top zombie candidates by ROI score:\n` + top.map((r,i)=>`${i+1}. ${r.display_name||r.name_clean}\n   ROI: ${(r.roi_score||0).toFixed(0)}/100 | $${Number(r.total_awarded||0).toLocaleString()} awarded | ${r.status||'?'}`).join('\n');
+      }
+
+      if (lq.includes('total') && (lq.includes('fund') || lq.includes('award') || lq.includes('money') || lq.includes('dollar'))) {
+        if (!hasData) return `Load data first to see funding totals.`;
         const total = zombies.reduce((s,r)=>s+(r.total_awarded||0),0);
-        return `Total public funding across ${zombies.length} zombie candidates: $${total.toLocaleString(undefined,{maximumFractionDigits:0})}`;
+        const recov = zombies.reduce((s,r)=>s+(r.estimated_recoverable||0),0);
+        return `Across ${zombies.length} zombie candidates:\n• Total awarded: $${total.toLocaleString(undefined,{maximumFractionDigits:0})}\n• Estimated recoverable: $${recov.toLocaleString(undefined,{maximumFractionDigits:0})}\n• Recovery rate assumption: ~${total > 0 ? ((recov/total)*100).toFixed(0) : 0}%`;
       }
-      if (lq.includes('what is') || lq.includes('explain') || lq.includes('zombie')) {
-        return 'A zombie recipient is an organization that received public grants and dissolved or went inactive within 12 months of the last award. Phantom Flow scores each candidate by recovery potential, evidence strength, and pursuit cost.';
+
+      // ── API key
+      if (lq.includes('api key') || lq.includes('gemini') || lq.includes('anthropic') || lq.includes('openai')) {
+        return `Phantom Flow supports Gemini (recommended) and Anthropic Claude for AI summaries.\n\nTo enable AI case narratives:\n1. Get a free Gemini API key at aistudio.google.com\n2. Click "Settings" (top-right) and paste your key\n3. Re-run the pipeline — each zombie case gets a 200-word forensic narrative\n\nWithout an API key, the tool still works — it uses template-based summaries instead.`;
       }
-      return `I found ${zombies.length} zombie candidates with $${zombies.reduce((s,r)=>s+(r.total_awarded||0),0).toLocaleString(undefined,{maximumFractionDigits:0})} in public funding at risk. For deeper AI analysis, run the pipeline with a Gemini API key set.`;
+
+      // ── Generic with data
+      if (hasData) {
+        return `I can answer questions about the ${zombies.length} zombie candidate${zombies.length!==1?'s':''} loaded, the scoring methodology, or how to use Phantom Flow. Try asking:\n• "Show me the top 3 cases"\n• "How is the ROI score calculated?"\n• "Which province has the most zombies?"`;
+      }
+
+      // ── Generic without data
+      return `I'm Phantom Flow's AI assistant. I can explain:\n• How the zombie detection algorithm works\n• What the ROI score components mean\n• How to use the tool\n• Where the grant data comes from\n\nOr click "Run demo pipeline" in the sidebar to load data, then ask me about specific cases.`;
     }
   }
 

@@ -191,7 +191,10 @@
         <div id="queue" class="min-w-0">
           <div class="flex flex-wrap items-end justify-between gap-3 mb-4">
             <div>
-              <h1 class="text-xl font-bold text-ink-900 sm:text-2xl">Ranked enforcement queue</h1>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h1 class="text-xl font-bold text-ink-900 sm:text-2xl">Ranked enforcement queue</h1>
+                <span id="dataBadge" class="hidden"></span>
+              </div>
               <p class="text-sm text-ink-500 mt-0.5"><span id="queueCount">0</span> cases · sorted by ROI score</p>
             </div>
             <div class="flex items-center gap-2 flex-wrap">
@@ -587,10 +590,10 @@
   </button>
 
   <!-- ─── AI CHAT MODAL ─────────────────────────────────────────────────────── -->
-  <div id="aiChatModal" class="fixed inset-0 z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-6" aria-hidden="true">
+  <div id="aiChatModal" class="fixed inset-0 z-50 items-end sm:items-center justify-center p-0 sm:p-6" style="display:none" aria-hidden="true">
     <div class="absolute inset-0 bg-ink-900/50 backdrop-blur-sm" data-close-chat></div>
     <div role="dialog" aria-modal="true" aria-labelledby="chatTitle"
-      class="relative w-full sm:max-w-xl max-h-[85vh] sm:max-h-[80vh] rounded-t-2xl sm:rounded-2xl bg-white shadow-2xl flex flex-col overflow-hidden">
+      class="relative z-10 w-full sm:max-w-xl max-h-[85vh] sm:max-h-[80vh] rounded-t-2xl sm:rounded-2xl bg-white shadow-2xl flex flex-col overflow-hidden">
       <!-- Header -->
       <div class="flex items-center justify-between px-5 py-4 border-b border-ink-100 bg-brand-900 rounded-t-2xl flex-shrink-0">
         <div class="flex items-center gap-2.5">
@@ -613,10 +616,11 @@
             <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 text-brand-700" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </div>
           <div id="chatSuggestions" class="bg-ink-50 rounded-2xl rounded-tl-sm px-4 py-3 text-sm text-ink-800 max-w-[85%]">
-            Hi! I can answer questions about the enforcement queue, zombie candidates, scores, and data. Try asking:<br><br>
-            <span class="text-brand-700 font-medium cursor-pointer chat-suggestion">"Which province has the most zombies?"</span><br>
-            <span class="text-brand-700 font-medium cursor-pointer chat-suggestion">"What is the highest ROI case?"</span><br>
-            <span class="text-brand-700 font-medium cursor-pointer chat-suggestion">"Explain the scoring model"</span>
+            Hi! I'm the Phantom Flow AI assistant. Ask me anything — I work even before data loads.<br><br>
+            <span class="text-brand-700 font-medium cursor-pointer chat-suggestion">What is a zombie recipient?</span><br>
+            <span class="text-brand-700 font-medium cursor-pointer chat-suggestion">How is the ROI score calculated?</span><br>
+            <span class="text-brand-700 font-medium cursor-pointer chat-suggestion">What's the difference between demo and live data?</span><br>
+            <span class="text-brand-700 font-medium cursor-pointer chat-suggestion">Show me the top 3 cases</span>
           </div>
         </div>
       </div>
