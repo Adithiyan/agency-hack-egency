@@ -398,6 +398,13 @@
     const programs = r.programs||[];
     const summary = r.case_summary||'No AI summary yet — run the pipeline with ANTHROPIC_API_KEY set.';
 
+    // Financials summary bar
+    body.appendChild(el('div',{class:'grid grid-cols-3 gap-4 rounded-xl bg-ink-50 border border-ink-200 px-5 py-4'},[
+      el('div',{},[el('div',{class:'text-xs font-bold uppercase tracking-wide text-ink-500',text:'Total awarded'}), el('div',{class:'text-2xl font-mono font-bold text-ink-900 mt-1 tabular-nums',text:fmtMoney(r.total_awarded)})]),
+      el('div',{},[el('div',{class:'text-xs font-bold uppercase tracking-wide text-ink-500',text:'Est. recoverable'}), el('div',{class:'text-2xl font-mono font-bold text-accent-600 mt-1 tabular-nums',text:fmtMoney(r.estimated_recoverable)})]),
+      el('div',{},[el('div',{class:'text-xs font-bold uppercase tracking-wide text-ink-500',text:'ROI score'}), el('div',{class:'text-2xl font-mono font-bold text-brand-700 mt-1 tabular-nums',text:(+r.roi_score||0).toFixed(0)+' / 100'})]),
+    ]));
+
     // Pills row
     body.appendChild(el('div',{class:'flex flex-wrap gap-2 pb-1'},[
       recPill(r.recommendation),
@@ -416,7 +423,7 @@
 
     // LEFT — AI Summary
     leftCol.appendChild(sectionCard('AI case summary',[
-      el('p',{class:'text-[15px] text-ink-800 leading-relaxed',text:summary}),
+      el('p',{class:'text-base text-ink-800 leading-relaxed',text:summary}),
     ]));
 
     // LEFT — ROI Breakdown
@@ -427,39 +434,39 @@
       ['Public exposure',    bd.exposure,    15],
     ].map(([label,val,max]) => {
       const v=+val||0, pct=Math.min(100,(v/max)*100);
-      return el('div',{class:'space-y-1'},[
-        el('div',{class:'flex justify-between text-sm'},[
-          el('span',{class:'text-ink-700',text:label}),
-          el('span',{class:'font-mono tabular-nums font-semibold text-ink-800',text:v.toFixed(1)+' / '+max}),
+      return el('div',{class:'space-y-1.5'},[
+        el('div',{class:'flex justify-between text-[15px]'},[
+          el('span',{class:'text-ink-700 font-medium',text:label}),
+          el('span',{class:'font-mono tabular-nums font-bold text-ink-900',text:v.toFixed(1)+' / '+max}),
         ]),
-        el('div',{class:'score-bar'},[el('div',{style:{width:pct+'%'}})]),
+        el('div',{class:'h-2.5 rounded-full bg-ink-100 overflow-hidden'},[
+          el('div',{class:'h-full bg-brand-700 rounded-full transition-all',style:{width:pct+'%'}}),
+        ]),
       ]);
     });
     const total = (+r.roi_score||0);
-    scoreRows.push(el('div',{class:'flex justify-between text-base font-bold border-t border-ink-200 pt-3 mt-1'},[
+    scoreRows.push(el('div',{class:'flex justify-between text-lg font-bold border-t-2 border-ink-200 pt-3 mt-2'},[
       el('span',{class:'text-ink-900',text:'Total ROI score'}),
-      el('span',{class:'font-mono tabular-nums text-ink-900',text:total.toFixed(1)+' / 100'}),
+      el('span',{class:'font-mono tabular-nums text-brand-700',text:total.toFixed(0)+' / 100'}),
     ]));
     leftCol.appendChild(sectionCard('ROI score breakdown',scoreRows));
 
     // RIGHT — Evidence
-    const dl = el('dl',{class:'grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm'});
+    const dl = el('dl',{class:'grid grid-cols-2 gap-x-4 gap-y-3 text-[15px]'});
     const ev = [
       ['Matched name',    r.matched_name],
       ['Corp status',     r.status],
       ['Dissolution',     r.dissolution_date],
       ['Last award',      r.last_award_date ? String(r.last_award_date).slice(0,10) : null],
-      ['Months to diss.', r.months_to_dissolution==null?null:(+r.months_to_dissolution).toFixed(0)],
-      ['Match score',     r.match_confidence!=null ? r.match_confidence+'/100' : null],
+      ['Months to diss.', r.months_to_dissolution==null?null:(+r.months_to_dissolution).toFixed(0)+' mo'],
+      ['Match score',     r.match_confidence!=null ? r.match_confidence+' / 100' : null],
       ['Jurisdiction',    r.jurisdiction],
       ['# grants',        r.num_grants],
       ['Province',        r.province],
-      ['Awarded',         fmtMoney(r.total_awarded)],
-      ['Recoverable',     fmtMoney(r.estimated_recoverable)],
     ];
     ev.forEach(([label,value])=>{
-      dl.appendChild(el('dt',{class:'text-ink-500 font-medium',text:label}));
-      dl.appendChild(el('dd',{class:'font-mono text-ink-900 truncate',text:String(value||'—')}));
+      dl.appendChild(el('dt',{class:'text-ink-500 font-semibold',text:label}));
+      dl.appendChild(el('dd',{class:'font-mono text-ink-900 truncate font-medium',text:String(value||'—')}));
     });
     rightCol.appendChild(sectionCard('Evidence',[ dl ]));
 
@@ -484,6 +491,7 @@
 
     const panel = $('#casePanel');
     panel.classList.remove('hidden');
+    panel.classList.add('flex');
     panel.setAttribute('aria-hidden','false');
     document.body.style.overflow = 'hidden';
     $('[data-close-case]',panel).focus();
@@ -491,7 +499,7 @@
 
   function sectionCard(title, children) {
     return el('section',{class:'space-y-3'},[
-      el('h3',{class:'text-xs font-bold uppercase tracking-widest text-ink-400',text:title}),
+      el('h3',{class:'text-xs font-bold uppercase tracking-widest text-ink-400 pb-1 border-b border-ink-100',text:title}),
       ...children,
     ]);
   }
@@ -499,6 +507,7 @@
   function closeCase() {
     const p = $('#casePanel');
     p.classList.add('hidden');
+    p.classList.remove('flex');
     p.setAttribute('aria-hidden','true');
     document.body.style.overflow = '';
   }
@@ -665,27 +674,55 @@
       .catch(e => showPipelineStatus('Error: '+e.message, true));
   }
 
+  const PIPELINE_STEPS = [
+    [3,  'Downloading grants data…'],
+    [8,  'Normalizing entity names…'],
+    [14, 'Aggregating by recipient…'],
+    [22, 'Looking up corporate records…'],
+    [35, 'Matching entities to corps…'],
+    [50, 'Scoring recovery ROI…'],
+    [70, 'Flagging zombie candidates…'],
+    [85, 'Generating AI case summaries…'],
+    [95, 'Writing results…'],
+  ];
+  let _pollStep = 0;
+  let _pollTick = 0;
+
   function pollPipeline() {
+    _pollStep = 0; _pollTick = 0;
     const interval = setInterval(async () => {
       try {
         const d = await fetch(API.pipelineStatus).then(r=>r.json());
-        if (d.running) { showPipelineStatus('Pipeline running…'); return; }
+        if (d.running) {
+          // Advance progress label every ~3 ticks
+          _pollTick++;
+          if (_pollTick % 3 === 0 && _pollStep < PIPELINE_STEPS.length - 1) _pollStep++;
+          const [pct, msg] = PIPELINE_STEPS[_pollStep];
+          showPipelineStatus(msg, false, pct);
+          return;
+        }
         clearInterval(interval);
         hidePipelineStatus();
-        if (d.error) { showPipelineStatus('Pipeline error: '+d.error, true); return; }
+        if (d.error) { showPipelineStatus('Pipeline error: '+d.error, true, 0); return; }
         state.rows = await loadData();
         setKpis(); buildFilterChips(); applyFilters();
+        showLiveBadge();
       } catch(e) { clearInterval(interval); hidePipelineStatus(); }
     }, 1500);
   }
 
-  function showPipelineStatus(msg, error=false) {
+  function showPipelineStatus(msg, error=false, pct=null) {
     const box = $('#pipelineStatus');
     box.classList.remove('hidden');
-    box.className = 'mt-3 text-sm rounded-lg p-3 border '+(error?'bg-danger-50 text-danger-700 border-danger-200':'bg-brand-50 text-brand-700 border-brand-200');
+    box.className = 'mt-3 text-sm rounded-xl p-3 border '+(error?'bg-danger-50 text-danger-700 border-danger-200':'bg-brand-50 text-brand-800 border-brand-200');
     clear(box);
-    const dot = el('span',{class:'inline-block h-3 w-3 rounded-full flex-shrink-0 '+(error?'bg-danger-500':'bg-brand-500 animate-pulse')});
-    box.appendChild(el('div',{class:'flex items-center gap-2'},[dot, el('span',{text:msg})]));
+    const dot = el('span',{class:'inline-block h-2.5 w-2.5 rounded-full flex-shrink-0 '+(error?'bg-danger-500':'bg-brand-500 animate-pulse')});
+    box.appendChild(el('div',{class:'flex items-center gap-2 font-medium'},[dot, el('span',{text:msg})]));
+    if (!error && pct !== null) {
+      const track = el('div',{class:'mt-2 h-1.5 rounded-full bg-brand-200 overflow-hidden'});
+      track.appendChild(el('div',{class:'h-full bg-brand-600 rounded-full transition-all',style:{width:pct+'%'}}));
+      box.appendChild(track);
+    }
   }
   function hidePipelineStatus() { $('#pipelineStatus').classList.add('hidden'); }
 
@@ -814,6 +851,42 @@
     requestAnimationFrame(()=>{ URL.revokeObjectURL(a.href); a.remove(); });
   });
 
+  /* ── live fetch — auto-refresh every 30s when server available ──────────── */
+  function startLiveFetch() {
+    if (!state.serverAvailable) return;
+    let lastMod = '';
+    setInterval(async () => {
+      if (_pipeline_status_running()) return; // don't interrupt in-progress run
+      try {
+        const r = await fetch(API.results + '?_=' + Date.now(), {cache:'no-store'});
+        if (!r.ok) return;
+        const etag = r.headers.get('etag') || r.headers.get('last-modified') || '';
+        if (etag && etag === lastMod) return; // unchanged
+        lastMod = etag;
+        const rows = await r.json();
+        if (!Array.isArray(rows) || rows.length === state.rows.length) return;
+        state.rows = rows;
+        setKpis(); buildFilterChips(); applyFilters();
+        showLiveBadge();
+      } catch(_) {}
+    }, 30_000);
+  }
+
+  function _pipeline_status_running() {
+    const box = $('#pipelineStatus');
+    return box && !box.classList.contains('hidden') &&
+      box.textContent.toLowerCase().includes('running');
+  }
+
+  function showLiveBadge() {
+    const badge = el('span',{
+      class:'fixed bottom-4 right-4 z-50 rounded-full bg-ok-500 text-white text-xs font-bold px-3 py-1.5 shadow-lg',
+      text:'Live data refreshed',
+    });
+    document.body.appendChild(badge);
+    setTimeout(() => badge.remove(), 3000);
+  }
+
   /* ── init ──────────────────────────────────────────────────────────────── */
   async function init() {
     switchTab('queue');
@@ -827,6 +900,7 @@
     bindLookup();
     bindUpload();
     applyFilters();
+    startLiveFetch();
   }
 
   if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
