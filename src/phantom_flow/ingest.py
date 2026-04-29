@@ -74,14 +74,38 @@ def download_grants(settings: Settings) -> Path:
     if target.exists() and target.stat().st_size > 0:
         return target
     target.parent.mkdir(parents=True, exist_ok=True)
-    print(f"Downloading grants CSV from {settings.grants_url} ...")
-    with httpx.stream("GET", settings.grants_url, timeout=300.0, follow_redirects=True) as r:
-        r.raise_for_status()
-        with target.open("wb") as f:
-            for chunk in r.iter_bytes(chunk_size=65536):
-                f.write(chunk)
-    print(f"Saved to {target} ({target.stat().st_size / 1e6:.1f} MB)")
-    return target
+
+    canonical = settings.grants_url
+    print(f"Downloading grants CSV from {canonical} ...")
+
+    for attempt in range(3):
+        try:
+            with httpx.stream("GET", canonical, timeout=300.0, follow_redirects=True) as r:
+                if r.status_code in (403, 404):
+                    # SAS token may have expired on redirect — retry with fresh request
+                    print(f"  Attempt {attempt+1}: HTTP {r.status_code}, retrying with fresh redirect...")
+                    if target.exists():
+                        target.unlink()
+                    import time as _t; _t.sleep(2)
+                    continue
+                r.raise_for_status()
+                with target.open("wb") as f:
+                    for chunk in r.iter_bytes(chunk_size=65536):
+                        f.write(chunk)
+            if target.exists() and target.stat().st_size > 0:
+                print(f"Saved to {target} ({target.stat().st_size / 1e6:.1f} MB)")
+                return target
+        except httpx.HTTPStatusError as exc:
+            if attempt < 2:
+                import time as _t; _t.sleep(3)
+                continue
+            raise RuntimeError(
+                f"Failed to download grants CSV after 3 attempts. "
+                f"The open.canada.ca source may be temporarily unavailable. "
+                f"Try manually downloading from:\n  {canonical}\nand saving to {target}"
+            ) from exc
+
+    raise RuntimeError(f"Could not download grants CSV from {canonical} after 3 attempts.")
 
 
 def load_grants(csv_path: Path, min_value: float) -> pd.DataFrame:

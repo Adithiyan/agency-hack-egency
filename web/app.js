@@ -670,11 +670,21 @@
       // Live button is hidden when server unavailable — nothing to do
       return;
     }
-    showPipelineStatus('Pipeline running…');
+    if (!demo) {
+      showPipelineStatus('Downloading real grants CSV (~200MB). This takes 2–5 min…', false, 3);
+    } else {
+      showPipelineStatus('Running demo pipeline…', false, 10);
+    }
     fetch(API.run, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({demo,top_n:25})})
-      .then(r=>r.json())
-      .then(() => pollPipeline())
-      .catch(e => showPipelineStatus('Error: '+e.message, true));
+      .then(r => {
+        if (!r.ok) throw new Error('Server returned ' + r.status + ' — is python server.py running?');
+        return r.json();
+      })
+      .then(d => {
+        if (d.error) { showPipelineStatus(d.error, true); return; }
+        pollPipeline();
+      })
+      .catch(e => showPipelineStatus(e.message, true));
   }
 
   const PIPELINE_STEPS = [
