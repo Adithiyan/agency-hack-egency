@@ -217,6 +217,126 @@ def api_lookup():
     })
 
 
+INVESTIGATE_SYSTEM = """You are a senior public-sector enforcement analyst.
+Your job: review a ranked list of zombie grant recipients and autonomously select
+the SINGLE most compelling case for immediate investigation.
+
+Rules:
+- Use only the structured facts provided — no external knowledge.
+- Do not assert fraud, criminality, or legal liability.
+- Be direct, specific, and action-oriented — like a CBC journalist briefing an editor.
+- Write in plain language a minister can act on.
+"""
+
+INVESTIGATE_PROMPT = """You are reviewing {count} zombie candidates — organizations that
+received public grants and then dissolved, went inactive, or stopped filing.
+
+Your task (3 parts):
+
+PART 1 — SELECTION
+Choose the single most compelling case for investigation. State which entity you chose
+and in 2 sentences explain WHY this case is more actionable than the others.
+
+PART 2 — FORENSIC NARRATIVE (200-250 words)
+Write a CBC-style investigative narrative for the chosen case covering:
+- Funding timeline (who gave how much and when)
+- What happened (dissolution/inactivity signal and timing)
+- Why this matters (public value at risk, funding dependency pattern)
+- What a recovery action would look like
+
+PART 3 — RED FLAGS (bullet list)
+List 3-5 specific red flags from the evidence. Each flag must cite a fact from the data.
+
+FORMAT your response exactly as:
+## Selected case: [entity name]
+### Why this case
+[2 sentences]
+### Forensic narrative
+[narrative]
+### Red flags
+- [flag 1]
+- [flag 2]
+...
+
+CANDIDATE CASES:
+{cases}
+"""
+
+
+@app.route("/api/investigate", methods=["POST"])
+def api_investigate():
+    """Autonomous AI investigation — picks most compelling zombie case."""
+    results_path = PROCESSED_DIR / "results.json"
+    if not results_path.exists():
+        return jsonify({"error": "No results. Run the pipeline first."}), 404
+
+    rows = json.loads(results_path.read_text(encoding="utf-8"))
+    zombies = [r for r in rows if r.get("is_zombie")]
+    if not zombies:
+        return jsonify({"error": "No zombie candidates found in current results."}), 404
+
+    # Top 8 by ROI score for the LLM to reason over
+    top = sorted(zombies, key=lambda x: x.get("roi_score", 0), reverse=True)[:8]
+
+    def fmt_case(r: dict, i: int) -> str:
+        flags = ", ".join(r.get("flags") or []) or "none"
+        return (
+            f"Candidate {i+1}: {r.get('display_name') or r.get('name_clean')}\n"
+            f"  Province: {r.get('province','?')} | Recipient type: {r.get('recipient_type','?')}\n"
+            f"  Total awarded: ${float(r.get('total_awarded',0) or 0):,.0f}\n"
+            f"  Programs: {', '.join((r.get('programs') or [])[:4])}\n"
+            f"  Corporate status: {r.get('status','unknown')} | Dissolution: {r.get('dissolution_date','unknown')}\n"
+            f"  Last award date: {str(r.get('last_award_date','?'))[:10]}\n"
+            f"  Months award→dissolution: {r.get('months_to_dissolution','?')}\n"
+            f"  ROI score: {r.get('roi_score',0):.0f}/100 | Confidence: {r.get('confidence','?')}\n"
+            f"  Funding dependency: {r.get('funding_dependency','?')}\n"
+            f"  Flags: {flags}\n"
+        )
+
+    cases_text = "\n".join(fmt_case(r, i) for i, r in enumerate(top))
+    prompt = INVESTIGATE_PROMPT.format(count=len(top), cases=cases_text)
+
+    try:
+        from phantom_flow.llm import TemplateLLMClient, build_llm_client
+        llm = build_llm_client()
+        if isinstance(llm, TemplateLLMClient):
+            # No LLM configured — build a deterministic investigation from top case
+            r = top[0]
+            result = (
+                f"## Selected case: {r.get('display_name') or r.get('name_clean')}\n"
+                f"### Why this case\n"
+                f"This entity received ${float(r.get('total_awarded',0) or 0):,.0f} in federal funding "
+                f"and {r.get('status','dissolved').lower()} {r.get('months_to_dissolution','?')} months "
+                f"after its last award — the tightest dissolution window in the current dataset. "
+                f"Its ROI score of {r.get('roi_score',0):.0f}/100 and {r.get('confidence','medium')} "
+                f"confidence match make it the most defensible referral candidate.\n"
+                f"### Forensic narrative\n"
+                f"{r.get('case_summary') or 'No AI summary generated yet. Set GEMINI_API_KEY and rerun the pipeline.'}\n"
+                f"### Red flags\n"
+                + "\n".join(f"- {f}" for f in (r.get("flags") or ["zombie_12mo"]))
+            )
+        else:
+            result = llm.complete(INVESTIGATE_SYSTEM, prompt, max_tokens=700)
+    except Exception as exc:
+        return jsonify({"error": f"LLM investigation failed: {exc}"}), 500
+
+    # Find the entity the LLM selected (best effort parse)
+    selected_entity = None
+    for r in top:
+        name = (r.get("display_name") or r.get("name_clean") or "").lower()
+        if name and name[:15] in result.lower():
+            selected_entity = r
+            break
+    if not selected_entity:
+        selected_entity = top[0]
+
+    return jsonify({
+        "investigation": result,
+        "selected_entity": selected_entity,
+        "candidates_reviewed": len(top),
+    })
+
+
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8765))
     print(f"\n  Phantom Flow server -> http://localhost:{port}\n")

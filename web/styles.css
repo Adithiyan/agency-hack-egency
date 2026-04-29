@@ -38,14 +38,14 @@ body { font-feature-settings: 'cv02','cv03','cv04','cv11'; text-rendering: optim
 .mobile-nav-tab.active { background: #EFF6FF; color: #1D4ED8; }
 
 /* ── KPI strip ─────────────────────────────────────────────────────────────── */
-.kpi-cell { padding: 1.25rem 1.5rem; }
-.kpi-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #64748B; }
-.kpi-val { font-family: 'Fira Code', monospace; font-size: 2rem; font-weight: 700; line-height: 1.15; margin-top: 0.25rem; font-variant-numeric: tabular-nums; }
-.kpi-sub { font-size: 0.75rem; color: #94A3B8; margin-top: 0.25rem; }
+.kpi-cell { padding: 0.625rem 1.25rem; }
+.kpi-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #64748B; }
+.kpi-val { font-family: 'Fira Code', monospace; font-size: 1.375rem; font-weight: 700; line-height: 1.2; margin-top: 0.125rem; font-variant-numeric: tabular-nums; }
+.kpi-sub { font-size: 0.7rem; color: #94A3B8; margin-top: 0.125rem; }
 
 @media (max-width: 639px) {
-  .kpi-cell { padding: 1rem; }
-  .kpi-val { font-size: 1.5rem; }
+  .kpi-cell { padding: 0.625rem 0.875rem; }
+  .kpi-val { font-size: 1.125rem; }
 }
 
 /* ── Buttons ───────────────────────────────────────────────────────────────── */

@@ -43,6 +43,7 @@
           <button data-tab="chart"   class="nav-tab"        type="button">Chart</button>
           <button data-tab="lookup"  class="nav-tab"        type="button">Entity Lookup</button>
           <button data-tab="upload"  class="nav-tab"        type="button">Upload CSV</button>
+          <button data-tab="about"   class="nav-tab"        type="button">How it works</button>
         </nav>
 
         <div class="flex items-center gap-2">
@@ -71,6 +72,7 @@
       <button data-tab="chart"  data-close-menu class="mobile-nav-tab" type="button">Chart</button>
       <button data-tab="lookup" data-close-menu class="mobile-nav-tab" type="button">Entity Lookup</button>
       <button data-tab="upload" data-close-menu class="mobile-nav-tab" type="button">Upload CSV</button>
+      <button data-tab="about"  data-close-menu class="mobile-nav-tab" type="button">How it works</button>
     </nav>
   </div>
 
@@ -109,7 +111,7 @@
     </div>
 
     <!-- ─── QUEUE TAB ─────────────────────────────────────────────────────── -->
-    <div id="tab-queue" class="tab-panel mx-auto max-w-screen-2xl px-4 py-6 sm:px-6 lg:px-8">
+    <div id="tab-queue" class="tab-panel mx-auto max-w-screen-2xl px-4 py-3 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
 
         <!-- Sidebar filters -->
@@ -201,6 +203,11 @@
                 <span class="legend-dot bg-ink-400">Monitor</span>
                 <span class="legend-dot bg-ink-300">Write off</span>
               </div>
+              <button id="investigateBtn" type="button" class="btn-primary text-sm gap-2">
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 flex-shrink-0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                <span class="hidden sm:inline">Let the AI investigate</span>
+                <span class="sm:hidden">AI</span>
+              </button>
               <button id="exportBtn" type="button" class="btn-ghost text-sm">
                 <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m6 9 6 6 6-6"/><path d="M5 21h14"/></svg>
                 Export CSV
@@ -351,6 +358,103 @@
       </div>
     </div>
 
+    <!-- ─── HOW IT WORKS TAB ──────────────────────────────────────────────── -->
+    <div id="tab-about" class="tab-panel hidden mx-auto max-w-screen-2xl px-4 py-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl space-y-6">
+        <div>
+          <h1 class="text-2xl font-bold text-ink-900">How Phantom Flow works</h1>
+          <p class="text-sm text-ink-500 mt-1">A step-by-step guide to how public grant data becomes an enforcement triage queue.</p>
+        </div>
+
+        <!-- Steps -->
+        <ol class="space-y-4">
+          <li class="flex gap-4 rounded-xl border border-ink-200 bg-white p-5 shadow-sm">
+            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-900 text-white text-sm font-bold flex-shrink-0">1</div>
+            <div>
+              <div class="font-semibold text-ink-900 text-base">Ingest federal grants data</div>
+              <p class="text-sm text-ink-600 mt-1">Downloads the Government of Canada proactive disclosure dataset (~200K+ rows). Filters to for-profit, nonprofits, and Indigenous recipients with awards ≥ $25,000. Normalizes entity names — strips legal suffixes, collapses punctuation.</p>
+              <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                <span class="rounded bg-ink-100 px-2 py-0.5 font-mono text-ink-600">open.canada.ca/data</span>
+                <span class="rounded bg-ink-100 px-2 py-0.5 font-mono text-ink-600">recipient_type: F, N, A, O</span>
+              </div>
+            </div>
+          </li>
+          <li class="flex gap-4 rounded-xl border border-ink-200 bg-white p-5 shadow-sm">
+            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-900 text-white text-sm font-bold flex-shrink-0">2</div>
+            <div>
+              <div class="font-semibold text-ink-900 text-base">Aggregate by recipient</div>
+              <p class="text-sm text-ink-600 mt-1">Groups all awards by normalized entity name. Builds a profile per entity: total awarded, number of grants, first/last award date, funding years, departments, and programs. Derives funding concentration (years × departments) as a proxy for public revenue dependency.</p>
+            </div>
+          </li>
+          <li class="flex gap-4 rounded-xl border border-ink-200 bg-white p-5 shadow-sm">
+            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-900 text-white text-sm font-bold flex-shrink-0">3</div>
+            <div>
+              <div class="font-semibold text-ink-900 text-base">Match to Corporations Canada</div>
+              <p class="text-sm text-ink-600 mt-1">Looks up each entity against the federal corporate registry. Uses fuzzy token-sort matching with a confidence score. Retrieves corporate status, dissolution date, and jurisdiction. Low-confidence matches are flagged separately to avoid false positives.</p>
+              <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                <span class="rounded bg-ok-50 border border-ok-400 px-2 py-0.5 text-ok-700 font-medium">High ≥ 92</span>
+                <span class="rounded bg-brand-50 border border-brand-200 px-2 py-0.5 text-brand-700 font-medium">Medium 80–91</span>
+                <span class="rounded bg-warn-50 border border-warn-400 px-2 py-0.5 text-accent-600 font-medium">Low 65–79</span>
+              </div>
+            </div>
+          </li>
+          <li class="flex gap-4 rounded-xl border border-ink-200 bg-white p-5 shadow-sm">
+            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-danger-700 text-white text-sm font-bold flex-shrink-0">4</div>
+            <div>
+              <div class="font-semibold text-ink-900 text-base">Flag zombies (12-month window)</div>
+              <p class="text-sm text-ink-600 mt-1">Marks an entity as a zombie if its corporate status is Dissolved, Bankrupt, Inactive, Cancelled, or Struck — AND the dissolution date falls within <strong>12 months</strong> of the last grant award. This aligns exactly with the challenge definition. An extended 24-month view is flagged separately.</p>
+              <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                <span class="rounded bg-danger-50 border border-danger-200 px-2 py-0.5 text-danger-700 font-medium">zombie_12mo</span>
+                <span class="rounded bg-ink-100 px-2 py-0.5 text-ink-600 font-medium">zombie_extended</span>
+              </div>
+            </div>
+          </li>
+          <li class="flex gap-4 rounded-xl border border-ink-200 bg-white p-5 shadow-sm">
+            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-900 text-white text-sm font-bold flex-shrink-0">5</div>
+            <div>
+              <div class="font-semibold text-ink-900 text-base">Score recovery ROI (4 components)</div>
+              <div class="mt-2 overflow-x-auto">
+                <table class="text-sm w-full">
+                  <thead><tr class="text-xs uppercase text-ink-500 border-b border-ink-100"><th class="text-left pb-1 font-semibold">Component</th><th class="text-right pb-1 font-semibold">Weight</th><th class="text-left pb-1 pl-4 font-semibold">Logic</th></tr></thead>
+                  <tbody class="divide-y divide-ink-100">
+                    <tr><td class="py-1 font-medium text-ink-800">Recoverable amount</td><td class="py-1 text-right font-mono text-brand-700">35</td><td class="py-1 pl-4 text-ink-600">Award size × (1 − months/12)</td></tr>
+                    <tr><td class="py-1 font-medium text-ink-800">Evidence strength</td><td class="py-1 text-right font-mono text-brand-700">30</td><td class="py-1 pl-4 text-ink-600">Match confidence + dissolution date present</td></tr>
+                    <tr><td class="py-1 font-medium text-ink-800">Pursuit cost</td><td class="py-1 text-right font-mono text-brand-700">20</td><td class="py-1 pl-4 text-ink-600">Penalises weak matches + old cases</td></tr>
+                    <tr><td class="py-1 font-medium text-ink-800">Public exposure</td><td class="py-1 text-right font-mono text-brand-700">15</td><td class="py-1 pl-4 text-ink-600">Funding dependency level + amount scale</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </li>
+          <li class="flex gap-4 rounded-xl border border-ink-200 bg-white p-5 shadow-sm">
+            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-900 text-white text-sm font-bold flex-shrink-0">6</div>
+            <div>
+              <div class="font-semibold text-ink-900 text-base">AI case summaries (Gemini / Claude / Groq)</div>
+              <p class="text-sm text-ink-600 mt-1">Generates a 3-sentence enforcement triage summary for each top case. The model receives only structured facts — no free-text retrieval. It cannot invent numbers, dates, or names. A deterministic template is used when no API key is configured.</p>
+            </div>
+          </li>
+          <li class="flex gap-4 rounded-xl border border-brand-200 bg-brand-50 p-5 shadow-sm">
+            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white text-sm font-bold flex-shrink-0">★</div>
+            <div>
+              <div class="font-semibold text-brand-900 text-base">AI autonomous investigation</div>
+              <p class="text-sm text-brand-800 mt-1">The <strong>"Let the AI investigate"</strong> button sends the top 8 zombie candidates to the LLM. The model autonomously picks the single most compelling case, explains its reasoning, writes a 200-word CBC-style forensic narrative, and lists specific red flags — each citing data from the evidence. The model decides; no case is pre-coded as the answer.</p>
+            </div>
+          </li>
+        </ol>
+
+        <!-- Limitations -->
+        <div class="rounded-xl border border-warn-400 bg-warn-50 p-5">
+          <h3 class="font-semibold text-ink-900 mb-2">Known limitations</h3>
+          <ul class="space-y-1 text-sm text-ink-700 list-disc list-inside">
+            <li>No total revenue data — funding dependency is a proxy (years × departments), not a measured ratio.</li>
+            <li>Federal corporate registry only — misses provincial registrations (BC, ON, QC).</li>
+            <li>Name matching can produce false positives; low-confidence cases are routed to <em>review</em>, not enforcement.</li>
+            <li>Demo data uses 20 representative entities. Live pipeline downloads the full 200K-row dataset.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <!-- ─── SETTINGS MODAL ──────────────────────────────────────────────────── -->
@@ -450,15 +554,28 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="border-t border-ink-200 bg-white mt-8">
-    <div class="mx-auto max-w-screen-2xl px-4 py-5 sm:px-6 lg:px-8">
-      <p class="text-sm text-ink-500 max-w-3xl">
-        <strong class="font-medium text-ink-700">Limitation notice:</strong>
-        Phantom Flow surfaces public-record patterns only. Public funding dependency is a proxy metric — no revenue data is available in the grants dataset. It does not assert fraud or wrongdoing. Confirm every case against authoritative sources before acting.
-      </p>
-    </div>
-  </footer>
+  <!-- ─── AI INVESTIGATION MODAL ──────────────────────────────────────────── -->
+  <div id="investigateModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6" aria-hidden="true">
+    <div class="absolute inset-0 bg-ink-900/60 backdrop-blur-sm" data-close-investigate></div>
+    <dialog role="dialog" aria-modal="true" aria-labelledby="investigateTitle" open
+      class="relative w-full max-w-3xl max-h-[90vh] overflow-hidden rounded-2xl bg-white shadow-2xl flex flex-col">
+      <div class="flex items-start justify-between gap-4 px-7 py-5 border-b border-ink-100 bg-gradient-to-r from-brand-900 to-brand-700 rounded-t-2xl flex-shrink-0">
+        <div class="min-w-0">
+          <p class="text-xs font-bold uppercase tracking-widest text-brand-200">AI Autonomous Investigation</p>
+          <h2 id="investigateTitle" class="text-xl font-bold text-white mt-0.5">Phantom Flow · Case Selection</h2>
+        </div>
+        <button data-close-investigate type="button" aria-label="Close" class="rounded-xl p-2 text-white/70 hover:bg-white/20 cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/50 min-h-[44px] min-w-[44px] flex-shrink-0 transition-colors">
+          <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <div id="investigateBody" class="overflow-y-auto px-7 py-6 space-y-5 flex-1">
+        <!-- Content injected by JS -->
+      </div>
+    </dialog>
+  </div>
+
+  <!-- ─── HOW IT WORKS TAB ───────────────────────────────────────────────── -->
+  <!-- Injected as tab-about in main -->
 
   <script src="./app.js"></script>
 </body>

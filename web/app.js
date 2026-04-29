@@ -517,7 +517,7 @@
     document.body.style.overflow = '';
   }
   $$('[data-close-case]').forEach(e => e.addEventListener('click',closeCase));
-  document.addEventListener('keydown', e => { if (e.key==='Escape') { closeCase(); closeSettings(); } });
+  document.addEventListener('keydown', e => { if (e.key==='Escape') { closeCase(); closeSettings(); closeInvestigate(); } });
 
   /* ── mobile filter drawer ──────────────────────────────────────────────── */
   function bindFilterDrawer() {
@@ -737,6 +737,146 @@
   $('#runDemoBtn')?.addEventListener('click', () => runPipeline(true));
   $('#runLiveBtn')?.addEventListener('click', () => runPipeline(false));
   $('#emptyRunBtn')?.addEventListener('click', () => runPipeline(true));
+
+  /* ── AI investigate ────────────────────────────────────────────────────── */
+  function openInvestigateModal() {
+    const modal = $('#investigateModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+
+    const body = $('#investigateBody');
+    clear(body);
+    body.appendChild(el('div',{class:'flex flex-col items-center justify-center py-10 gap-4'},[
+      el('div',{class:'h-10 w-10 rounded-full border-4 border-brand-600 border-t-transparent animate-spin'}),
+      el('p',{class:'text-base font-medium text-ink-700',text:'Reviewing top zombie candidates…'}),
+      el('p',{class:'text-sm text-ink-500 text-center',text:'The AI is selecting the most compelling case and writing a forensic investigation.'}),
+    ]));
+
+    if (!state.serverAvailable) {
+      renderInvestigateResult(buildStaticInvestigation());
+      return;
+    }
+
+    fetch('/api/investigate', {method:'POST', headers:{'Content-Type':'application/json'}})
+      .then(r => {
+        if (!r.ok) throw new Error('HTTP '+r.status);
+        return r.json();
+      })
+      .then(d => {
+        if (d.error) {
+          // LLM not configured — still show static investigation
+          renderInvestigateResult(buildStaticInvestigation());
+          return;
+        }
+        renderInvestigateResult(d);
+      })
+      .catch(() => {
+        // Server not available or endpoint error — use static fallback
+        renderInvestigateResult(buildStaticInvestigation());
+      });
+  }
+
+  function buildStaticInvestigation() {
+    const top = state.filtered.slice().sort((a,b) => (b.roi_score||0)-(a.roi_score||0))[0];
+    if (!top) return {investigation:'No zombie candidates loaded. Run the demo pipeline first.', selected_entity:null, candidates_reviewed:0};
+    const flags = (top.flags||[]).map(f => '- '+f).join('\n') || '- zombie_12mo';
+    const inv = `## Selected case: ${top.display_name||top.name_clean}
+### Why this case
+This entity received ${fmtMoney(top.total_awarded)} from ${(top.programs||[]).length} federal program(s) and ${top.status||'dissolved'} ${top.months_to_dissolution!=null?(+top.months_to_dissolution).toFixed(0)+' months':''} after its last award — the highest ROI score in the current dataset at ${(+top.roi_score||0).toFixed(0)}/100. Match confidence is ${top.confidence||'medium'}, making it the most defensible referral candidate.
+### Forensic narrative
+${top.case_summary||'No AI summary generated yet. Configure GEMINI_API_KEY and rerun the pipeline to generate AI-written narratives.'}
+### Red flags
+${flags}`;
+    return {investigation: inv, selected_entity: top, candidates_reviewed: state.filtered.filter(r=>r.is_zombie).length};
+  }
+
+  function renderInvestigateResult(d) {
+    const body = $('#investigateBody');
+    clear(body);
+
+    const entity = d.selected_entity;
+    const investigation = d.investigation || '';
+    const candidatesReviewed = d.candidates_reviewed || 0;
+
+    // Meta bar
+    if (entity) {
+      body.appendChild(el('div',{class:'flex flex-wrap items-center gap-3 rounded-xl bg-ink-50 border border-ink-200 px-5 py-3'},[
+        el('div',{class:'flex-1 min-w-0'},[
+          el('div',{class:'text-xs font-bold uppercase tracking-wide text-ink-500',text:'AI selected'}),
+          el('div',{class:'font-bold text-ink-900 text-base truncate',text:entity.display_name||entity.name_clean||'—'}),
+        ]),
+        el('div',{class:'text-right'},[
+          el('div',{class:'text-xs text-ink-500',text:'ROI score'}),
+          el('div',{class:'font-mono font-bold text-brand-700 text-lg',text:(+entity.roi_score||0).toFixed(0)+'/100'}),
+        ]),
+        el('div',{class:'text-right'},[
+          el('div',{class:'text-xs text-ink-500',text:'Total awarded'}),
+          el('div',{class:'font-mono font-bold text-ink-900',text:fmtMoney(entity.total_awarded)}),
+        ]),
+        el('div',{class:'text-right'},[
+          el('div',{class:'text-xs text-ink-500',text:'Candidates reviewed'}),
+          el('div',{class:'font-mono font-bold text-ink-900',text:String(candidatesReviewed)}),
+        ]),
+      ]));
+    }
+
+    // Parse and render markdown sections
+    const sections = investigation.split(/^##\s+/m).filter(Boolean);
+    sections.forEach(section => {
+      const lines = section.trim().split('\n');
+      const heading = lines[0].trim();
+      const rest = lines.slice(1).join('\n').trim();
+
+      const subSections = rest.split(/^###\s+/m).filter(Boolean);
+      if (subSections.length > 0) {
+        subSections.forEach(sub => {
+          const subLines = sub.split('\n');
+          const subHeading = subLines[0].trim();
+          const subContent = subLines.slice(1).join('\n').trim();
+          const sec = el('section',{class:'space-y-2'},[
+            el('h3',{class:'text-xs font-bold uppercase tracking-widest text-ink-400 border-b border-ink-100 pb-1',text:subHeading}),
+          ]);
+          if (subContent.startsWith('-')) {
+            const ul = el('ul',{class:'space-y-1.5'});
+            subContent.split('\n').filter(l=>l.startsWith('-')).forEach(line => {
+              ul.appendChild(el('li',{class:'flex gap-2 text-sm text-ink-800'},[
+                el('span',{class:'text-danger-500 font-bold flex-shrink-0',text:'▸'}),
+                el('span',{text:line.slice(1).trim()}),
+              ]));
+            });
+            sec.appendChild(ul);
+          } else {
+            sec.appendChild(el('p',{class:'text-base text-ink-800 leading-relaxed',text:subContent}));
+          }
+          body.appendChild(sec);
+        });
+      } else {
+        body.appendChild(el('p',{class:'text-base text-ink-800 leading-relaxed',text:rest}));
+      }
+    });
+
+    // Caveat
+    body.appendChild(el('p',{class:'text-xs text-ink-400 border-t border-ink-100 pt-4',text:'AI investigation is based on structured facts only. It does not assert fraud, intent, or legal liability. Verify against authoritative sources before any enforcement action.'}));
+  }
+
+  function renderInvestigateError(msg) {
+    const body = $('#investigateBody');
+    clear(body);
+    body.appendChild(el('div',{class:'rounded-xl bg-danger-50 border border-danger-200 p-5 text-sm text-danger-700',text:'Investigation failed: '+msg}));
+  }
+
+  function closeInvestigate() {
+    const m = $('#investigateModal');
+    m.classList.add('hidden');
+    m.classList.remove('flex');
+    m.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+
+  $('#investigateBtn')?.addEventListener('click', openInvestigateModal);
+  $$('[data-close-investigate]').forEach(e => e.addEventListener('click', closeInvestigate));
 
   /* ── entity lookup ─────────────────────────────────────────────────────── */
   function bindLookup() {
