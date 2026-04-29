@@ -26,6 +26,7 @@ from datetime import datetime, timezone
 from typing import Any
 
 from .matching import Match
+from .normalize import normalize_name
 
 ZOMBIE_STATUSES = {"DISSOLVED", "INACTIVE", "BANKRUPT", "CANCELLED", "STRUCK"}
 
@@ -200,11 +201,27 @@ def recommendation_for(score: float, confidence_label: str, is_zombie_flag: bool
 
 def score_entity(
     entity: dict,
-    match: Match,
+    match: "Match | None" = None,
     *,
-    is_zombie_flag: bool,
-    months_to_dissolution: float | None,
+    is_zombie_flag: bool | None = None,
+    months_to_dissolution: float | None = None,
 ) -> dict:
+    """Score an entity.
+
+    Supports two call signatures:
+      - Pipeline: score_entity(entity, match_obj, is_zombie_flag=..., months_to_dissolution=...)
+      - Agent:    score_entity(entity)  where entity["match"] contains the corp dict
+    """
+    # Agent-pipeline path: extract match from embedded dict
+    if match is None:
+        match = _match_from_entity(entity)
+        if is_zombie_flag is None:
+            m = entity.get("match") or {}
+            dissolution = m.get("dissolution_date")
+            is_zombie_flag = is_zombie(match, entity.get("last_award_date"), CHALLENGE_ZOMBIE_MONTHS) if dissolution else False
+        if months_to_dissolution is None:
+            m = entity.get("match") or {}
+            months_to_dissolution = months_between(entity.get("last_award_date"), m.get("dissolution_date"))
     dep_level = funding_dependency_level(entity)
     breakdown = ScoreBreakdown(
         recoverable=_recoverable_component(
@@ -241,4 +258,24 @@ def score_entity(
             months_to_dissolution,
         ),
         "months_to_dissolution": months_to_dissolution,
+        "is_zombie_candidate": bool(is_zombie_flag),
     }
+
+
+def _match_from_entity(entity: dict) -> "Match":
+    """Build a Match dataclass from an entity dict with embedded match sub-dict."""
+    from .matching import Match, _label
+    m = entity.get("match") or {}
+    conf_raw = m.get("confidence", 0)
+    conf_int = int(float(conf_raw) * 100) if isinstance(conf_raw, float) and conf_raw <= 1.0 else int(conf_raw or 0)
+    return Match(
+        name_clean=entity.get("name_clean") or normalize_name(entity.get("display_name") or ""),
+        matched_name=m.get("legal_name") or m.get("matched_name"),
+        confidence=conf_int,
+        confidence_label=_label(conf_int),
+        status=m.get("status"),
+        dissolution_date=m.get("dissolution_date"),
+        incorporation_date=m.get("incorporation_date"),
+        jurisdiction=m.get("jurisdiction"),
+        source=m.get("source", "embedded"),
+    )

@@ -219,5 +219,5 @@ def api_lookup():
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8765))
-    print(f"\n  Phantom Flow server → http://localhost:{port}\n")
+    print(f"\n  Phantom Flow server -> http://localhost:{port}\n")
     app.run(host="0.0.0.0", port=port, debug=False, threaded=True)

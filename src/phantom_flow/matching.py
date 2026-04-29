@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Any
 
 from rapidfuzz import fuzz
 
 from .corporations import CorpRecord
+from .normalize import normalize_name
 
 
 @dataclass(frozen=True)
@@ -30,6 +32,48 @@ def _label(score: int) -> str:
     if score >= 65:
         return "low"
     return "none"
+
+
+def similarity(left: str, right: str) -> float:
+    """Token-sort fuzzy similarity in [0.0, 1.0] for agent-pipeline matching."""
+    l = normalize_name(left)
+    r = normalize_name(right)
+    if not l or not r:
+        return 0.0
+    return fuzz.token_sort_ratio(l, r) / 100.0
+
+
+def match_entities(
+    entities: list[dict[str, Any]],
+    corporations: list[dict[str, Any]],
+    threshold: float = 0.72,
+) -> list[dict[str, Any]]:
+    """Agent-pipeline batch match: embed match dict into each entity row."""
+    results: list[dict[str, Any]] = []
+    for entity in entities:
+        display = entity.get("display_name") or entity.get("name_clean") or ""
+        best: dict[str, Any] | None = None
+        best_score = 0.0
+        for corp in corporations:
+            score = similarity(display, corp.get("legal_name") or "")
+            if score > best_score:
+                best = corp
+                best_score = score
+        matched = best is not None and best_score >= threshold
+        results.append({
+            **entity,
+            "match": {
+                "matched": matched,
+                "confidence": round(best_score, 3),
+                "legal_name": best.get("legal_name") if matched else None,
+                "corporation_number": best.get("corporation_number") if matched else None,
+                "status": best.get("status") if matched else "Unmatched",
+                "dissolution_date": best.get("dissolution_date") if matched else None,
+                "jurisdiction": best.get("jurisdiction") if matched else None,
+                "source_url": best.get("source_url") if matched else None,
+            },
+        })
+    return results
 
 
 def match_one(name_clean: str, record: CorpRecord) -> Match:

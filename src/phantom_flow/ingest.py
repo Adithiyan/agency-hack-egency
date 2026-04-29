@@ -176,3 +176,38 @@ def aggregate_by_entity(df: pd.DataFrame) -> pd.DataFrame:
         grouped["annual_totals"] = [{} for _ in range(len(grouped))]
 
     return grouped.sort_values("total_awarded", ascending=False).reset_index(drop=True)
+
+
+# ── Agent-compatible interface ────────────────────────────────────────────────
+
+def load_grants(path: Path, min_value: float = 25_000.0) -> "pd.DataFrame":
+    """Load grants CSV. Accepts either (path) or (path, min_value) call signatures."""
+    return _load_grants_impl(path, min_value)
+
+
+def _load_grants_impl(csv_path: Path, min_value: float) -> "pd.DataFrame":
+    """Internal implementation shared by load_grants and download_grants flow."""
+    import pandas as pd
+    df = pd.read_csv(csv_path, low_memory=False, encoding="utf-8-sig", encoding_errors="replace")
+    cols = _resolve_columns(df)
+    missing = REQUIRED_COLUMNS - set(cols)
+    if missing:
+        raise ValueError(f"Grants CSV missing required columns {missing}. Actual: {list(df.columns[:20])}")
+    df = df.rename(columns={v: k for k, v in cols.items()})
+    df["agreement_value"] = pd.to_numeric(df["agreement_value"], errors="coerce")
+    df = df.dropna(subset=["agreement_value", "recipient_legal_name"])
+    df = df[df["agreement_value"] >= min_value].copy()
+    if "recipient_type" in df.columns:
+        df = df[df["recipient_type"].isin(TARGET_RECIPIENT_TYPES) | df["recipient_type"].isna()]
+    df["name_clean"] = df["recipient_legal_name"].map(normalize_name)
+    df = df[df["name_clean"].str.len() > 0]
+    if "agreement_start_date" in df.columns:
+        df["agreement_start_date"] = pd.to_datetime(df["agreement_start_date"], errors="coerce")
+    if "agreement_end_date" in df.columns:
+        df["agreement_end_date"] = pd.to_datetime(df["agreement_end_date"], errors="coerce")
+    return df.reset_index(drop=True)
+
+
+def aggregate_grants(df: "pd.DataFrame") -> list[dict]:
+    """Agent-pipeline wrapper: returns list of dicts instead of DataFrame."""
+    return aggregate_by_entity(df).to_dict(orient="records")

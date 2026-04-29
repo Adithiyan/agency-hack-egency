@@ -117,3 +117,30 @@ def lookup_many(names: list[str], settings: Settings) -> list[CorpRecord]:
             _save_json(CORP_CACHE, cache)
 
     return results
+
+
+# ── Agent-compatible interface ────────────────────────────────────────────────
+
+def load_corporations(path: Path = CORP_FIXTURE) -> list[dict]:
+    """Load a corporations JSON file for the agent-pipeline path.
+
+    Expects a dict keyed by normalized name, or a list of corp dicts.
+    Returns a list of dicts each with at least 'legal_name' and 'status'.
+    """
+    raw = _load_json(path)
+    if isinstance(raw, list):
+        return raw
+    # Convert our keyed-dict format to list format
+    result = []
+    for key, val in raw.items():
+        if val is None:
+            continue
+        result.append({
+            "legal_name": val.get("matched_name") or key,
+            "status": val.get("status"),
+            "dissolution_date": val.get("dissolution_date"),
+            "incorporation_date": val.get("incorporation_date"),
+            "jurisdiction": val.get("jurisdiction"),
+            "source_url": None,
+        })
+    return result
