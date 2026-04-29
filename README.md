@@ -1,139 +1,241 @@
-# Phantom Flow
+# Phantom Flow — Zombie Grant Recipients
 
-Enforcement triage for Canadian public grants. Match grant recipients against
-federal corporate status records, flag entities that dissolved within a short
-window after their last award, and rank by recovery ROI with an evidence-backed
-case file for each entry.
+**Ottawa AI Hackathon 2026 · Zombie Recipients Challenge**
 
-> **Scope.** Phantom Flow surfaces public-record patterns. It does not assert
-> wrongdoing. Confirm every case against authoritative sources before acting.
+Phantom Flow identifies Canadian companies and nonprofits that received federal grants and then dissolved or went inactive within 12 months — "zombie recipients" — and ranks them by recovery ROI for enforcement action.
 
-## Quickstart
+---
 
-```bash
-# 1. Clone and enter the repo
-cd phantom-flow
+## Live Demo
 
-# 2. Install dependencies (Python 3.10+)
-python -m pip install -r requirements.txt
+**[https://agency-hack-egency.vercel.app](https://agency-hack-egency.vercel.app)** — no install required, runs in the browser with 20 demo entities pre-loaded.
 
-# 3. Configure secrets (optional; AI summaries fall back to a template if unset)
-cp .env.example .env
-# Edit .env and set ANTHROPIC_API_KEY
+---
 
-# 4. Run the demo pipeline (uses bundled offline fixtures)
-PYTHONPATH=src python -m phantom_flow.pipeline --demo --top 10
+## What It Does
 
-# 5a. Launch the static responsive dashboard (recommended for the demo)
-python -m http.server 8765
-# then open http://localhost:8765/web/
+The Canadian government publishes ~200K rows of proactive disclosure grant data at open.canada.ca. Phantom Flow:
 
-# 5b. Or launch the Streamlit dashboard
-streamlit run app/streamlit_app.py
-```
+1. **Ingests** the full grants CSV (or uses bundled demo data)
+2. **Matches** each recipient against Corporations Canada using fuzzy name matching
+3. **Detects** zombie patterns — dissolved/struck-off within 12 months of last award
+4. **Scores** each case by a 4-component ROI formula
+5. **Ranks** them in an enforcement queue with AI-generated forensic narratives
 
-The pipeline writes both `data/processed/results.json` (for Streamlit) and
-`web/data/results.json` (for the static dashboard) on every run.
+---
 
-The demo path requires no live API access. It reads
-`data/demo/grants_demo.csv` and `data/demo/corp_records.json`, writes
-`data/processed/results.json`, and the Streamlit app loads from there.
+## Getting Started
 
-## What it does
+### Option A — Vercel (zero install)
 
-1. **Ingest** the federal grants and contributions dataset (or a local CSV).
-2. **Aggregate** awards by normalized recipient name.
-3. **Match** each recipient against Corporations Canada records (live, cached,
-   or demo fixture).
-4. **Flag zombies**: dissolved, inactive, bankrupt, struck, or cancelled within
-   a configurable window (default 24 months) after the last award.
-5. **Score** each case on four visible components (recoverable amount,
-   evidence strength, pursuit cost, public value exposure) summing to 100.
-6. **Recommend** an action: `immediate referral`, `compliance letter`,
-   `review`, or `write off`.
-7. **Summarize** the top cases with Claude using only structured facts (with a
-   no-API fallback so the demo never hard-fails).
+Open **https://agency-hack-egency.vercel.app**
 
-## Project layout
+The app loads with 20 representative demo entities automatically. No API key required.
 
-```
-phantom-flow/
-├── web/                          # static responsive dashboard (HTML+Tailwind)
-│   ├── index.html                # mobile-first; cards on mobile, table on desktop
-│   ├── app.js                    # vanilla JS, DOM-built (no innerHTML / no XSS)
-│   ├── styles.css                # supplementary styles (pills, ROI bar, a11y)
-│   └── data/results.json         # mirrored from data/processed by the pipeline
-├── design-system/phantom-flow/   # MASTER.md (design tokens + rationale)
-├── app/
-│   └── streamlit_app.py          # alternate Streamlit dashboard
-├── src/phantom_flow/
-│   ├── ingest.py                 # CSV download, load, aggregate
-│   ├── normalize.py              # name canonicalization
-│   ├── corporations.py           # corporate lookup + cache + fixture
-│   ├── matching.py               # fuzzy match + confidence label
-│   ├── scoring.py                # ROI score with breakdown
-│   ├── case_writer.py            # Claude summary + fallback
-│   ├── pipeline.py               # end-to-end runner (`-m phantom_flow.pipeline`)
-│   └── config.py                 # env-driven settings
-├── data/
-│   ├── raw/                      # downloaded grants CSV (gitignored)
-│   ├── interim/                  # corp lookup + summary caches
-│   ├── processed/                # results.json, entities.json
-│   └── demo/                     # offline fixtures + grants_demo.csv
-├── tests/
-│   ├── test_normalize.py
-│   ├── test_scoring.py
-│   └── test_pipeline.py          # runs the full demo pipeline end-to-end
-├── pyproject.toml / requirements.txt
-└── .env.example
-```
+### Option B — Local full pipeline
 
-## Scoring rubric
-
-Each case carries a `score_breakdown` dict so the dashboard can show the math.
-
-| Component               | Max | Drives                                       |
-| ----------------------- | --: | -------------------------------------------- |
-| Recoverable amount      | 35  | Award size and short award-to-dissolution gap |
-| Evidence strength       | 30  | Match confidence + presence of dissolution   |
-| Pursuit cost            | 20  | Penalizes weak matches and stale cases       |
-| Public value exposure   | 15  | Multi-program dependency + total amount      |
-
-Recommendation thresholds:
-
-- `>= 80` and confidence `medium`/`high`: **immediate referral**
-- `40 - 79` and confidence `medium`/`high`: **compliance letter**
-- confidence `low` or `none`: **review**
-- `< 40`: **write off**
-
-## Running tests
+**Requirements:** Python 3.11+, pip
 
 ```bash
-PYTHONPATH=src python -m pytest tests/
+# Clone
+git clone https://github.com/Adithiyan/agency-hack-egency.git
+cd agency-hack-egency
+
+# Install dependencies
+pip install -r requirements.txt
+
+# (Optional) Set API keys for AI case summaries
+# Create .env with:
+# GEMINI_API_KEY=your_key_here
+# PHANTOM_FLOW_LLM_PROVIDER=gemini
+
+# Start the server
+PYTHONPATH=src python server.py
 ```
 
-## Configuration
+Open **http://localhost:8765**
 
-Environment variables (see `.env.example`):
+---
 
-| Var                            | Purpose                                       |
-| ------------------------------ | --------------------------------------------- |
-| `ANTHROPIC_API_KEY`            | Enables Claude case summaries                 |
-| `PHANTOM_FLOW_GRANTS_URL`      | Override the grants CSV download URL          |
-| `PHANTOM_FLOW_GRANTS_CSV`      | Local cached CSV path                         |
-| `PHANTOM_FLOW_USE_LIVE_CORP`   | `true` to call the Corporations Canada API   |
+## How to Use
 
-## Limitations
+### Step 1 — Load Data
 
-- The grants dataset names recipients but not directors or beneficial owners.
-- Corporate name fuzzy matching can produce false positives; low-confidence
-  cases are routed to **review**, not enforcement.
-- "Public funding dependency" (the >70% revenue threshold in the challenge
-  brief) cannot be proven from grant data alone. Phantom Flow reframes this as
-  *public funding exposure* derived from program count and total awarded.
-- Live Corporations Canada access can require session cookies. The demo path
-  uses a deterministic fixture so the pitch never depends on a live API.
+**On Vercel:** Data loads automatically (20 demo entities).
 
-## License
+**Locally:** Click **Run demo pipeline** in the sidebar for instant demo data, or **Run live (real data)** to download the full 200K-row Government of Canada grants dataset (~2–5 min).
 
-See [LICENSE](LICENSE).
+### Step 2 — Browse the Enforcement Queue
+
+The **Queue** tab shows zombie candidates ranked by ROI score (0–100):
+
+| Column | Description |
+|--------|-------------|
+| Zombie | Red dot = dissolved ≤12 months after last award |
+| Prov | Recipient province |
+| Awarded | Total federal grants received |
+| Recoverable | Estimated recoverable amount |
+| Δ Mo | Months between last award and dissolution |
+| ROI Score | Enforcement priority score with bar chart |
+| Recommendation | Refer / Letter / Review / Monitor / Write off |
+
+Click any row to open the full **Case Detail** panel with AI forensic narrative.
+
+### Step 3 — AI Investigator
+
+Click the **AI Investigator** button in the toolbar. The AI:
+
+- Reviews the top 8 zombie candidates by ROI score
+- Selects the single most actionable case
+- Writes a 200-word CBC-style forensic narrative
+- Lists 3–5 specific red flags with data citations
+
+Works with a Gemini API key (free at aistudio.google.com) or falls back to a deterministic template.
+
+### Step 4 — Filter & Search
+
+Use the sidebar to filter by province, match confidence, funding dependency, minimum ROI score, or zombies-only. Click column headers to sort.
+
+### Step 5 — Entity Lookup
+
+Go to **Entity Lookup** tab. Type any company or nonprofit name to check its corporate status, dissolution date, and ROI score. Works offline using loaded data.
+
+### Step 6 — Upload Your Own Data
+
+Go to **Upload CSV** tab. Upload any Government of Canada proactive disclosure grants CSV (download link provided in the tab), then click **Upload & Run**.
+
+### Step 7 — Export
+
+Click **Export CSV** to download the current filtered results as a spreadsheet.
+
+### Step 8 — Ask AI
+
+Click the **Ask AI** button (bottom-right corner, green pulsing dot). Ask anything about the data or methodology:
+
+- *"What is a zombie recipient?"*
+- *"How is the ROI score calculated?"*
+- *"Show me the top 3 cases"*
+- *"Which province has the most zombies?"*
+- *"What's the difference between demo and live data?"*
+
+Works even before data is loaded.
+
+---
+
+## ROI Score Formula
+
+| Component | Weight | Description |
+|-----------|--------|-------------|
+| Recoverable amount | 35 pts | Total awarded × zombie confidence multiplier |
+| Evidence strength | 30 pts | Match confidence × dissolution timing sharpness |
+| Pursuit cost | 20 pts | Inverse of organizational complexity |
+| Public exposure | 15 pts | Funding size relative to dataset peers |
+
+| Score | Action |
+|-------|--------|
+| ≥ 70 | Immediate referral |
+| 50–69 | Compliance letter |
+| 30–49 | Review |
+| < 30 | Monitor or write off |
+
+---
+
+## Zombie Detection Logic
+
+An entity is flagged **zombie** if:
+
+1. It received ≥ $25,000 in federal grants
+2. A corporate match is found in Corporations Canada (confidence ≥ 0.5)
+3. The dissolution/strike-off date falls within **12 months** of the last grant award
+
+---
+
+## Data Sources
+
+| Source | Description |
+|--------|-------------|
+| [open.canada.ca grants](https://open.canada.ca/data/dataset/432527ab-7aac-45b5-81d6-7597107a7013/resource/1d15a62f-5656-49ad-8c88-f40ce689d831/download/grants.csv) | ~200K rows of proactive disclosure grants since 2011 |
+| Corporations Canada | Federal corporate registry — status, dissolution dates |
+
+---
+
+## Project Structure
+
+```
+├── web/                    # Static frontend (Vercel)
+│   ├── index.html          # Single-page app
+│   ├── app.js              # All UI logic (vanilla JS)
+│   ├── styles.css          # Component styles
+│   ├── tailwind.css        # Compiled Tailwind utilities
+│   └── data/results.json   # Bundled 20-entity demo dataset
+│
+├── src/phantom_flow/       # Python pipeline
+│   ├── pipeline.py         # End-to-end runner
+│   ├── ingest.py           # Grants CSV download + aggregation
+│   ├── normalize.py        # Name normalization
+│   ├── matching.py         # Fuzzy corporate matching (rapidfuzz)
+│   ├── scoring.py          # ROI scoring + zombie detection
+│   ├── corporations.py     # Corporations Canada lookup
+│   └── llm.py              # LLM abstraction (Gemini/Claude/Groq)
+│
+├── server.py               # Flask dev server + API
+├── data/demo/              # Demo fixtures
+└── vercel.json             # Static deployment config
+```
+
+---
+
+## API Endpoints (local server)
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/status` | GET | Server health + settings |
+| `/api/results` | GET | Current processed results |
+| `/api/run` | POST | Trigger pipeline (`{demo: true/false}`) |
+| `/api/pipeline-status` | GET | Poll running pipeline |
+| `/api/upload` | POST | Upload grants CSV |
+| `/api/lookup` | POST | Single entity lookup + score |
+| `/api/investigate` | POST | AI autonomous case selection |
+| `/api/chat` | POST | AI assistant chat |
+| `/api/settings` | POST | Update API key + settings |
+
+---
+
+## Environment Variables
+
+```bash
+PHANTOM_FLOW_LLM_PROVIDER=gemini      # gemini | claude | groq | none
+GEMINI_API_KEY=                        # From aistudio.google.com (free)
+GEMINI_MODEL=gemini-2.5-flash
+ANTHROPIC_API_KEY=                     # Optional: Claude
+PHANTOM_FLOW_USE_LIVE_CORP=false       # true = live corp registry API
+PHANTOM_FLOW_LLM_CASE_LIMIT=25        # Max AI summaries per run
+```
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Frontend | Vanilla JS, Tailwind CSS v3, Chart.js |
+| Backend | Python 3.11, Flask |
+| Matching | rapidfuzz (fuzzy string matching) |
+| Data | pandas, httpx |
+| AI summaries | Gemini 2.5 Flash (OpenAI-compatible endpoint) |
+| Deployment | Vercel static + optional local Flask |
+
+---
+
+## Ottawa AI Hackathon — Zombie Recipients Challenge
+
+> Identify Canadian companies and nonprofits that received large public grants and dissolved within 12 months. Build a tool that ranks them by recovery potential.
+
+Phantom Flow addresses this with:
+- Full open.canada.ca grants dataset ingestion
+- Fuzzy matching against Corporations Canada
+- 12-month zombie window detection (per challenge spec)
+- 4-component ROI scoring for enforcement prioritization
+- AI forensic narratives (Gemini 2.5 Flash)
+- Responsive enforcement triage dashboard
+- Zero-install Vercel deployment with bundled demo data
