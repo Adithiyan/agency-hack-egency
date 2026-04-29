@@ -115,74 +115,72 @@
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
 
         <!-- Sidebar filters -->
-        <aside class="hidden lg:block self-start sticky top-20">
-          <div class="rounded-xl border border-ink-200 bg-white p-5 shadow-sm">
-            <div class="flex items-center justify-between mb-4">
-              <h2 class="text-base font-semibold text-ink-900">Filters</h2>
-              <button id="resetFilters" type="button" class="text-sm text-brand-600 hover:text-brand-800 hover:underline cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500 rounded px-1">Reset</button>
-            </div>
-            <div id="filtersInner" class="space-y-5">
-              <div>
-                <label for="filterSearch" class="filter-label">Search entity name</label>
-                <input id="filterSearch" type="search" inputmode="search" placeholder="Type to filter…"
-                  class="filter-input mt-1" />
-              </div>
-              <div>
-                <div class="filter-label mb-2">Recommendation</div>
-                <div id="filterRec" class="flex flex-wrap gap-2" role="group" aria-label="Filter by recommendation"></div>
-              </div>
-              <div>
-                <label for="filterProvince" class="filter-label">Province</label>
-                <select id="filterProvince" class="filter-input mt-1">
-                  <option value="">All provinces</option>
-                </select>
-              </div>
-              <div>
-                <label for="filterConfidence" class="filter-label">Match confidence</label>
-                <select id="filterConfidence" class="filter-input mt-1">
-                  <option value="">Any</option>
-                  <option value="high">High ≥ 92</option>
-                  <option value="medium">Medium 80–91</option>
-                  <option value="low">Low 65–79</option>
-                  <option value="none">None &lt; 65</option>
-                </select>
-              </div>
-              <div>
-                <label for="filterDep" class="filter-label">Funding dependency</label>
-                <select id="filterDep" class="filter-input mt-1">
-                  <option value="">Any</option>
-                  <option value="high">High (≈ &gt;70% revenue)</option>
-                  <option value="medium">Medium</option>
-                  <option value="low">Low</option>
-                </select>
-              </div>
-              <div>
-                <div class="flex items-center justify-between">
-                  <label for="filterScore" class="filter-label">Min ROI score</label>
-                  <span id="filterScoreVal" class="font-mono text-sm font-semibold text-ink-700">0</span>
-                </div>
-                <input id="filterScore" type="range" min="0" max="100" value="0" class="mt-2 w-full accent-brand-700" />
-              </div>
-              <label class="flex items-center gap-3 cursor-pointer">
-                <input id="filterZombies" type="checkbox" class="h-4 w-4 rounded border-ink-300 text-brand-700 focus:ring-brand-500" checked />
-                <span class="text-sm text-ink-700">Zombies only (≤ 12 months)</span>
-              </label>
-            </div>
-
-            <div class="mt-5 border-t border-ink-100 pt-4 space-y-2">
-              <button id="runDemoBtn" type="button" class="btn-primary w-full">
+        <aside class="hidden lg:flex lg:flex-col self-start sticky top-[68px] max-h-[calc(100vh-80px)]" style="width:260px;min-width:260px;max-width:260px;">
+          <div class="rounded-xl border border-ink-200 bg-white shadow-sm flex flex-col overflow-hidden">
+            <!-- Pipeline buttons — top -->
+            <div class="p-4 space-y-2 border-b border-ink-100 flex-shrink-0">
+              <button id="runDemoBtn" type="button" class="btn-primary w-full text-sm py-2">
                 <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 flex-shrink-0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 Run demo pipeline
               </button>
-              <button id="runLiveBtn" type="button" class="btn-secondary w-full">
+              <button id="runLiveBtn" type="button" class="btn-secondary w-full text-sm py-2">
                 <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 flex-shrink-0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zM11 11V7"/><circle cx="11" cy="13" r=".5" fill="currentColor"/></svg>
                 Run live (real data)
               </button>
+              <div id="pipelineStatus" class="hidden text-xs rounded-lg p-2.5 bg-brand-50 text-brand-700 border border-brand-200"></div>
             </div>
-            <div id="pipelineStatus" class="mt-3 hidden text-sm rounded-lg p-3 bg-brand-50 text-brand-700 border border-brand-200">
-              <div class="flex items-center gap-2">
-                <span class="inline-block h-3 w-3 rounded-full bg-brand-500 animate-pulse"></span>
-                <span id="pipelineMsg">Pipeline running…</span>
+
+            <!-- Filters — scrollable -->
+            <div class="overflow-y-auto flex-1 p-4">
+              <div class="flex items-center justify-between mb-3">
+                <h2 class="text-sm font-semibold text-ink-900">Filters</h2>
+                <button id="resetFilters" type="button" class="text-xs text-brand-600 hover:underline cursor-pointer focus:outline-none rounded px-1">Reset</button>
+              </div>
+              <div id="filtersInner" class="space-y-3">
+                <div>
+                  <label for="filterSearch" class="filter-label">Search</label>
+                  <input id="filterSearch" type="search" inputmode="search" placeholder="Type to filter…" class="filter-input mt-1 text-sm" />
+                </div>
+                <div>
+                  <div class="filter-label mb-1.5">Recommendation</div>
+                  <div id="filterRec" class="flex flex-wrap gap-1.5" role="group" aria-label="Filter by recommendation"></div>
+                </div>
+                <div>
+                  <label for="filterProvince" class="filter-label">Province</label>
+                  <select id="filterProvince" class="filter-input mt-1 text-sm">
+                    <option value="">All provinces</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="filterConfidence" class="filter-label">Confidence</label>
+                  <select id="filterConfidence" class="filter-input mt-1 text-sm">
+                    <option value="">Any</option>
+                    <option value="high">High ≥ 92</option>
+                    <option value="medium">Medium 80–91</option>
+                    <option value="low">Low 65–79</option>
+                    <option value="none">None &lt; 65</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="filterDep" class="filter-label">Dependency</label>
+                  <select id="filterDep" class="filter-input mt-1 text-sm">
+                    <option value="">Any</option>
+                    <option value="high">High (&gt;70% revenue)</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                  </select>
+                </div>
+                <div>
+                  <div class="flex items-center justify-between">
+                    <label for="filterScore" class="filter-label">Min ROI</label>
+                    <span id="filterScoreVal" class="font-mono text-xs font-bold text-ink-700">0</span>
+                  </div>
+                  <input id="filterScore" type="range" min="0" max="100" value="0" class="mt-1 w-full accent-brand-700" />
+                </div>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input id="filterZombies" type="checkbox" class="h-4 w-4 rounded border-ink-300 text-brand-700 focus:ring-brand-500" checked />
+                  <span class="text-xs text-ink-700">Zombies only (≤ 12 months)</span>
+                </label>
               </div>
             </div>
           </div>
@@ -204,9 +202,8 @@
                 <span class="legend-dot bg-ink-300">Write off</span>
               </div>
               <button id="investigateBtn" type="button" class="btn-primary text-sm gap-2">
-                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 flex-shrink-0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
-                <span class="hidden sm:inline">Let the AI investigate</span>
-                <span class="sm:hidden">AI</span>
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 flex-shrink-0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                AI Investigator
               </button>
               <button id="exportBtn" type="button" class="btn-ghost text-sm">
                 <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m6 9 6 6 6-6"/><path d="M5 21h14"/></svg>
