@@ -675,16 +675,17 @@
     } else {
       showPipelineStatus('Running demo pipeline…', false, 10);
     }
+    setRunState('running');
     fetch(API.run, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({demo,top_n:25})})
       .then(r => {
         if (!r.ok) throw new Error('Server returned ' + r.status + ' — is python server.py running?');
         return r.json();
       })
       .then(d => {
-        if (d.error) { showPipelineStatus(d.error, true); return; }
+        if (d.error) { setRunState('error'); showPipelineStatus(d.error, true); return; }
         pollPipeline();
       })
-      .catch(e => showPipelineStatus(e.message, true));
+      .catch(e => { setRunState('error'); showPipelineStatus(e.message, true); });
   }
 
   const PIPELINE_STEPS = [
@@ -716,12 +717,36 @@
         }
         clearInterval(interval);
         hidePipelineStatus();
-        if (d.error) { showPipelineStatus('Pipeline error: '+d.error, true, 0); return; }
+        if (d.error) { setRunState('error'); showPipelineStatus('Pipeline error: '+d.error, true, 0); return; }
+        setRunState('done');
         state.rows = await loadData();
         setKpis(); buildFilterChips(); applyFilters();
         showLiveBadge();
-      } catch(e) { clearInterval(interval); hidePipelineStatus(); }
+      } catch(e) { clearInterval(interval); hidePipelineStatus(); setRunState('error'); }
     }, 1500);
+  }
+
+  /* ── persistent run-state badge ─────────────────────────────────────────── */
+  function setRunState(state_) {
+    // state_: 'running' | 'done' | 'error' | 'hidden'
+    const badge = $('#runStateBadge');
+    const dot   = $('#runStateDot');
+    const txt   = $('#runStateText');
+    if (!badge) return;
+    if (state_ === 'hidden') { badge.classList.add('hidden'); return; }
+    badge.classList.remove('hidden');
+    badge.className = 'mt-1 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold border ' + {
+      running: 'bg-brand-50 text-brand-700 border-brand-200',
+      done:    'bg-ok-50 text-ok-700 border-ok-200',
+      error:   'bg-danger-50 text-danger-700 border-danger-200',
+    }[state_];
+    dot.className = 'h-2 w-2 rounded-full flex-shrink-0 ' + {
+      running: 'bg-brand-500 animate-pulse',
+      done:    'bg-ok-500',
+      error:   'bg-danger-500',
+    }[state_];
+    txt.textContent = { running: 'Processing…', done: 'Pipeline complete', error: 'Run failed' }[state_];
+    if (state_ === 'done') setTimeout(() => setRunState('hidden'), 8000);
   }
 
   let _statusTimer = null;
@@ -896,15 +921,46 @@ ${flags}`;
       $('#lookupResult').classList.add('hidden');
       $('#lookupError').classList.add('hidden');
       $('#lookupLoading').classList.remove('hidden');
-      try {
-        const r = await fetch(API.lookup, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name})});
-        const d = await r.json();
-        $('#lookupLoading').classList.add('hidden');
-        renderLookupResult(d);
-      } catch(e) {
-        $('#lookupLoading').classList.add('hidden');
+
+      if (state.serverAvailable) {
+        try {
+          const r = await fetch(API.lookup, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name})});
+          const d = await r.json();
+          $('#lookupLoading').classList.add('hidden');
+          renderLookupResult(d);
+          return;
+        } catch(_) {}
+      }
+
+      // Offline fallback: search loaded rows
+      $('#lookupLoading').classList.add('hidden');
+      const q = name.toLowerCase();
+      const hit = state.rows.find(r =>
+        (r.display_name||'').toLowerCase().includes(q) ||
+        (r.name_clean||'').toLowerCase().includes(q)
+      );
+      if (hit) {
+        renderLookupResult({
+          matched: true,
+          name_clean: hit.name_clean,
+          is_zombie: hit.is_zombie,
+          roi_score: hit.roi_score,
+          recommendation: hit.recommendation,
+          match: {
+            matched_name: hit.matched_name || hit.display_name,
+            confidence_label: hit.confidence,
+            status: hit.status,
+            dissolution_date: hit.dissolution_date,
+            incorporation_date: hit.incorporation_date,
+            jurisdiction: hit.province,
+          },
+        });
+      } else if (state.rows.length) {
+        renderLookupResult({ matched: false, name_clean: name });
+      } else {
         const errBox = $('#lookupError');
-        clear(errBox); errBox.appendChild(el('span',{text:'Server not available. Run: PYTHONPATH=src python server.py'}));
+        clear(errBox);
+        errBox.appendChild(el('span',{text:'Server not available. Run the demo pipeline first or start: PYTHONPATH=src python server.py'}));
         errBox.classList.remove('hidden');
       }
     };

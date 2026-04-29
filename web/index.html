@@ -128,6 +128,11 @@
                 Run live (real data)
               </button>
               <div id="pipelineStatus" class="hidden text-xs rounded-lg p-2.5 bg-brand-50 text-brand-700 border border-brand-200"></div>
+              <!-- Persistent run-state badge -->
+              <div id="runStateBadge" class="hidden mt-1 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold border">
+                <span id="runStateDot" class="h-2 w-2 rounded-full flex-shrink-0"></span>
+                <span id="runStateText"></span>
+              </div>
             </div>
 
             <!-- Filters — scrollable -->
