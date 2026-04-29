@@ -5,14 +5,17 @@
   'use strict';
 
   /* ── constants ─────────────────────────────────────────────────────────── */
+  function getApiBase() {
+    return (localStorage.getItem('pf_api_base') || '').replace(/\/$/, '');
+  }
   const API = {
-    status:  '/api/status',
-    results: '/api/results',
-    settings:'/api/settings',
-    run:     '/api/run',
-    upload:  '/api/upload',
-    pipelineStatus: '/api/pipeline-status',
-    lookup:  '/api/lookup',
+    get status()         { return getApiBase() + '/api/status'; },
+    get results()        { return getApiBase() + '/api/results'; },
+    get settings()       { return getApiBase() + '/api/settings'; },
+    get run()            { return getApiBase() + '/api/run'; },
+    get upload()         { return getApiBase() + '/api/upload'; },
+    get pipelineStatus() { return getApiBase() + '/api/pipeline-status'; },
+    get lookup()         { return getApiBase() + '/api/lookup'; },
   };
 
   const REC = {
@@ -107,6 +110,8 @@
     // Load saved values
     const saved = localStorage.getItem('pf_api_key');
     if (saved) $('#apiKeyInput').value = saved;
+    const savedBase = localStorage.getItem('pf_api_base');
+    if (savedBase) $('#backendUrlInput').value = savedBase;
     fetch(API.status).then(r=>r.json()).then(d => {
       if (d.anthropic_key_set) {
         $('#apiKeyInput').placeholder = '••••••••••••••••••••••••• (set)';
@@ -130,7 +135,10 @@
   $('#saveSettingsBtn').addEventListener('click', async () => {
     const key = $('#apiKeyInput').value.trim();
     const live = $('#liveCorpToggle').checked;
+    const base = $('#backendUrlInput').value.trim().replace(/\/$/, '');
     if (key) localStorage.setItem('pf_api_key', key);
+    if (base) localStorage.setItem('pf_api_base', base);
+    else localStorage.removeItem('pf_api_base');
     try {
       const r = await fetch(API.settings, {
         method:'POST', headers:{'Content-Type':'application/json'},
@@ -158,9 +166,12 @@
 
   /* ── data loading ──────────────────────────────────────────────────────── */
   async function loadData() {
-    // Always try bundled static file first (fast, works on Vercel)
-    // Live API is used only when explicitly running a live pipeline
-    const candidates = ['./data/results.json', '/api/results'];
+    // When a backend URL is configured, try it first so live results take priority.
+    // Falls back to bundled static demo data (always works on Vercel).
+    const base = getApiBase();
+    const candidates = base
+      ? [base + '/api/results', './data/results.json']
+      : ['./data/results.json', '/api/results'];
 
     for (const url of candidates) {
       try {

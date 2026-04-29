@@ -509,6 +509,13 @@
           <p class="mt-1.5 text-xs text-ink-500">Stored in <code class="font-mono bg-ink-100 px-1 rounded">.env</code> on the server. Never sent to third parties.</p>
         </div>
 
+        <!-- Backend URL -->
+        <div>
+          <label for="backendUrlInput" class="filter-label text-sm">Backend URL</label>
+          <input id="backendUrlInput" type="url" placeholder="https://your-app.railway.app" autocomplete="off" spellcheck="false" class="filter-input mt-1.5 text-sm" />
+          <p class="mt-1.5 text-xs text-ink-500">Leave blank for local dev. On Vercel, paste your Railway/Render backend URL here to enable the live pipeline.</p>
+        </div>
+
         <!-- Corp lookup toggle -->
         <div class="flex items-start gap-3 rounded-xl bg-ink-50 border border-ink-200 p-4">
           <input id="liveCorpToggle" type="checkbox" class="h-5 w-5 mt-0.5 rounded border-ink-300 text-brand-700 focus:ring-brand-500 flex-shrink-0" />

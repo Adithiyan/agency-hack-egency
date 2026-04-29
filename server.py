@@ -25,6 +25,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from flask import Flask, jsonify, request, send_from_directory
+from flask_cors import CORS
 
 from phantom_flow.config import DEMO_DIR, PROCESSED_DIR, RAW_DIR, load_settings
 from phantom_flow.corporations import lookup_many
@@ -36,6 +37,7 @@ REPO_ROOT = Path(__file__).parent
 WEB_DIR = REPO_ROOT / "web"
 
 app = Flask(__name__, static_folder=str(WEB_DIR), static_url_path="")
+CORS(app, origins=os.getenv("ALLOWED_ORIGINS", "*").split(","))
 
 # Runtime state
 _pipeline_lock = threading.Lock()
