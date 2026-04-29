@@ -15,7 +15,7 @@ const compact = (value) => Number(value || 0).toLocaleString();
 const byId = (id) => document.getElementById(id);
 
 async function loadData() {
-  const response = await fetch("../data/processed/results.json", { cache: "no-store" });
+  const response = await fetch("./data/results.json", { cache: "no-store" });
   if (!response.ok) throw new Error(`Could not load results.json: ${response.status}`);
   state.rows = await response.json();
   state.selectedId = state.rows[0]?.entity_key ?? null;

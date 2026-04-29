@@ -498,6 +498,18 @@ tbody tr.selected {
   }
 }
 
+.loading {
+  padding: 16px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
 @media (max-width: 720px) {
   main,
   .sidebar {
