@@ -337,6 +337,31 @@ def api_investigate():
     })
 
 
+CHAT_SYSTEM = """You are a public-sector enforcement analyst assistant for Phantom Flow, a zombie-grant detection tool.
+Answer concisely in plain language. Use only the data context provided. Never speculate beyond the data.
+If asked about specific entities, quote the numbers from the context."""
+
+@app.route("/api/chat", methods=["POST"])
+def api_chat():
+    """Answer a user question about the current enforcement data."""
+    data = request.get_json(force=True, silent=True) or {}
+    question = str(data.get("question", "")).strip()
+    context  = str(data.get("context", "")).strip()
+    if not question:
+        return jsonify({"error": "question required"}), 400
+
+    prompt = f"Current zombie candidate data:\n{context}\n\nUser question: {question}"
+    try:
+        from phantom_flow.llm import TemplateLLMClient, build_llm_client
+        llm = build_llm_client()
+        if isinstance(llm, TemplateLLMClient):
+            return jsonify({"answer": None}), 200  # JS will use local fallback
+        answer = llm.complete(CHAT_SYSTEM, prompt, max_tokens=400)
+        return jsonify({"answer": answer})
+    except Exception as exc:
+        return jsonify({"error": str(exc)}), 500
+
+
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8765))
     print(f"\n  Phantom Flow server -> http://localhost:{port}\n")

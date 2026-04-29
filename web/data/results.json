@@ -342,7 +342,7 @@
     "estimated_recoverable": 22000,
     "months_to_dissolution": null,
     "is_zombie_candidate": false,
-    "case_summary": "Greenleaf Cooperative received $220,000 across 1 federal program(s) and dissolution timing not confirmed. Evidence flags: funding_dependency_medium; match confidence is high. Recommended action: monitor."
+    "case_summary": ""
   },
   {
     "name_clean": "HALIFAX HYDROPONICS",
@@ -392,7 +392,7 @@
     "estimated_recoverable": 9000,
     "months_to_dissolution": null,
     "is_zombie_candidate": false,
-    "case_summary": "Halifax Hydroponics Co. received $90,000 across 1 federal program(s) and dissolution timing not confirmed. Evidence flags: no additional flags; match confidence is medium. Recommended action: monitor."
+    "case_summary": ""
   },
   {
     "name_clean": "MARITIME MOSAIC OP",
@@ -449,7 +449,7 @@
     "estimated_recoverable": 124000,
     "months_to_dissolution": null,
     "is_zombie_candidate": false,
-    "case_summary": "Maritime Mosaic Co-op received $1,240,000 across 1 federal program(s) and dissolution timing not confirmed. Evidence flags: funding_dependency_medium, weak_match, large_award; match confidence is none. Recommended action: insufficient evidence."
+    "case_summary": ""
   },
   {
     "name_clean": "WHITEWATER SKILLS",
@@ -505,7 +505,7 @@
     "estimated_recoverable": 88000,
     "months_to_dissolution": null,
     "is_zombie_candidate": false,
-    "case_summary": "Whitewater Skills Foundation received $880,000 across 1 federal program(s) and dissolution timing not confirmed. Evidence flags: funding_dependency_medium, weak_match; match confidence is none. Recommended action: insufficient evidence."
+    "case_summary": ""
   },
   {
     "name_clean": "PACIFIC STONE",
@@ -561,6 +561,6 @@
     "estimated_recoverable": 63000,
     "months_to_dissolution": null,
     "is_zombie_candidate": false,
-    "case_summary": "Pacific Stone Society received $630,000 across 1 federal program(s) and dissolution timing not confirmed. Evidence flags: funding_dependency_medium, weak_match; match confidence is none. Recommended action: insufficient evidence."
+    "case_summary": ""
   }
 ]

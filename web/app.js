@@ -1045,6 +1045,115 @@ ${flags}`;
     setTimeout(() => badge.remove(), 3000);
   }
 
+  /* ── AI Chat FAB ────────────────────────────────────────────────────────── */
+  function bindAiChat() {
+    const fab      = $('#aiChatFab');
+    const modal    = $('#aiChatModal');
+    const input    = $('#chatInput');
+    const sendBtn  = $('#chatSendBtn');
+    const messages = $('#chatMessages');
+    if (!fab || !modal) return;
+
+    function openChat()  { modal.classList.remove('hidden'); input?.focus(); }
+    function closeChat() { modal.classList.add('hidden'); }
+
+    fab.addEventListener('click', openChat);
+    $$('[data-close-chat]', modal).forEach(el => el.addEventListener('click', closeChat));
+
+    // suggestion chips
+    $$('.chat-suggestion').forEach(chip => {
+      chip.addEventListener('click', () => {
+        if (input) input.value = chip.textContent.trim();
+        sendMessage();
+      });
+    });
+
+    sendBtn?.addEventListener('click', sendMessage);
+    input?.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
+
+    function appendMsg(text, role) {
+      const wrap = el('div', { class: role === 'user'
+        ? 'flex justify-end'
+        : 'flex justify-start' });
+      const bubble = el('div', {
+        class: role === 'user'
+          ? 'max-w-[80%] rounded-2xl rounded-tr-sm bg-brand-600 text-white px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap'
+          : 'max-w-[88%] rounded-2xl rounded-tl-sm bg-white border border-ink-100 text-ink-700 px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap shadow-sm',
+        text,
+      });
+      wrap.appendChild(bubble);
+      messages.appendChild(wrap);
+      messages.scrollTop = messages.scrollHeight;
+      return bubble;
+    }
+
+    function buildContext() {
+      const zombies = state.filtered.filter(r => r.is_zombie).slice(0, 8);
+      if (!zombies.length) return 'No zombie candidates in current view.';
+      return zombies.map((r, i) =>
+        `#${i+1} ${r.display_name||r.name_clean} — $${Number(r.total_awarded||0).toLocaleString()} awarded, `+
+        `status: ${r.status||'?'}, dissolved: ${r.dissolution_date||'?'}, `+
+        `ROI: ${(r.roi_score||0).toFixed(0)}/100, province: ${r.province||'?'}`
+      ).join('\n');
+    }
+
+    async function sendMessage() {
+      const text = input?.value.trim();
+      if (!text) return;
+      input.value = '';
+      appendMsg(text, 'user');
+
+      // hide suggestions after first message
+      const sugg = $('#chatSuggestions');
+      if (sugg) sugg.classList.add('hidden');
+
+      const thinkingBubble = appendMsg('…', 'assistant');
+
+      // try server first, fall back to local heuristic
+      if (state.serverAvailable) {
+        try {
+          const resp = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question: text, context: buildContext() }),
+          });
+          const d = await resp.json();
+          if (resp.ok && d.answer) { thinkingBubble.textContent = d.answer; return; }
+        } catch(_) {}
+      }
+      // local fallback answer
+      thinkingBubble.textContent = localAnswer(text);
+    }
+
+    function localAnswer(q) {
+      const lq = q.toLowerCase();
+      const zombies = state.filtered.filter(r => r.is_zombie);
+      if (lq.includes('how many zombie') || lq.includes('total zombie')) {
+        return `There are ${zombies.length} zombie candidates in the current view out of ${state.filtered.length} total entities.`;
+      }
+      if (lq.includes('top') || lq.includes('highest') || lq.includes('most')) {
+        const top = zombies.sort((a,b)=>(b.roi_score||0)-(a.roi_score||0)).slice(0,3);
+        if (!top.length) return 'No zombie candidates found.';
+        return 'Top zombie candidates by ROI score:\n' +
+          top.map((r,i)=>`${i+1}. ${r.display_name||r.name_clean} — ROI ${(r.roi_score||0).toFixed(0)}/100, $${Number(r.total_awarded||0).toLocaleString()} awarded`).join('\n');
+      }
+      if (lq.includes('province') || lq.includes('region')) {
+        const counts = {};
+        zombies.forEach(r => { const p = r.province||'Unknown'; counts[p]=(counts[p]||0)+1; });
+        const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,5);
+        return 'Zombie candidates by province:\n' + sorted.map(([p,n])=>`${p}: ${n}`).join('\n');
+      }
+      if (lq.includes('total') && lq.includes('award')) {
+        const total = zombies.reduce((s,r)=>s+(r.total_awarded||0),0);
+        return `Total public funding across ${zombies.length} zombie candidates: $${total.toLocaleString(undefined,{maximumFractionDigits:0})}`;
+      }
+      if (lq.includes('what is') || lq.includes('explain') || lq.includes('zombie')) {
+        return 'A zombie recipient is an organization that received public grants and dissolved or went inactive within 12 months of the last award. Phantom Flow scores each candidate by recovery potential, evidence strength, and pursuit cost.';
+      }
+      return `I found ${zombies.length} zombie candidates with $${zombies.reduce((s,r)=>s+(r.total_awarded||0),0).toLocaleString(undefined,{maximumFractionDigits:0})} in public funding at risk. For deeper AI analysis, run the pipeline with a Gemini API key set.`;
+    }
+  }
+
   /* ── init ──────────────────────────────────────────────────────────────── */
   async function init() {
     switchTab('queue');
@@ -1057,6 +1166,7 @@ ${flags}`;
     bindFilterDrawer();
     bindLookup();
     bindUpload();
+    bindAiChat();
     applyFilters();
     startLiveFetch();
   }
