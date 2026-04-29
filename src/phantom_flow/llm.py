@@ -54,26 +54,38 @@ class OpenAICompatibleClient:
         self.timeout_seconds = timeout_seconds
 
     def complete(self, system: str, prompt: str, max_tokens: int = 260) -> str:
-        response = httpx.post(
-            f"{self.base_url}/chat/completions",
-            headers={
-                "Authorization": f"Bearer {self.api_key}",
-                "Content-Type": "application/json",
-            },
-            json={
-                "model": self.model,
-                "messages": [
-                    {"role": "system", "content": system},
-                    {"role": "user", "content": prompt},
-                ],
-                "temperature": self.temperature,
-                "max_tokens": max_tokens,
-            },
-            timeout=self.timeout_seconds,
-        )
-        response.raise_for_status()
-        payload = response.json()
-        return payload["choices"][0]["message"]["content"].strip()
+        import time
+        last_err: str = ""
+        for attempt in range(4):
+            if attempt:
+                time.sleep(2 ** attempt)  # 2s, 4s, 8s backoff on rate limit
+            try:
+                response = httpx.post(
+                    f"{self.base_url}/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {self.api_key}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": self.model,
+                        "messages": [
+                            {"role": "system", "content": system},
+                            {"role": "user", "content": prompt},
+                        ],
+                        "temperature": self.temperature,
+                        "max_tokens": max_tokens,
+                    },
+                    timeout=self.timeout_seconds,
+                )
+                if response.status_code == 429:
+                    last_err = f"rate limit on attempt {attempt + 1}"
+                    continue
+                response.raise_for_status()
+                payload = response.json()
+                return payload["choices"][0]["message"]["content"].strip()
+            except Exception as exc:
+                last_err = str(exc)
+        raise RuntimeError(f"{self.provider} API failed after retries: {last_err}")
 
 
 class ClaudeClient:

@@ -183,7 +183,7 @@ def generate_case_summary(
         from phantom_flow.llm import TemplateLLMClient
         if isinstance(llm_client, TemplateLLMClient) or getattr(llm_client, "provider", "") == "template":
             return fallback_summary(entity)
-        return llm_client.complete(_SYSTEM_PROMPT, build_case_prompt(entity))
+        return llm_client.complete(_SYSTEM_PROMPT, build_case_prompt(entity), max_tokens=400)
 
     # Settings-based pipeline path
     _settings = settings

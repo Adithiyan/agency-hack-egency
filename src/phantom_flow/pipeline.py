@@ -11,6 +11,7 @@ import pandas as pd
 
 from .case_writer import generate_case_summary, write_results
 from .config import DEMO_DIR, PROCESSED_DIR, Settings, ensure_dirs, load_settings
+from .llm import TemplateLLMClient, build_llm_client
 from .corporations import lookup_many
 from .ingest import aggregate_by_entity, download_grants, load_grants
 from .matching import match_one
@@ -63,10 +64,28 @@ def run(*, demo: bool = False, top_n_summaries: int = 25) -> Path:
         rows.append(row)
 
     rows.sort(key=lambda r: r.get("roi_score", 0), reverse=True)
-    for row in rows[:top_n_summaries]:
-        row["case_summary"] = generate_case_summary(row, settings)
-    for row in rows[top_n_summaries:]:
-        row["case_summary"] = ""
+
+    # Use Gemini/Claude/Groq if configured, otherwise template fallback
+    import time as _time
+    llm_client = build_llm_client()
+    use_llm = not isinstance(llm_client, TemplateLLMClient)
+    llm_count = 0
+    for i, row in enumerate(rows):
+        if i < top_n_summaries and use_llm:
+            try:
+                row["case_summary"] = generate_case_summary(row, llm_client=llm_client)
+                llm_count += 1
+                if i < top_n_summaries - 1:
+                    _time.sleep(1.5)  # stay within free-tier rate limits
+            except Exception as exc:
+                print(f"  LLM summary failed for {row.get('display_name')}: {exc} — using template")
+                row["case_summary"] = generate_case_summary(row, settings=settings)
+        elif i < top_n_summaries:
+            row["case_summary"] = generate_case_summary(row, settings=settings)
+        else:
+            row["case_summary"] = ""
+    if use_llm:
+        print(f"Generated {llm_count} AI summaries via {llm_client.provider} ({llm_client.model})")
 
     out = PROCESSED_DIR / "results.json"
     write_results(rows, out)
