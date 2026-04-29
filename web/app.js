@@ -752,7 +752,14 @@
         clearInterval(_pollInterval); _pollInterval = null;
         clearTimeout(_pollTimeout);
         hidePipelineStatus();
-        if (d.error) { setRunState('error'); showPipelineStatus('Pipeline error: '+d.error, true, 0); return; }
+        if (d.error) {
+          setRunState('error');
+          const msg = (d.error.includes('404') || d.error.includes('403') || d.error.includes('SAS') || d.error.includes('download'))
+            ? 'Grants CSV download failed (URL expired). Use the Upload CSV tab to upload it manually from open.canada.ca.'
+            : 'Pipeline error: ' + d.error;
+          showPipelineStatus(msg, true, 0);
+          return;
+        }
         setRunState('done');
         state.rows = await loadData();
         setKpis(); buildFilterChips(); applyFilters();
@@ -797,14 +804,22 @@
     clear(box);
     const dot = el('span',{class:'inline-block h-2.5 w-2.5 rounded-full flex-shrink-0 '+(error?'bg-danger-500':'bg-brand-500 animate-pulse')});
     box.appendChild(el('div',{class:'flex items-center gap-2 font-medium'},[dot, el('span',{text:msg})]));
+    // For download errors show Upload shortcut link
+    if (error && (msg.includes('Upload CSV') || msg.includes('download') || msg.includes('expired'))) {
+      const link = el('button',{
+        class:'mt-1.5 text-xs underline text-danger-700 cursor-pointer bg-transparent border-none p-0',
+        text:'Go to Upload CSV tab →',
+      });
+      link.addEventListener('click', () => { switchTab('upload'); hidePipelineStatus(); });
+      box.appendChild(link);
+    }
     if (!error && pct !== null) {
       const track = el('div',{class:'mt-2 h-1.5 rounded-full bg-brand-200 overflow-hidden'});
       track.appendChild(el('div',{class:'h-full bg-brand-600 rounded-full transition-all',style:{width:pct+'%'}}));
       box.appendChild(track);
     }
-    if (autoDismiss || error) {
-      _statusTimer = setTimeout(hidePipelineStatus, error ? 5000 : 3000);
-    }
+    if (autoDismiss) _statusTimer = setTimeout(hidePipelineStatus, 3000);
+    // Errors stay visible until dismissed or next action (no auto-dismiss)
   }
   function hidePipelineStatus() { $('#pipelineStatus').classList.add('hidden'); }
 
