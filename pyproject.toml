@@ -1,0 +1,34 @@
+[project]
+name = "phantom-flow"
+version = "0.1.0"
+description = "Enforcement triage for Canadian public grants: rank dissolved recipients by recovery ROI."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+dependencies = [
+    "anthropic>=0.39.0",
+    "pandas>=2.2.0",
+    "httpx>=0.27.0",
+    "rapidfuzz>=3.9.0",
+    "streamlit>=1.36.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "ruff>=0.5.0",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

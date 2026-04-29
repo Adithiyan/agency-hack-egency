@@ -1,0 +1,72 @@
+{
+  "NORTHSTAR LOGISTICS": {
+    "matched_name": "Northstar Logistics Inc.",
+    "status": "Dissolved",
+    "dissolution_date": "2022-03-04",
+    "incorporation_date": "2014-08-21",
+    "jurisdiction": "FED"
+  },
+  "AURORA BIOGREEN": {
+    "matched_name": "Aurora BioGreen Ltd.",
+    "status": "Bankrupt",
+    "dissolution_date": "2022-08-30",
+    "incorporation_date": "2012-02-11",
+    "jurisdiction": "FED"
+  },
+  "WHITEWATER SKILLS FOUNDATION": {
+    "matched_name": "Whitewater Skills Foundation",
+    "status": "Active",
+    "dissolution_date": null,
+    "incorporation_date": "2010-04-05",
+    "jurisdiction": "FED"
+  },
+  "MARITIME MOSAIC CO OP": {
+    "matched_name": "Maritime Mosaic Cooperative",
+    "status": "Inactive",
+    "dissolution_date": "2020-04-01",
+    "incorporation_date": "2008-09-12",
+    "jurisdiction": "FED"
+  },
+  "PRAIRIEROOT TECH": {
+    "matched_name": "PrairieRoot Tech Corp.",
+    "status": "Dissolved",
+    "dissolution_date": "2022-01-22",
+    "incorporation_date": "2017-06-30",
+    "jurisdiction": "FED"
+  },
+  "GREENLEAF COOPERATIVE": {
+    "matched_name": "Greenleaf Cooperative",
+    "status": "Active",
+    "dissolution_date": null,
+    "incorporation_date": "2015-01-15",
+    "jurisdiction": "FED"
+  },
+  "TRUE NORTH MANUFACTURING": {
+    "matched_name": "True North Manufacturing Inc.",
+    "status": "Dissolved",
+    "dissolution_date": "2020-03-30",
+    "incorporation_date": "2009-11-22",
+    "jurisdiction": "FED"
+  },
+  "QUARTZ VALLEY HOLDINGS": {
+    "matched_name": "Quartz Valley Holdings Ltd.",
+    "status": "Cancelled",
+    "dissolution_date": "2021-06-15",
+    "incorporation_date": "2013-03-05",
+    "jurisdiction": "FED"
+  },
+  "HALIFAX HYDROPONICS": {
+    "matched_name": "Halifax Hydroponics Co.",
+    "status": "Active",
+    "dissolution_date": null,
+    "incorporation_date": "2019-05-01",
+    "jurisdiction": "FED"
+  },
+  "PACIFIC STONE SOCIETY": {
+    "matched_name": "Pacific Stone Society",
+    "status": "Struck",
+    "dissolution_date": "2020-05-30",
+    "incorporation_date": "2011-12-12",
+    "jurisdiction": "FED"
+  }
+}

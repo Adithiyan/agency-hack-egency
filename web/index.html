@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="description" content="Phantom Flow: enforcement triage for federal grant recipients that dissolved post-award." />
+  <title>Phantom Flow — Enforcement Triage</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink:    { 50:'#F8FAFC', 100:'#F1F5F9', 200:'#E2E8F0', 300:'#CBD5E1', 400:'#94A3B8', 500:'#64748B', 700:'#334155', 800:'#1E293B', 900:'#0F172A' },
+            brand:  { 50:'#EFF6FF', 100:'#DBEAFE', 400:'#60A5FA', 500:'#3B82F6', 600:'#2563EB', 700:'#1D4ED8', 900:'#1E3A8A' },
+            accent: { 50:'#FFFBEB', 400:'#FBBF24', 500:'#F59E0B', 600:'#D97706' },
+            danger: { 50:'#FEF2F2', 100:'#FEE2E2', 400:'#F87171', 500:'#EF4444', 700:'#B91C1C', 800:'#991B1B' },
+            warn:   { 50:'#FFFBEB', 400:'#FBBF24', 500:'#F59E0B' },
+            ok:     { 50:'#ECFDF5', 400:'#34D399', 500:'#10B981', 700:'#047857' },
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['"Fira Code"', 'ui-monospace', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body class="h-full bg-ink-50 text-ink-900 font-sans antialiased text-base leading-relaxed">
+
+  <a href="#queue" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-brand-700 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg text-sm font-medium">
+    Skip to enforcement queue
+  </a>
+
+  <!-- ─── TOP NAV ─────────────────────────────────────────────────────────── -->
+  <header class="fixed inset-x-0 top-0 z-40 border-b border-ink-200 bg-white/95 backdrop-blur">
+    <div class="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-16 items-center justify-between gap-4">
+
+        <div class="flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-900 shadow-sm flex-shrink-0">
+            <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6 text-white" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 3h18v4H3z"/><path d="M5 7v14h14V7"/><path d="M9 11h6"/><path d="M9 15h6"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-base font-bold tracking-tight text-ink-900">Phantom Flow</div>
+            <div class="text-xs font-medium text-ink-500">Enforcement Triage · Federal Grants</div>
+          </div>
+        </div>
+
+        <!-- Nav tabs (desktop) -->
+        <nav class="hidden md:flex items-center gap-1" aria-label="Main navigation">
+          <button data-tab="queue"   class="nav-tab active" type="button">Queue</button>
+          <button data-tab="chart"   class="nav-tab"        type="button">Chart</button>
+          <button data-tab="lookup"  class="nav-tab"        type="button">Entity Lookup</button>
+          <button data-tab="upload"  class="nav-tab"        type="button">Upload CSV</button>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <span id="keyBadge" class="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-ink-200 bg-white px-3 py-1 text-xs font-medium text-ink-700">
+            <span id="keyDot" class="h-2 w-2 rounded-full bg-ink-300"></span>
+            <span id="keyLabel">No API key</span>
+          </span>
+          <button id="settingsBtn" type="button" aria-label="Settings" class="inline-flex items-center gap-2 rounded-lg border border-ink-200 bg-white px-3 py-2 text-sm font-medium text-ink-700 hover:bg-ink-50 focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer transition-colors min-h-[44px]">
+            <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Settings
+          </button>
+          <!-- Mobile menu -->
+          <button id="mobileMenuBtn" type="button" class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-ink-200 bg-white text-ink-700 hover:bg-ink-50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500">
+            <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile nav drawer -->
+  <div id="mobileMenu" class="fixed inset-0 z-30 hidden md:hidden" aria-hidden="true">
+    <div class="absolute inset-0 bg-ink-900/50" data-close-menu></div>
+    <nav class="absolute top-16 inset-x-0 bg-white border-b border-ink-200 p-4 flex flex-col gap-1" aria-label="Mobile navigation">
+      <button data-tab="queue"  data-close-menu class="mobile-nav-tab" type="button">Queue</button>
+      <button data-tab="chart"  data-close-menu class="mobile-nav-tab" type="button">Chart</button>
+      <button data-tab="lookup" data-close-menu class="mobile-nav-tab" type="button">Entity Lookup</button>
+      <button data-tab="upload" data-close-menu class="mobile-nav-tab" type="button">Upload CSV</button>
+    </nav>
+  </div>
+
+  <main class="pt-16">
+
+    <!-- ─── KPI STRIP ──────────────────────────────────────────────────────── -->
+    <div class="border-b border-ink-200 bg-white">
+      <div class="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-x divide-ink-100">
+          <div class="kpi-cell">
+            <div class="kpi-label">Entities analyzed</div>
+            <div class="kpi-val text-ink-900" data-kpi="entities">—</div>
+          </div>
+          <div class="kpi-cell">
+            <div class="kpi-label">Zombie candidates</div>
+            <div class="kpi-val text-brand-700" data-kpi="zombies">—</div>
+            <div class="kpi-sub">dissolved ≤ 12 months</div>
+          </div>
+          <div class="kpi-cell col-span-2 sm:col-span-1">
+            <div class="kpi-label">Immediate referrals</div>
+            <div class="kpi-val text-danger-700" data-kpi="referrals">—</div>
+            <div class="kpi-sub">high ROI · confident match</div>
+          </div>
+          <div class="kpi-cell col-span-2 sm:col-span-1">
+            <div class="kpi-label">Total public funding</div>
+            <div class="kpi-val text-ink-900" data-kpi="awarded">—</div>
+            <div class="kpi-sub">in matching entities</div>
+          </div>
+          <div class="kpi-cell col-span-2 sm:col-span-1">
+            <div class="kpi-label">Est. recoverable</div>
+            <div class="kpi-val text-accent-600" data-kpi="recoverable">—</div>
+            <div class="kpi-sub">from zombie candidates</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── QUEUE TAB ─────────────────────────────────────────────────────── -->
+    <div id="tab-queue" class="tab-panel mx-auto max-w-screen-2xl px-4 py-6 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
+
+        <!-- Sidebar filters -->
+        <aside class="hidden lg:block self-start sticky top-20">
+          <div class="rounded-xl border border-ink-200 bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-base font-semibold text-ink-900">Filters</h2>
+              <button id="resetFilters" type="button" class="text-sm text-brand-600 hover:text-brand-800 hover:underline cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500 rounded px-1">Reset</button>
+            </div>
+            <div id="filtersInner" class="space-y-5">
+              <div>
+                <label for="filterSearch" class="filter-label">Search entity name</label>
+                <input id="filterSearch" type="search" inputmode="search" placeholder="Type to filter…"
+                  class="filter-input mt-1" />
+              </div>
+              <div>
+                <div class="filter-label mb-2">Recommendation</div>
+                <div id="filterRec" class="flex flex-wrap gap-2" role="group" aria-label="Filter by recommendation"></div>
+              </div>
+              <div>
+                <label for="filterProvince" class="filter-label">Province</label>
+                <select id="filterProvince" class="filter-input mt-1">
+                  <option value="">All provinces</option>
+                </select>
+              </div>
+              <div>
+                <label for="filterConfidence" class="filter-label">Match confidence</label>
+                <select id="filterConfidence" class="filter-input mt-1">
+                  <option value="">Any</option>
+                  <option value="high">High ≥ 92</option>
+                  <option value="medium">Medium 80–91</option>
+                  <option value="low">Low 65–79</option>
+                  <option value="none">None &lt; 65</option>
+                </select>
+              </div>
+              <div>
+                <label for="filterDep" class="filter-label">Funding dependency</label>
+                <select id="filterDep" class="filter-input mt-1">
+                  <option value="">Any</option>
+                  <option value="high">High (≈ &gt;70% revenue)</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+              </div>
+              <div>
+                <div class="flex items-center justify-between">
+                  <label for="filterScore" class="filter-label">Min ROI score</label>
+                  <span id="filterScoreVal" class="font-mono text-sm font-semibold text-ink-700">0</span>
+                </div>
+                <input id="filterScore" type="range" min="0" max="100" value="0" class="mt-2 w-full accent-brand-700" />
+              </div>
+              <label class="flex items-center gap-3 cursor-pointer">
+                <input id="filterZombies" type="checkbox" class="h-4 w-4 rounded border-ink-300 text-brand-700 focus:ring-brand-500" checked />
+                <span class="text-sm text-ink-700">Zombies only (≤ 12 months)</span>
+              </label>
+            </div>
+
+            <div class="mt-5 border-t border-ink-100 pt-4 space-y-2">
+              <button id="runDemoBtn" type="button" class="btn-primary w-full">
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 flex-shrink-0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Run demo pipeline
+              </button>
+              <button id="runLiveBtn" type="button" class="btn-secondary w-full">
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 flex-shrink-0" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zM11 11V7"/><circle cx="11" cy="13" r=".5" fill="currentColor"/></svg>
+                Run live (real data)
+              </button>
+            </div>
+            <div id="pipelineStatus" class="mt-3 hidden text-sm rounded-lg p-3 bg-brand-50 text-brand-700 border border-brand-200">
+              <div class="flex items-center gap-2">
+                <span class="inline-block h-3 w-3 rounded-full bg-brand-500 animate-pulse"></span>
+                <span id="pipelineMsg">Pipeline running…</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Queue content -->
+        <div id="queue" class="min-w-0">
+          <div class="flex flex-wrap items-end justify-between gap-3 mb-4">
+            <div>
+              <h1 class="text-xl font-bold text-ink-900 sm:text-2xl">Ranked enforcement queue</h1>
+              <p class="text-sm text-ink-500 mt-0.5"><span id="queueCount">0</span> cases · sorted by ROI score</p>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <div class="hidden sm:flex items-center gap-3 text-xs text-ink-500">
+                <span class="legend-dot bg-danger-500">Refer</span>
+                <span class="legend-dot bg-warn-500">Letter</span>
+                <span class="legend-dot bg-brand-500">Review</span>
+                <span class="legend-dot bg-ink-400">Monitor</span>
+                <span class="legend-dot bg-ink-300">Write off</span>
+              </div>
+              <button id="exportBtn" type="button" class="btn-ghost text-sm">
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m6 9 6 6 6-6"/><path d="M5 21h14"/></svg>
+                Export CSV
+              </button>
+              <button id="filtersToggleMobile" type="button" class="lg:hidden btn-ghost text-sm">
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M7 12h10"/><path d="M10 18h4"/></svg>
+                Filters
+              </button>
+            </div>
+          </div>
+
+          <!-- Skeleton -->
+          <div id="loading" class="space-y-3" aria-hidden="true">
+            <div class="h-20 rounded-xl bg-ink-100 animate-pulse"></div>
+            <div class="h-20 rounded-xl bg-ink-100 animate-pulse opacity-75"></div>
+            <div class="h-20 rounded-xl bg-ink-100 animate-pulse opacity-50"></div>
+          </div>
+
+          <!-- Empty state -->
+          <div id="emptyState" class="hidden rounded-xl border-2 border-dashed border-ink-300 bg-white p-10 text-center">
+            <svg viewBox="0 0 24 24" fill="none" class="mx-auto h-12 w-12 text-ink-300" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="m8 21 4-4 4 4"/><path d="M7 8h10"/><path d="M7 12h5"/></svg>
+            <p class="mt-4 text-lg font-semibold text-ink-700">No results loaded</p>
+            <p class="mt-2 text-sm text-ink-500 max-w-sm mx-auto">Run the demo pipeline from the sidebar or upload your own grants CSV to get started.</p>
+            <button id="emptyRunBtn" type="button" class="btn-primary mt-6 mx-auto">Run demo pipeline</button>
+          </div>
+
+          <!-- Mobile cards -->
+          <ul id="queueCards" class="grid gap-3 lg:hidden" role="list"></ul>
+
+          <!-- Desktop table -->
+          <div class="hidden lg:block overflow-hidden rounded-xl border border-ink-200 bg-white shadow-sm">
+            <div class="overflow-x-auto">
+              <table id="queueTable" class="min-w-full text-sm">
+                <thead class="border-b border-ink-200 bg-ink-50 text-left">
+                  <tr>
+                    <th scope="col" class="th" data-sort="display_name">Entity</th>
+                    <th scope="col" class="th text-center" data-sort="is_zombie">Zombie</th>
+                    <th scope="col" class="th" data-sort="province">Prov</th>
+                    <th scope="col" class="th text-right" data-sort="total_awarded">Awarded</th>
+                    <th scope="col" class="th text-right" data-sort="estimated_recoverable">Recoverable</th>
+                    <th scope="col" class="th text-right" data-sort="months_to_dissolution">Δ mo</th>
+                    <th scope="col" class="th" data-sort="roi_score">ROI score</th>
+                    <th scope="col" class="th" data-sort="recommendation">Recommendation</th>
+                    <th scope="col" class="th" data-sort="funding_dependency">Dependency</th>
+                  </tr>
+                </thead>
+                <tbody id="queueRows" class="divide-y divide-ink-100"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── CHART TAB ─────────────────────────────────────────────────────── -->
+    <div id="tab-chart" class="tab-panel hidden mx-auto max-w-screen-2xl px-4 py-6 sm:px-6 lg:px-8">
+      <h1 class="text-xl font-bold text-ink-900 sm:text-2xl mb-1">Recovery ROI — top entities</h1>
+      <p class="text-sm text-ink-500 mb-6">Horizontal bar chart ranked by ROI score. Color = recommendation.</p>
+      <div class="grid gap-6 lg:grid-cols-[1fr_320px]">
+        <div class="rounded-xl border border-ink-200 bg-white p-6 shadow-sm overflow-x-auto">
+          <canvas id="roiChart" aria-label="ROI score bar chart" role="img"></canvas>
+        </div>
+        <div class="space-y-4">
+          <div class="rounded-xl border border-ink-200 bg-white p-5 shadow-sm">
+            <h3 class="text-base font-semibold text-ink-900 mb-4">Funding dependency breakdown</h3>
+            <canvas id="depChart" aria-label="Funding dependency pie chart" role="img"></canvas>
+          </div>
+          <div class="rounded-xl border border-ink-200 bg-white p-5 shadow-sm">
+            <h3 class="text-base font-semibold text-ink-900 mb-3">Legend</h3>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-center gap-2"><span class="h-3 w-5 rounded-sm bg-danger-500 flex-shrink-0"></span><span class="text-ink-700">Immediate referral — high ROI + strong evidence</span></div>
+              <div class="flex items-center gap-2"><span class="h-3 w-5 rounded-sm bg-warn-500 flex-shrink-0"></span><span class="text-ink-700">Compliance letter — moderate ROI</span></div>
+              <div class="flex items-center gap-2"><span class="h-3 w-5 rounded-sm bg-brand-500 flex-shrink-0"></span><span class="text-ink-700">Review — weak match, needs verification</span></div>
+              <div class="flex items-center gap-2"><span class="h-3 w-5 rounded-sm bg-ink-400 flex-shrink-0"></span><span class="text-ink-700">Monitor — no zombie signal yet</span></div>
+              <div class="flex items-center gap-2"><span class="h-3 w-5 rounded-sm bg-ink-300 flex-shrink-0"></span><span class="text-ink-700">Write off — recovery cost exceeds benefit</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── ENTITY LOOKUP TAB ─────────────────────────────────────────────── -->
+    <div id="tab-lookup" class="tab-panel hidden mx-auto max-w-screen-2xl px-4 py-6 sm:px-6 lg:px-8">
+      <h1 class="text-xl font-bold text-ink-900 sm:text-2xl mb-1">Entity lookup</h1>
+      <p class="text-sm text-ink-500 mb-6">Enter a company or nonprofit name to check its corporate status against Corporations Canada and score it.</p>
+
+      <div class="max-w-2xl">
+        <div class="rounded-xl border border-ink-200 bg-white p-6 shadow-sm">
+          <label for="lookupInput" class="filter-label text-base">Company / nonprofit name</label>
+          <div class="mt-2 flex gap-2">
+            <input id="lookupInput" type="text" inputmode="search" placeholder="e.g. Northstar Logistics Inc." class="filter-input flex-1 text-base" />
+            <button id="lookupBtn" type="button" class="btn-primary flex-shrink-0">Look up</button>
+          </div>
+          <p class="mt-2 text-xs text-ink-500">Live search against Corporations Canada. Requires <code class="font-mono bg-ink-100 px-1 rounded">PHANTOM_FLOW_USE_LIVE_CORP=true</code> or will use cached fixture.</p>
+        </div>
+
+        <div id="lookupLoading" class="hidden mt-4 rounded-xl border border-ink-200 bg-white p-6 shadow-sm text-center text-sm text-ink-500">
+          <span class="inline-block h-4 w-4 rounded-full border-2 border-brand-500 border-t-transparent animate-spin mr-2"></span>
+          Looking up entity…
+        </div>
+        <div id="lookupResult" class="hidden mt-4 rounded-xl border border-ink-200 bg-white p-6 shadow-sm"></div>
+        <div id="lookupError" class="hidden mt-4 rounded-xl border border-danger-200 bg-danger-50 p-4 text-sm text-danger-700"></div>
+      </div>
+    </div>
+
+    <!-- ─── UPLOAD TAB ─────────────────────────────────────────────────────── -->
+    <div id="tab-upload" class="tab-panel hidden mx-auto max-w-screen-2xl px-4 py-6 sm:px-6 lg:px-8">
+      <h1 class="text-xl font-bold text-ink-900 sm:text-2xl mb-1">Upload grants CSV</h1>
+      <p class="text-sm text-ink-500 mb-6">Upload the Government of Canada proactive disclosure grants CSV, or any CSV matching its schema.</p>
+
+      <div class="max-w-2xl space-y-6">
+        <!-- Upload area -->
+        <div class="rounded-xl border border-ink-200 bg-white p-6 shadow-sm">
+          <div id="dropzone" class="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-ink-300 bg-ink-50 p-10 text-center cursor-pointer hover:border-brand-400 hover:bg-brand-50 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-500" tabindex="0" role="button" aria-label="Drop CSV file here or click to choose">
+            <svg viewBox="0 0 24 24" fill="none" class="h-12 w-12 text-ink-400 mb-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="12" x2="12" y2="18"/><polyline points="9 15 12 18 15 15"/></svg>
+            <p class="text-base font-semibold text-ink-700">Drop your grants CSV here</p>
+            <p class="text-sm text-ink-500 mt-1">or click to browse</p>
+            <input id="fileInput" type="file" accept=".csv" class="sr-only" />
+          </div>
+
+          <div id="uploadStatus" class="hidden mt-4 rounded-lg p-4 text-sm"></div>
+
+          <div class="mt-5 flex gap-3">
+            <button id="uploadBtn" type="button" class="btn-primary flex-1" disabled>
+              <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Upload CSV
+            </button>
+            <button id="uploadRunBtn" type="button" class="btn-secondary flex-1" disabled>
+              <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Upload &amp; Run
+            </button>
+          </div>
+        </div>
+
+        <!-- Official source -->
+        <div class="rounded-xl border border-ink-200 bg-white p-6 shadow-sm">
+          <h3 class="text-base font-semibold text-ink-900 mb-2">Official data source</h3>
+          <p class="text-sm text-ink-700 mb-3">Download directly from the Government of Canada open data portal:</p>
+          <div class="rounded-lg bg-ink-50 border border-ink-200 p-3 font-mono text-xs text-ink-700 break-all">
+            https://open.canada.ca/data/dataset/432527ab-7aac-45b5-81d6-7597107a7013/resource/1d15a62f-5656-49ad-8c88-f40ce689d831/download/grants.csv
+          </div>
+          <div class="mt-4 space-y-1 text-sm text-ink-600">
+            <p><span class="font-medium">Required columns:</span> recipient_legal_name, recipient_type, agreement_value, agreement_start_date, owner_org</p>
+            <p><span class="font-medium">Target types:</span> F (for-profit), N (nonprofit/charity), A (Indigenous), O (other)</p>
+            <p><span class="font-medium">Min award:</span> $25,000</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ─── SETTINGS MODAL ──────────────────────────────────────────────────── -->
+  <div id="settingsModal" class="fixed inset-0 z-50 hidden" aria-hidden="true">
+    <div class="absolute inset-0 bg-ink-900/60 backdrop-blur-sm" data-close-settings></div>
+    <div role="dialog" aria-modal="true" aria-labelledby="settingsTitle" class="absolute inset-x-4 top-20 bottom-4 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:top-20 sm:bottom-auto sm:w-full sm:max-w-lg overflow-y-auto rounded-2xl bg-white shadow-2xl">
+      <div class="flex items-center justify-between p-6 border-b border-ink-100">
+        <h2 id="settingsTitle" class="text-lg font-bold text-ink-900">Settings &amp; API Keys</h2>
+        <button data-close-settings type="button" aria-label="Close settings" class="rounded-lg p-2 text-ink-500 hover:bg-ink-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500 min-h-[44px] min-w-[44px]">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <div class="p-6 space-y-6">
+
+        <!-- API keys explainer -->
+        <div class="rounded-xl bg-brand-50 border border-brand-200 p-4">
+          <h3 class="text-sm font-semibold text-brand-900 mb-2">What API keys do you need?</h3>
+          <div class="space-y-2 text-sm text-brand-800">
+            <div class="flex items-start gap-2">
+              <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 text-brand-600 flex-shrink-0 mt-0.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Anthropic API key</strong> — required for Claude to write AI case summaries. Get one at console.anthropic.com.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 text-brand-400 flex-shrink-0 mt-0.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span><strong>Grants CSV</strong> — no key needed. Public download from open.canada.ca (Upload tab).</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 text-brand-400 flex-shrink-0 mt-0.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span><strong>Corporations Canada</strong> — no key for basic search. Rate-limited; demo uses offline fixture.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Anthropic key input -->
+        <div>
+          <label for="apiKeyInput" class="filter-label text-sm">Anthropic API key</label>
+          <div class="mt-1.5 relative">
+            <input id="apiKeyInput" type="password" placeholder="sk-ant-…" autocomplete="off" spellcheck="false"
+              class="filter-input pr-12 font-mono text-sm" />
+            <button id="toggleKeyVis" type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-ink-400 hover:text-ink-700 cursor-pointer focus:outline-none" aria-label="Toggle key visibility">
+              <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" class="h-5 w-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <p class="mt-1.5 text-xs text-ink-500">Stored in <code class="font-mono bg-ink-100 px-1 rounded">.env</code> on the server. Never sent to third parties.</p>
+        </div>
+
+        <!-- Corp lookup toggle -->
+        <div class="flex items-start gap-3 rounded-xl bg-ink-50 border border-ink-200 p-4">
+          <input id="liveCorpToggle" type="checkbox" class="h-5 w-5 mt-0.5 rounded border-ink-300 text-brand-700 focus:ring-brand-500 flex-shrink-0" />
+          <div>
+            <label for="liveCorpToggle" class="text-sm font-semibold text-ink-900 cursor-pointer">Live Corporations Canada lookup</label>
+            <p class="text-xs text-ink-500 mt-0.5">When enabled, each entity is searched against the live ISED API. Slower but more current than the demo fixture. Responses are cached to disk.</p>
+          </div>
+        </div>
+
+        <button id="saveSettingsBtn" type="button" class="btn-primary w-full text-base py-3">Save settings</button>
+        <div id="settingsSaved" class="hidden rounded-lg bg-ok-50 border border-ok-400 text-ok-700 text-sm p-3 text-center font-medium">Settings saved successfully.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── CASE DETAIL PANEL ─────────────────────────────────────────────── -->
+  <div id="casePanel" class="fixed inset-0 z-40 hidden" aria-hidden="true">
+    <div class="absolute inset-0 bg-ink-900/50" data-close-case></div>
+    <aside role="dialog" aria-modal="true" aria-labelledby="caseTitle"
+      class="absolute bottom-0 left-0 right-0 max-h-[92vh] overflow-y-auto rounded-t-2xl bg-white shadow-2xl sm:inset-y-0 sm:right-0 sm:left-auto sm:bottom-auto sm:top-0 sm:max-h-none sm:h-full sm:w-full sm:max-w-lg sm:rounded-none sm:rounded-l-2xl">
+      <div class="flex items-start justify-between gap-3 p-5 sm:p-6 border-b border-ink-100 sticky top-0 bg-white z-10">
+        <div class="min-w-0">
+          <p class="text-xs uppercase tracking-widest text-ink-400 font-medium">Case detail</p>
+          <h2 id="caseTitle" class="text-lg font-bold text-ink-900 mt-0.5 leading-tight"></h2>
+        </div>
+        <button data-close-case type="button" aria-label="Close" class="rounded-lg p-2 text-ink-400 hover:bg-ink-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-500 min-h-[44px] min-w-[44px] flex-shrink-0">
+          <svg viewBox="0 0 24 24" fill="none" class="h-5 w-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <div id="caseBody" class="p-5 sm:p-6 space-y-6"></div>
+    </aside>
+  </div>
+
+  <!-- Mobile filters drawer -->
+  <div id="filtersDrawer" class="fixed inset-0 z-30 hidden lg:hidden" aria-hidden="true">
+    <div class="absolute inset-0 bg-ink-900/50" data-close-drawer></div>
+    <div role="dialog" aria-modal="true" aria-label="Filters" class="absolute bottom-0 inset-x-0 rounded-t-2xl bg-white p-5 shadow-2xl max-h-[85vh] overflow-y-auto">
+      <div class="mx-auto h-1.5 w-12 rounded-full bg-ink-200 mb-4"></div>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-bold">Filters</h2>
+        <button data-close-drawer class="text-sm text-brand-600 hover:underline cursor-pointer">Reset</button>
+      </div>
+      <div id="filtersDrawerSlot"></div>
+      <div class="mt-5 flex gap-3">
+        <button data-close-drawer class="btn-secondary flex-1 min-h-[48px]">Cancel</button>
+        <button data-close-drawer class="btn-primary flex-1 min-h-[48px]">Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-ink-200 bg-white mt-8">
+    <div class="mx-auto max-w-screen-2xl px-4 py-5 sm:px-6 lg:px-8">
+      <p class="text-sm text-ink-500 max-w-3xl">
+        <strong class="font-medium text-ink-700">Limitation notice:</strong>
+        Phantom Flow surfaces public-record patterns only. Public funding dependency is a proxy metric — no revenue data is available in the grants dataset. It does not assert fraud or wrongdoing. Confirm every case against authoritative sources before acting.
+      </p>
+    </div>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>

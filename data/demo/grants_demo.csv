@@ -1,0 +1,21 @@
+recipient_legal_name,recipient_type,agreement_value,agreement_start_date,agreement_end_date,recipient_province,owner_org,owner_org_title,description_en,naics_identifier
+"Northstar Logistics Inc.",F,1250000,2021-06-15,2022-01-31,ON,ised,"Innovation Science Economic Development","Wage subsidy and capital support for logistics tech",488510
+"Northstar Logistics Inc.",F,450000,2021-10-10,2022-02-28,ON,fednor,"Federal Economic Development Agency Northern ON","Regional development grant phase 2",488510
+"Northstar Logistics Inc.",F,300000,2021-12-22,2022-03-01,ON,nrcan,"Natural Resources Canada","Clean tech adoption pilot logistics fleet",488510
+"Aurora BioGreen Ltd.",N,2100000,2021-11-01,2022-06-30,QC,nserc,"Natural Sciences Engineering Research Council","Industrial biofuel research partnership",325190
+"Aurora BioGreen Ltd.",N,750000,2022-01-15,2022-08-30,QC,ised,"Innovation Science Economic Development","Innovation Solutions Canada clean tech stream",325190
+"Whitewater Skills Foundation",N,550000,2018-09-01,2019-08-31,BC,esdc,"Employment Social Development Canada","Apprenticeship training support",611430
+"Whitewater Skills Foundation",N,330000,2020-01-12,2021-01-12,BC,esdc,"Employment Social Development Canada","Skills continuation grant cohort 2",611430
+"Maritime Mosaic Co-op",N,980000,2017-05-20,2018-05-20,NS,acoa,"Atlantic Canada Opportunities Agency","Atlantic Innovation Fund co-operative",522130
+"Maritime Mosaic Co-op",N,260000,2019-09-15,2020-03-15,NS,acoa,"Atlantic Canada Opportunities Agency","Sector support bridge funding",522130
+"PrairieRoot Tech Corp",F,3500000,2021-03-04,2021-12-31,SK,ised,"Innovation Science Economic Development","SIF growth stream prairie digital hub",541510
+"PrairieRoot Tech Corp",F,1100000,2021-07-30,2022-01-20,SK,nrcan,"Natural Resources Canada","Energy R&D clean prairie initiative",541510
+"Greenleaf Cooperative",N,125000,2020-07-01,2021-06-30,MB,heritage,"Canadian Heritage","Cultural community support arts program",711120
+"Greenleaf Cooperative",N,95000,2021-11-12,2022-11-12,MB,heritage,"Canadian Heritage","Continuation heritage programming 2022",711120
+"True North Manufacturing Inc.",F,4200000,2019-09-08,2020-03-28,ON,ised,"Innovation Science Economic Development","Advanced manufacturing program scale-up",332310
+"True North Manufacturing Inc.",F,780000,2020-01-19,2020-03-28,ON,fednor,"Federal Economic Development Agency Northern ON","Capital expansion final phase",332310
+"Quartz Valley Holdings Ltd.",F,660000,2020-08-25,2021-06-14,AB,wd,"Prairies Economic Development","Western diversification energy transition",213118
+"Quartz Valley Holdings Ltd.",F,240000,2021-01-12,2021-06-12,AB,wd,"Prairies Economic Development","Continuation diversification phase 2",213118
+"Halifax Hydroponics Co.",N,90000,2021-06-01,2022-05-31,NS,acoa,"Atlantic Canada Opportunities Agency","Pilot hydroponic urban agriculture grant",111419
+"Pacific Stone Society",N,480000,2019-04-10,2020-05-29,BC,heritage,"Canadian Heritage","Community arts development 2019",712110
+"Pacific Stone Society",N,150000,2020-02-02,2020-05-30,BC,heritage,"Canadian Heritage","Emergency bridge arts sector COVID",712110
