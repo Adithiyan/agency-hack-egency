@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Phantom Flow</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">PF</div>
+          <div>
+            <h1>Phantom Flow</h1>
+            <p>Recovery triage console</p>
+          </div>
+        </div>
+        <nav>
+          <button class="nav-item active" data-view="queue">Queue</button>
+          <button class="nav-item" data-view="portfolio">Portfolio</button>
+          <button class="nav-item" data-view="evidence">Evidence</button>
+        </nav>
+        <div class="source-note">
+          <strong>Demo mode</strong>
+          <span>Representative cached records. Live source validation remains tracked in docs.</span>
+        </div>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Zombie Recipients Challenge</p>
+            <h2>Ranked enforcement queue</h2>
+          </div>
+          <div class="top-actions">
+            <button id="exportBtn" class="button secondary">Export CSV</button>
+            <button id="refreshBtn" class="button primary">Reload Data</button>
+          </div>
+        </header>
+
+        <section class="metrics" id="metrics"></section>
+
+        <section class="controls">
+          <label>
+            Search
+            <input id="searchInput" type="search" placeholder="Entity, province, department" />
+          </label>
+          <label>
+            Priority
+            <select id="priorityFilter"></select>
+          </label>
+          <label>
+            Province
+            <select id="provinceFilter"></select>
+          </label>
+          <label>
+            Confidence
+            <select id="confidenceFilter"></select>
+          </label>
+          <label class="toggle">
+            <input id="zombieOnly" type="checkbox" />
+            <span>Zombie candidates only</span>
+          </label>
+        </section>
+
+        <section class="content-grid">
+          <div class="panel queue-panel">
+            <div class="panel-header">
+              <div>
+                <h3>Cases</h3>
+                <p id="caseCount">0 records</p>
+              </div>
+              <div class="segmented">
+                <button class="active" data-sort="roi_score">Score</button>
+                <button data-sort="total_awarded">Awarded</button>
+                <button data-sort="estimated_recoverable">Recoverable</button>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Entity</th>
+                    <th>Priority</th>
+                    <th>Awarded</th>
+                    <th>Recoverable</th>
+                    <th>Score</th>
+                    <th>Months</th>
+                  </tr>
+                </thead>
+                <tbody id="queueBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <aside class="panel case-panel" id="casePanel"></aside>
+        </section>
+
+        <section class="panel insights">
+          <div class="panel-header">
+            <div>
+              <h3>Portfolio View</h3>
+              <p>Distribution across priority, province, and recommendation.</p>
+            </div>
+          </div>
+          <div class="charts">
+            <div>
+              <h4>Priority Mix</h4>
+              <div id="priorityChart" class="bars"></div>
+            </div>
+            <div>
+              <h4>Top Provinces by Exposure</h4>
+              <div id="provinceChart" class="bars"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

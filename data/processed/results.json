@@ -1,0 +1,2039 @@
+[
+  {
+    "entity_key": "VANCOUVER ISLAND MARINE REPAIR",
+    "display_name": "Vancouver Island Marine Repair Ltd.",
+    "total_awarded": 5685000.0,
+    "num_grants": 3,
+    "first_award_date": "2024-12-11",
+    "last_award_date": "2025-06-23",
+    "province": "British Columbia",
+    "departments": [
+      "Employment and Social Development Canada",
+      "Environment and Climate Change Canada",
+      "Innovation, Science and Economic Development Canada"
+    ],
+    "programs": [
+      "Business Scale-up and Productivity",
+      "Business Scale-up and Productivity Extension"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-020-3",
+        "agreement_value": 2035000.0,
+        "agreement_start_date": "2025-06-23",
+        "department": "Environment and Climate Change Canada",
+        "program_name": "Business Scale-up and Productivity Extension",
+        "description": "Representative demo award for business scale-up and productivity."
+      },
+      {
+        "agreement_number": "GC-DEMO-020-2",
+        "agreement_value": 1895000.0,
+        "agreement_start_date": "2025-03-18",
+        "department": "Employment and Social Development Canada",
+        "program_name": "Business Scale-up and Productivity Extension",
+        "description": "Representative demo award for business scale-up and productivity."
+      },
+      {
+        "agreement_number": "GC-DEMO-020-1",
+        "agreement_value": 1755000.0,
+        "agreement_start_date": "2024-12-11",
+        "department": "Innovation, Science and Economic Development Canada",
+        "program_name": "Business Scale-up and Productivity",
+        "description": "Representative demo award for business scale-up and productivity."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500020-0",
+      "legal_name": "Vancouver Island Marine Repair Ltd.",
+      "status": "Dissolved",
+      "dissolution_date": "2025-11-22",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 5,
+    "roi_score": 100,
+    "score_breakdown": {
+      "recoverable_amount": 35,
+      "evidence_strength": 30,
+      "pursuit_cost": 20,
+      "public_value_exposure": 15
+    },
+    "recommendation": "Immediate referral",
+    "priority": "High",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Strict 12-month zombie window",
+      "Multiple awards",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 3126750.0,
+    "case_summary": "Vancouver Island Marine Repair Ltd. received $5,685,000 across 3 disclosed grant or contribution award(s), with the last award dated 2025-06-23. The matched federal corporation record shows status 'Dissolved' and dissolution date 2025-11-22, creating a 5 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Strict 12-month zombie window, Multiple awards, Multiple programs, Large total award exposure. Recommended action: Immediate referral based on an ROI score of 100/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "HARBOUR YOUTH PATHWAYS",
+    "display_name": "Harbour Youth Pathways Foundation",
+    "total_awarded": 1203000.0,
+    "num_grants": 3,
+    "first_award_date": "2023-06-02",
+    "last_award_date": "2023-12-13",
+    "province": "New Brunswick",
+    "departments": [
+      "Environment and Climate Change Canada",
+      "National Research Council Canada",
+      "Regional Development Agency"
+    ],
+    "programs": [
+      "Youth Employment Partnership",
+      "Youth Employment Partnership Extension"
+    ],
+    "recipient_types": [
+      "Non-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-002-3",
+        "agreement_value": 541000.0,
+        "agreement_start_date": "2023-12-13",
+        "department": "National Research Council Canada",
+        "program_name": "Youth Employment Partnership Extension",
+        "description": "Representative demo award for youth employment partnership."
+      },
+      {
+        "agreement_number": "GC-DEMO-002-2",
+        "agreement_value": 401000.0,
+        "agreement_start_date": "2023-09-07",
+        "department": "Regional Development Agency",
+        "program_name": "Youth Employment Partnership Extension",
+        "description": "Representative demo award for youth employment partnership."
+      },
+      {
+        "agreement_number": "GC-DEMO-002-1",
+        "agreement_value": 261000.0,
+        "agreement_start_date": "2023-06-02",
+        "department": "Environment and Climate Change Canada",
+        "program_name": "Youth Employment Partnership",
+        "description": "Representative demo award for youth employment partnership."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500002-2",
+      "legal_name": "Harbour Youth Pathways Foundation",
+      "status": "Dissolved",
+      "dissolution_date": "2024-05-13",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 5,
+    "roi_score": 94,
+    "score_breakdown": {
+      "recoverable_amount": 29,
+      "evidence_strength": 30,
+      "pursuit_cost": 20,
+      "public_value_exposure": 15
+    },
+    "recommendation": "Immediate referral",
+    "priority": "High",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Strict 12-month zombie window",
+      "Multiple awards",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 661650.0,
+    "case_summary": "Harbour Youth Pathways Foundation received $1,203,000 across 3 disclosed grant or contribution award(s), with the last award dated 2023-12-13. The matched federal corporation record shows status 'Dissolved' and dissolution date 2024-05-13, creating a 5 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Strict 12-month zombie window, Multiple awards, Multiple programs, Large total award exposure. Recommended action: Immediate referral based on an ROI score of 94/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "FREDERICTON BIOFUELS COOPERATIVE",
+    "display_name": "Fredericton Biofuels Cooperative",
+    "total_awarded": 3484000.0,
+    "num_grants": 2,
+    "first_award_date": "2024-11-10",
+    "last_award_date": "2025-02-15",
+    "province": "New Brunswick",
+    "departments": [
+      "Innovation, Science and Economic Development Canada",
+      "National Research Council Canada"
+    ],
+    "programs": [
+      "Clean Fuels Support",
+      "Clean Fuels Support Extension"
+    ],
+    "recipient_types": [
+      "Non-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-019-2",
+        "agreement_value": 1812000.0,
+        "agreement_start_date": "2025-02-15",
+        "department": "Innovation, Science and Economic Development Canada",
+        "program_name": "Clean Fuels Support Extension",
+        "description": "Representative demo award for clean fuels support."
+      },
+      {
+        "agreement_number": "GC-DEMO-019-1",
+        "agreement_value": 1672000.0,
+        "agreement_start_date": "2024-11-10",
+        "department": "National Research Council Canada",
+        "program_name": "Clean Fuels Support",
+        "description": "Representative demo award for clean fuels support."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500019-9",
+      "legal_name": "Fredericton Biofuels Cooperative",
+      "status": "Dissolved",
+      "dissolution_date": "2025-06-17",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 4,
+    "roi_score": 92,
+    "score_breakdown": {
+      "recoverable_amount": 29,
+      "evidence_strength": 30,
+      "pursuit_cost": 20,
+      "public_value_exposure": 13
+    },
+    "recommendation": "Immediate referral",
+    "priority": "High",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Strict 12-month zombie window",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 1916200.0,
+    "case_summary": "Fredericton Biofuels Cooperative received $3,484,000 across 2 disclosed grant or contribution award(s), with the last award dated 2025-02-15. The matched federal corporation record shows status 'Dissolved' and dissolution date 2025-06-17, creating a 4 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Strict 12-month zombie window, Multiple programs, Large total award exposure. Recommended action: Immediate referral based on an ROI score of 92/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "NORTHSTAR CLEAN MATERIALS",
+    "display_name": "Northstar Clean Materials Inc.",
+    "total_awarded": 2030000.0,
+    "num_grants": 2,
+    "first_award_date": "2025-02-15",
+    "last_award_date": "2025-05-09",
+    "province": "Ontario",
+    "departments": [
+      "Environment and Climate Change Canada",
+      "Innovation, Science and Economic Development Canada"
+    ],
+    "programs": [
+      "Clean Technology Demonstration Program",
+      "Low Carbon Economy Fund"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-2025-019",
+        "agreement_value": 780000.0,
+        "agreement_start_date": "2025-05-09",
+        "department": "Environment and Climate Change Canada",
+        "program_name": "Low Carbon Economy Fund",
+        "description": "Contribution toward emissions reduction equipment."
+      },
+      {
+        "agreement_number": "GC-2025-001",
+        "agreement_value": 1250000.0,
+        "agreement_start_date": "2025-02-15",
+        "department": "Innovation, Science and Economic Development Canada",
+        "program_name": "Clean Technology Demonstration Program",
+        "description": "Support for pilot-scale recovery of industrial materials."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1420001-0",
+      "legal_name": "Northstar Clean Materials Inc.",
+      "status": "Dissolved",
+      "dissolution_date": "2025-11-22",
+      "jurisdiction": "Federal",
+      "source_url": "Demo cache: replace with Corporations Canada record URL after validation"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 6,
+    "roi_score": 92,
+    "score_breakdown": {
+      "recoverable_amount": 29,
+      "evidence_strength": 30,
+      "pursuit_cost": 20,
+      "public_value_exposure": 13
+    },
+    "recommendation": "Immediate referral",
+    "priority": "High",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Strict 12-month zombie window",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 1116500.0,
+    "case_summary": "Northstar Clean Materials Inc. received $2,030,000 across 2 disclosed grant or contribution award(s), with the last award dated 2025-05-09. The matched federal corporation record shows status 'Dissolved' and dissolution date 2025-11-22, creating a 6 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Strict 12-month zombie window, Multiple programs, Large total award exposure. Recommended action: Immediate referral based on an ROI score of 92/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "LABRADOR COMMUNITY BROADBAND",
+    "display_name": "Labrador Community Broadband Foundation",
+    "total_awarded": 2697000.0,
+    "num_grants": 3,
+    "first_award_date": "2023-12-05",
+    "last_award_date": "2024-06-16",
+    "province": "Newfoundland and Labrador",
+    "departments": [
+      "Innovation, Science and Economic Development Canada",
+      "National Research Council Canada",
+      "Regional Development Agency"
+    ],
+    "programs": [
+      "Rural Connectivity Fund",
+      "Rural Connectivity Fund Extension"
+    ],
+    "recipient_types": [
+      "Non-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-008-3",
+        "agreement_value": 1039000.0,
+        "agreement_start_date": "2024-06-16",
+        "department": "Innovation, Science and Economic Development Canada",
+        "program_name": "Rural Connectivity Fund Extension",
+        "description": "Representative demo award for rural connectivity fund."
+      },
+      {
+        "agreement_number": "GC-DEMO-008-2",
+        "agreement_value": 899000.0,
+        "agreement_start_date": "2024-03-11",
+        "department": "National Research Council Canada",
+        "program_name": "Rural Connectivity Fund Extension",
+        "description": "Representative demo award for rural connectivity fund."
+      },
+      {
+        "agreement_number": "GC-DEMO-008-1",
+        "agreement_value": 759000.0,
+        "agreement_start_date": "2023-12-05",
+        "department": "Regional Development Agency",
+        "program_name": "Rural Connectivity Fund",
+        "description": "Representative demo award for rural connectivity fund."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500008-8",
+      "legal_name": "Labrador Community Broadband Foundation",
+      "status": "Dissolved",
+      "dissolution_date": "2025-05-17",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 11,
+    "roi_score": 90,
+    "score_breakdown": {
+      "recoverable_amount": 25,
+      "evidence_strength": 30,
+      "pursuit_cost": 20,
+      "public_value_exposure": 15
+    },
+    "recommendation": "Immediate referral",
+    "priority": "High",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Strict 12-month zombie window",
+      "Multiple awards",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 1132740.0,
+    "case_summary": "Labrador Community Broadband Foundation received $2,697,000 across 3 disclosed grant or contribution award(s), with the last award dated 2024-06-16. The matched federal corporation record shows status 'Dissolved' and dissolution date 2025-05-17, creating a 11 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Strict 12-month zombie window, Multiple awards, Multiple programs, Large total award exposure. Recommended action: Immediate referral based on an ROI score of 90/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "MONTREAL TEXTILE RECOVERY",
+    "display_name": "Montreal Textile Recovery Ltd.",
+    "total_awarded": 2986000.0,
+    "num_grants": 2,
+    "first_award_date": "2024-08-09",
+    "last_award_date": "2024-11-14",
+    "province": "Quebec",
+    "departments": [
+      "Employment and Social Development Canada",
+      "Environment and Climate Change Canada"
+    ],
+    "programs": [
+      "Regional Innovation Fund",
+      "Regional Innovation Fund Extension"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-016-2",
+        "agreement_value": 1563000.0,
+        "agreement_start_date": "2024-11-14",
+        "department": "Environment and Climate Change Canada",
+        "program_name": "Regional Innovation Fund Extension",
+        "description": "Representative demo award for regional innovation fund."
+      },
+      {
+        "agreement_number": "GC-DEMO-016-1",
+        "agreement_value": 1423000.0,
+        "agreement_start_date": "2024-08-09",
+        "department": "Employment and Social Development Canada",
+        "program_name": "Regional Innovation Fund",
+        "description": "Representative demo award for regional innovation fund."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500016-6",
+      "legal_name": "Montreal Textile Recovery Ltd.",
+      "status": "Inactive",
+      "dissolution_date": "2025-11-14",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 12,
+    "roi_score": 88,
+    "score_breakdown": {
+      "recoverable_amount": 25,
+      "evidence_strength": 30,
+      "pursuit_cost": 20,
+      "public_value_exposure": 13
+    },
+    "recommendation": "Immediate referral",
+    "priority": "High",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Strict 12-month zombie window",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 1254120.0,
+    "case_summary": "Montreal Textile Recovery Ltd. received $2,986,000 across 2 disclosed grant or contribution award(s), with the last award dated 2024-11-14. The matched federal corporation record shows status 'Inactive' and dissolution date 2025-11-14, creating a 12 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Strict 12-month zombie window, Multiple programs, Large total award exposure. Recommended action: Immediate referral based on an ROI score of 88/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "OTTAWA CIVIC DATA TRUST",
+    "display_name": "Ottawa Civic Data Trust",
+    "total_awarded": 1838000.0,
+    "num_grants": 1,
+    "first_award_date": "2025-01-11",
+    "last_award_date": "2025-01-11",
+    "province": "Ontario",
+    "departments": [
+      "Employment and Social Development Canada"
+    ],
+    "programs": [
+      "Digital Government Partnerships"
+    ],
+    "recipient_types": [
+      "Non-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-021-1",
+        "agreement_value": 1838000.0,
+        "agreement_start_date": "2025-01-11",
+        "department": "Employment and Social Development Canada",
+        "program_name": "Digital Government Partnerships",
+        "description": "Representative demo award for digital government partnerships."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500021-1",
+      "legal_name": "Ottawa Civic Data Trust",
+      "status": "Dissolved",
+      "dissolution_date": "2025-07-13",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 6,
+    "roi_score": 88,
+    "score_breakdown": {
+      "recoverable_amount": 29,
+      "evidence_strength": 30,
+      "pursuit_cost": 20,
+      "public_value_exposure": 9
+    },
+    "recommendation": "Immediate referral",
+    "priority": "High",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Strict 12-month zombie window",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 1010900.0,
+    "case_summary": "Ottawa Civic Data Trust received $1,838,000 across 1 disclosed grant or contribution award(s), with the last award dated 2025-01-11. The matched federal corporation record shows status 'Dissolved' and dissolution date 2025-07-13, creating a 6 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Strict 12-month zombie window, Large total award exposure. Recommended action: Immediate referral based on an ROI score of 88/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "RED RIVER MANUFACTURING",
+    "display_name": "Red River Manufacturing Co.",
+    "total_awarded": 1492000.0,
+    "num_grants": 2,
+    "first_award_date": "2023-11-04",
+    "last_award_date": "2024-02-09",
+    "province": "Manitoba",
+    "departments": [
+      "Environment and Climate Change Canada",
+      "Regional Development Agency"
+    ],
+    "programs": [
+      "Advanced Manufacturing Adoption",
+      "Advanced Manufacturing Adoption Extension"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-007-2",
+        "agreement_value": 816000.0,
+        "agreement_start_date": "2024-02-09",
+        "department": "Regional Development Agency",
+        "program_name": "Advanced Manufacturing Adoption Extension",
+        "description": "Representative demo award for advanced manufacturing adoption."
+      },
+      {
+        "agreement_number": "GC-DEMO-007-1",
+        "agreement_value": 676000.0,
+        "agreement_start_date": "2023-11-04",
+        "department": "Environment and Climate Change Canada",
+        "program_name": "Advanced Manufacturing Adoption",
+        "description": "Representative demo award for advanced manufacturing adoption."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500007-7",
+      "legal_name": "Red River Manufacturing Co.",
+      "status": "Dissolved",
+      "dissolution_date": "2024-12-09",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 10,
+    "roi_score": 88,
+    "score_breakdown": {
+      "recoverable_amount": 25,
+      "evidence_strength": 30,
+      "pursuit_cost": 20,
+      "public_value_exposure": 13
+    },
+    "recommendation": "Immediate referral",
+    "priority": "High",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Strict 12-month zombie window",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 626640.0,
+    "case_summary": "Red River Manufacturing Co. received $1,492,000 across 2 disclosed grant or contribution award(s), with the last award dated 2024-02-09. The matched federal corporation record shows status 'Dissolved' and dissolution date 2024-12-09, creating a 10 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Strict 12-month zombie window, Multiple programs, Large total award exposure. Recommended action: Immediate referral based on an ROI score of 88/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "MAPLE ROBOTICS",
+    "display_name": "Maple Robotics Incorporated",
+    "total_awarded": 505000.0,
+    "num_grants": 2,
+    "first_award_date": "2024-09-17",
+    "last_award_date": "2025-05-28",
+    "province": "Quebec",
+    "departments": [
+      "Canada Economic Development for Quebec Regions",
+      "Innovation, Science and Economic Development Canada"
+    ],
+    "programs": [
+      "Advanced Manufacturing Adoption",
+      "Regional Innovation Fund"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-2025-057",
+        "agreement_value": 320000.0,
+        "agreement_start_date": "2025-05-28",
+        "department": "Innovation, Science and Economic Development Canada",
+        "program_name": "Advanced Manufacturing Adoption",
+        "description": "Automation adoption and product validation."
+      },
+      {
+        "agreement_number": "GC-2024-222",
+        "agreement_value": 185000.0,
+        "agreement_start_date": "2024-09-17",
+        "department": "Canada Economic Development for Quebec Regions",
+        "program_name": "Regional Innovation Fund",
+        "description": "Commercialization support for robotics tooling."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1420006-0",
+      "legal_name": "Maple Robotics Inc.",
+      "status": "Inactive",
+      "dissolution_date": "2025-07-15",
+      "jurisdiction": "Federal",
+      "source_url": "Demo cache: replace with Corporations Canada record URL after validation"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 2,
+    "roi_score": 85,
+    "score_breakdown": {
+      "recoverable_amount": 22,
+      "evidence_strength": 30,
+      "pursuit_cost": 20,
+      "public_value_exposure": 13
+    },
+    "recommendation": "Immediate referral",
+    "priority": "High",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Strict 12-month zombie window",
+      "Multiple programs"
+    ],
+    "estimated_recoverable": 277750.0,
+    "case_summary": "Maple Robotics Incorporated received $505,000 across 2 disclosed grant or contribution award(s), with the last award dated 2025-05-28. The matched federal corporation record shows status 'Inactive' and dissolution date 2025-07-15, creating a 2 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Strict 12-month zombie window, Multiple programs. Recommended action: Immediate referral based on an ROI score of 85/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "TUNDRA FOOD SYSTEMS",
+    "display_name": "Tundra Food Systems Ltd.",
+    "total_awarded": 994000.0,
+    "num_grants": 2,
+    "first_award_date": "2023-08-03",
+    "last_award_date": "2023-11-08",
+    "province": "Yukon",
+    "departments": [
+      "Innovation, Science and Economic Development Canada",
+      "National Research Council Canada"
+    ],
+    "programs": [
+      "Northern Food Security Fund",
+      "Northern Food Security Fund Extension"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-004-2",
+        "agreement_value": 567000.0,
+        "agreement_start_date": "2023-11-08",
+        "department": "Innovation, Science and Economic Development Canada",
+        "program_name": "Northern Food Security Fund Extension",
+        "description": "Representative demo award for northern food security fund."
+      },
+      {
+        "agreement_number": "GC-DEMO-004-1",
+        "agreement_value": 427000.0,
+        "agreement_start_date": "2023-08-03",
+        "department": "National Research Council Canada",
+        "program_name": "Northern Food Security Fund",
+        "description": "Representative demo award for northern food security fund."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500004-4",
+      "legal_name": "Tundra Food Systems Ltd.",
+      "status": "Inactive",
+      "dissolution_date": "2024-11-07",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 12,
+    "roi_score": 81,
+    "score_breakdown": {
+      "recoverable_amount": 18,
+      "evidence_strength": 30,
+      "pursuit_cost": 20,
+      "public_value_exposure": 13
+    },
+    "recommendation": "Immediate referral",
+    "priority": "High",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Strict 12-month zombie window",
+      "Multiple programs"
+    ],
+    "estimated_recoverable": 417480.0,
+    "case_summary": "Tundra Food Systems Ltd. received $994,000 across 2 disclosed grant or contribution award(s), with the last award dated 2023-11-08. The matched federal corporation record shows status 'Inactive' and dissolution date 2024-11-07, creating a 12 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Strict 12-month zombie window, Multiple programs. Recommended action: Immediate referral based on an ROI score of 81/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "PRAIRIE SKILLS BRIDGE",
+    "display_name": "Prairie Skills Bridge Society",
+    "total_awarded": 675000.0,
+    "num_grants": 2,
+    "first_award_date": "2024-11-01",
+    "last_award_date": "2025-03-20",
+    "province": "Manitoba",
+    "departments": [
+      "Employment and Social Development Canada",
+      "Prairies Economic Development Canada"
+    ],
+    "programs": [
+      "Community Economic Development Fund",
+      "Workforce Readiness Initiative"
+    ],
+    "recipient_types": [
+      "Non-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-2025-044",
+        "agreement_value": 225000.0,
+        "agreement_start_date": "2025-03-20",
+        "department": "Prairies Economic Development Canada",
+        "program_name": "Community Economic Development Fund",
+        "description": "Regional skills partnership expansion."
+      },
+      {
+        "agreement_number": "GC-2024-112",
+        "agreement_value": 450000.0,
+        "agreement_start_date": "2024-11-01",
+        "department": "Employment and Social Development Canada",
+        "program_name": "Workforce Readiness Initiative",
+        "description": "Training placements for underemployed workers."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1420002-8",
+      "legal_name": "Prairie Skills Bridge Society",
+      "status": "Dissolved",
+      "dissolution_date": "2025-10-10",
+      "jurisdiction": "Federal",
+      "source_url": "Demo cache: replace with Corporations Canada record URL after validation"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 7,
+    "roi_score": 81,
+    "score_breakdown": {
+      "recoverable_amount": 18,
+      "evidence_strength": 30,
+      "pursuit_cost": 20,
+      "public_value_exposure": 13
+    },
+    "recommendation": "Immediate referral",
+    "priority": "High",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Strict 12-month zombie window",
+      "Multiple programs"
+    ],
+    "estimated_recoverable": 283500.0,
+    "case_summary": "Prairie Skills Bridge Society received $675,000 across 2 disclosed grant or contribution award(s), with the last award dated 2025-03-20. The matched federal corporation record shows status 'Dissolved' and dissolution date 2025-10-10, creating a 7 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Strict 12-month zombie window, Multiple programs. Recommended action: Immediate referral based on an ROI score of 81/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "ACADIE CULTURAL TRAINING",
+    "display_name": "Acadie Cultural Training Society",
+    "total_awarded": 4191000.0,
+    "num_grants": 3,
+    "first_award_date": "2024-06-08",
+    "last_award_date": "2024-12-19",
+    "province": "Nova Scotia",
+    "departments": [
+      "Employment and Social Development Canada",
+      "Innovation, Science and Economic Development Canada",
+      "National Research Council Canada"
+    ],
+    "programs": [
+      "Community Skills Fund",
+      "Community Skills Fund Extension"
+    ],
+    "recipient_types": [
+      "Non-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-014-3",
+        "agreement_value": 1537000.0,
+        "agreement_start_date": "2024-12-19",
+        "department": "Employment and Social Development Canada",
+        "program_name": "Community Skills Fund Extension",
+        "description": "Representative demo award for community skills fund."
+      },
+      {
+        "agreement_number": "GC-DEMO-014-2",
+        "agreement_value": 1397000.0,
+        "agreement_start_date": "2024-09-13",
+        "department": "Innovation, Science and Economic Development Canada",
+        "program_name": "Community Skills Fund Extension",
+        "description": "Representative demo award for community skills fund."
+      },
+      {
+        "agreement_number": "GC-DEMO-014-1",
+        "agreement_value": 1257000.0,
+        "agreement_start_date": "2024-06-08",
+        "department": "National Research Council Canada",
+        "program_name": "Community Skills Fund",
+        "description": "Representative demo award for community skills fund."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500014-4",
+      "legal_name": "Acadie Cultural Training Society",
+      "status": "Dissolved",
+      "dissolution_date": "2026-05-20",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 17,
+    "roi_score": 80,
+    "score_breakdown": {
+      "recoverable_amount": 19,
+      "evidence_strength": 30,
+      "pursuit_cost": 16,
+      "public_value_exposure": 15
+    },
+    "recommendation": "Immediate referral",
+    "priority": "High",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Multiple awards",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 1047750.0,
+    "case_summary": "Acadie Cultural Training Society received $4,191,000 across 3 disclosed grant or contribution award(s), with the last award dated 2024-12-19. The matched federal corporation record shows status 'Dissolved' and dissolution date 2026-05-20, creating a 17 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Multiple awards, Multiple programs, Large total award exposure. Recommended action: Immediate referral based on an ROI score of 80/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "WHITEHORSE HEAT PUMP COLLECTIVE",
+    "display_name": "Whitehorse Heat Pump Collective",
+    "total_awarded": 3982000.0,
+    "num_grants": 2,
+    "first_award_date": "2025-02-11",
+    "last_award_date": "2025-05-19",
+    "province": "Yukon",
+    "departments": [
+      "Environment and Climate Change Canada",
+      "Regional Development Agency"
+    ],
+    "programs": [
+      "Green Buildings Program",
+      "Green Buildings Program Extension"
+    ],
+    "recipient_types": [
+      "Non-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-022-2",
+        "agreement_value": 2061000.0,
+        "agreement_start_date": "2025-05-19",
+        "department": "Regional Development Agency",
+        "program_name": "Green Buildings Program Extension",
+        "description": "Representative demo award for green buildings program."
+      },
+      {
+        "agreement_number": "GC-DEMO-022-1",
+        "agreement_value": 1921000.0,
+        "agreement_start_date": "2025-02-11",
+        "department": "Environment and Climate Change Canada",
+        "program_name": "Green Buildings Program",
+        "description": "Representative demo award for green buildings program."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500022-2",
+      "legal_name": "Whitehorse Heat Pump Collective",
+      "status": "Inactive",
+      "dissolution_date": "2026-11-18",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 18,
+    "roi_score": 78,
+    "score_breakdown": {
+      "recoverable_amount": 19,
+      "evidence_strength": 30,
+      "pursuit_cost": 16,
+      "public_value_exposure": 13
+    },
+    "recommendation": "Compliance letter",
+    "priority": "Medium",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 995500.0,
+    "case_summary": "Whitehorse Heat Pump Collective received $3,982,000 across 2 disclosed grant or contribution award(s), with the last award dated 2025-05-19. The matched federal corporation record shows status 'Inactive' and dissolution date 2026-11-18, creating a 18 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Multiple programs, Large total award exposure. Recommended action: Compliance letter based on an ROI score of 78/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "KINGSTON BATTERY RECYCLING",
+    "display_name": "Kingston Battery Recycling Corporation",
+    "total_awarded": 2488000.0,
+    "num_grants": 2,
+    "first_award_date": "2024-05-08",
+    "last_award_date": "2024-08-13",
+    "province": "Ontario",
+    "departments": [
+      "National Research Council Canada",
+      "Regional Development Agency"
+    ],
+    "programs": [
+      "Clean Technology Demonstration Program",
+      "Clean Technology Demonstration Program Extension"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-013-2",
+        "agreement_value": 1314000.0,
+        "agreement_start_date": "2024-08-13",
+        "department": "National Research Council Canada",
+        "program_name": "Clean Technology Demonstration Program Extension",
+        "description": "Representative demo award for clean technology demonstration program."
+      },
+      {
+        "agreement_number": "GC-DEMO-013-1",
+        "agreement_value": 1174000.0,
+        "agreement_start_date": "2024-05-08",
+        "department": "Regional Development Agency",
+        "program_name": "Clean Technology Demonstration Program",
+        "description": "Representative demo award for clean technology demonstration program."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500013-3",
+      "legal_name": "Kingston Battery Recycling Corporation",
+      "status": "Dissolved",
+      "dissolution_date": "2025-12-13",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 16,
+    "roi_score": 78,
+    "score_breakdown": {
+      "recoverable_amount": 19,
+      "evidence_strength": 30,
+      "pursuit_cost": 16,
+      "public_value_exposure": 13
+    },
+    "recommendation": "Compliance letter",
+    "priority": "Medium",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 622000.0,
+    "case_summary": "Kingston Battery Recycling Corporation received $2,488,000 across 2 disclosed grant or contribution award(s), with the last award dated 2024-08-13. The matched federal corporation record shows status 'Dissolved' and dissolution date 2025-12-13, creating a 16 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Multiple programs, Large total award exposure. Recommended action: Compliance letter based on an ROI score of 78/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "ISLAND RETROFIT COLLECTIVE",
+    "display_name": "Island Retrofit Collective",
+    "total_awarded": 1990000.0,
+    "num_grants": 2,
+    "first_award_date": "2024-02-05",
+    "last_award_date": "2024-05-12",
+    "province": "Prince Edward Island",
+    "departments": [
+      "Employment and Social Development Canada",
+      "Innovation, Science and Economic Development Canada"
+    ],
+    "programs": [
+      "Green Buildings Program",
+      "Green Buildings Program Extension"
+    ],
+    "recipient_types": [
+      "Non-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-010-2",
+        "agreement_value": 1065000.0,
+        "agreement_start_date": "2024-05-12",
+        "department": "Employment and Social Development Canada",
+        "program_name": "Green Buildings Program Extension",
+        "description": "Representative demo award for green buildings program."
+      },
+      {
+        "agreement_number": "GC-DEMO-010-1",
+        "agreement_value": 925000.0,
+        "agreement_start_date": "2024-02-05",
+        "department": "Innovation, Science and Economic Development Canada",
+        "program_name": "Green Buildings Program",
+        "description": "Representative demo award for green buildings program."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500010-0",
+      "legal_name": "Island Retrofit Collective",
+      "status": "Inactive",
+      "dissolution_date": "2025-11-11",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 18,
+    "roi_score": 78,
+    "score_breakdown": {
+      "recoverable_amount": 19,
+      "evidence_strength": 30,
+      "pursuit_cost": 16,
+      "public_value_exposure": 13
+    },
+    "recommendation": "Compliance letter",
+    "priority": "Medium",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 497500.0,
+    "case_summary": "Island Retrofit Collective received $1,990,000 across 2 disclosed grant or contribution award(s), with the last award dated 2024-05-12. The matched federal corporation record shows status 'Inactive' and dissolution date 2025-11-11, creating a 18 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Multiple programs, Large total award exposure. Recommended action: Compliance letter based on an ROI score of 78/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "ATLANTIC BIOHARVEST",
+    "display_name": "Atlantic Bioharvest Limited",
+    "total_awarded": 1120000.0,
+    "num_grants": 2,
+    "first_award_date": "2023-08-12",
+    "last_award_date": "2024-01-30",
+    "province": "Nova Scotia",
+    "departments": [
+      "Atlantic Canada Opportunities Agency",
+      "Fisheries and Oceans Canada"
+    ],
+    "programs": [
+      "Aquaculture Innovation Support",
+      "Business Scale-up and Productivity"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-2024-006",
+        "agreement_value": 210000.0,
+        "agreement_start_date": "2024-01-30",
+        "department": "Fisheries and Oceans Canada",
+        "program_name": "Aquaculture Innovation Support",
+        "description": "Operational trial for marine biomass processing."
+      },
+      {
+        "agreement_number": "GC-2023-076",
+        "agreement_value": 910000.0,
+        "agreement_start_date": "2023-08-12",
+        "department": "Atlantic Canada Opportunities Agency",
+        "program_name": "Business Scale-up and Productivity",
+        "description": "Scale-up support for food processing equipment."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1420003-6",
+      "legal_name": "Atlantic Bioharvest Ltd.",
+      "status": "Dissolved",
+      "dissolution_date": "2025-09-01",
+      "jurisdiction": "Federal",
+      "source_url": "Demo cache: replace with Corporations Canada record URL after validation"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 19,
+    "roi_score": 78,
+    "score_breakdown": {
+      "recoverable_amount": 19,
+      "evidence_strength": 30,
+      "pursuit_cost": 16,
+      "public_value_exposure": 13
+    },
+    "recommendation": "Compliance letter",
+    "priority": "Medium",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 280000.0,
+    "case_summary": "Atlantic Bioharvest Limited received $1,120,000 across 2 disclosed grant or contribution award(s), with the last award dated 2024-01-30. The matched federal corporation record shows status 'Dissolved' and dissolution date 2025-09-01, creating a 19 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Multiple programs, Large total award exposure. Recommended action: Compliance letter based on an ROI score of 78/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "SASKATCHEWAN AGRI SENSOR TECHNOLOGIES",
+    "display_name": "Saskatchewan Agri-Sensor Technologies Ltd.",
+    "total_awarded": 842000.0,
+    "num_grants": 1,
+    "first_award_date": "2024-01-05",
+    "last_award_date": "2024-01-05",
+    "province": "Saskatchewan",
+    "departments": [
+      "National Research Council Canada"
+    ],
+    "programs": [
+      "Agri-Tech Commercialization"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-009-1",
+        "agreement_value": 842000.0,
+        "agreement_start_date": "2024-01-05",
+        "department": "National Research Council Canada",
+        "program_name": "Agri-Tech Commercialization",
+        "description": "Representative demo award for agri-tech commercialization."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500009-9",
+      "legal_name": "Saskatchewan Agri-Sensor Technologies Ltd.",
+      "status": "Dissolved",
+      "dissolution_date": "2025-01-04",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 12,
+    "roi_score": 77,
+    "score_breakdown": {
+      "recoverable_amount": 18,
+      "evidence_strength": 30,
+      "pursuit_cost": 20,
+      "public_value_exposure": 9
+    },
+    "recommendation": "Compliance letter",
+    "priority": "Medium",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Strict 12-month zombie window"
+    ],
+    "estimated_recoverable": 353640.0,
+    "case_summary": "Saskatchewan Agri-Sensor Technologies Ltd. received $842,000 across 1 disclosed grant or contribution award(s), with the last award dated 2024-01-05. The matched federal corporation record shows status 'Dissolved' and dissolution date 2025-01-04, creating a 12 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Strict 12-month zombie window. Recommended action: Compliance letter based on an ROI score of 77/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "CEDAR GRID STORAGE",
+    "display_name": "Cedar Grid Storage Inc.",
+    "total_awarded": 496000.0,
+    "num_grants": 2,
+    "first_award_date": "2023-05-02",
+    "last_award_date": "2023-08-07",
+    "province": "Alberta",
+    "departments": [
+      "Employment and Social Development Canada",
+      "Environment and Climate Change Canada"
+    ],
+    "programs": [
+      "Energy Storage Deployment",
+      "Energy Storage Deployment Extension"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-001-2",
+        "agreement_value": 318000.0,
+        "agreement_start_date": "2023-08-07",
+        "department": "Environment and Climate Change Canada",
+        "program_name": "Energy Storage Deployment Extension",
+        "description": "Representative demo award for energy storage deployment."
+      },
+      {
+        "agreement_number": "GC-DEMO-001-1",
+        "agreement_value": 178000.0,
+        "agreement_start_date": "2023-05-02",
+        "department": "Employment and Social Development Canada",
+        "program_name": "Energy Storage Deployment",
+        "description": "Representative demo award for energy storage deployment."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500001-1",
+      "legal_name": "Cedar Grid Storage Inc.",
+      "status": "Dissolved",
+      "dissolution_date": "2023-12-07",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 4,
+    "roi_score": 77,
+    "score_breakdown": {
+      "recoverable_amount": 14,
+      "evidence_strength": 30,
+      "pursuit_cost": 20,
+      "public_value_exposure": 13
+    },
+    "recommendation": "Compliance letter",
+    "priority": "Medium",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Strict 12-month zombie window",
+      "Multiple programs"
+    ],
+    "estimated_recoverable": 272800.0,
+    "case_summary": "Cedar Grid Storage Inc. received $496,000 across 2 disclosed grant or contribution award(s), with the last award dated 2023-08-07. The matched federal corporation record shows status 'Dissolved' and dissolution date 2023-12-07, creating a 4 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Strict 12-month zombie window, Multiple programs. Recommended action: Compliance letter based on an ROI score of 77/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "CALGARY HYDROGEN MOBILITY",
+    "display_name": "Calgary Hydrogen Mobility Inc.",
+    "total_awarded": 1340000.0,
+    "num_grants": 1,
+    "first_award_date": "2024-07-09",
+    "last_award_date": "2024-07-09",
+    "province": "Alberta",
+    "departments": [
+      "Innovation, Science and Economic Development Canada"
+    ],
+    "programs": [
+      "Low Carbon Economy Fund"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-015-1",
+        "agreement_value": 1340000.0,
+        "agreement_start_date": "2024-07-09",
+        "department": "Innovation, Science and Economic Development Canada",
+        "program_name": "Low Carbon Economy Fund",
+        "description": "Representative demo award for low carbon economy fund."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500015-5",
+      "legal_name": "Calgary Hydrogen Mobility Inc.",
+      "status": "Dissolved",
+      "dissolution_date": "2026-01-08",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 18,
+    "roi_score": 74,
+    "score_breakdown": {
+      "recoverable_amount": 19,
+      "evidence_strength": 30,
+      "pursuit_cost": 16,
+      "public_value_exposure": 9
+    },
+    "recommendation": "Compliance letter",
+    "priority": "Medium",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 335000.0,
+    "case_summary": "Calgary Hydrogen Mobility Inc. received $1,340,000 across 1 disclosed grant or contribution award(s), with the last award dated 2024-07-09. The matched federal corporation record shows status 'Dissolved' and dissolution date 2026-01-08, creating a 18 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Large total award exposure. Recommended action: Compliance letter based on an ROI score of 74/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "SILVERLINE MEDTECH",
+    "display_name": "Silverline Medtech Corporation",
+    "total_awarded": 344000.0,
+    "num_grants": 1,
+    "first_award_date": "2023-07-03",
+    "last_award_date": "2023-07-03",
+    "province": "Ontario",
+    "departments": [
+      "Regional Development Agency"
+    ],
+    "programs": [
+      "Health Innovation Scale-up"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-003-1",
+        "agreement_value": 344000.0,
+        "agreement_start_date": "2023-07-03",
+        "department": "Regional Development Agency",
+        "program_name": "Health Innovation Scale-up",
+        "description": "Representative demo award for health innovation scale-up."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500003-3",
+      "legal_name": "Silverline Medtech Corporation",
+      "status": "Dissolved",
+      "dissolution_date": "2024-01-02",
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 6,
+    "roi_score": 73,
+    "score_breakdown": {
+      "recoverable_amount": 14,
+      "evidence_strength": 30,
+      "pursuit_cost": 20,
+      "public_value_exposure": 9
+    },
+    "recommendation": "Compliance letter",
+    "priority": "Medium",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Strict 12-month zombie window"
+    ],
+    "estimated_recoverable": 189200.0,
+    "case_summary": "Silverline Medtech Corporation received $344,000 across 1 disclosed grant or contribution award(s), with the last award dated 2023-07-03. The matched federal corporation record shows status 'Dissolved' and dissolution date 2024-01-02, creating a 6 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Strict 12-month zombie window. Recommended action: Compliance letter based on an ROI score of 73/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "NORTHERN HOUSING RENEWAL",
+    "display_name": "Northern Housing Renewal Foundation",
+    "total_awarded": 375000.0,
+    "num_grants": 1,
+    "first_award_date": "2025-04-12",
+    "last_award_date": "2025-04-12",
+    "province": "Nunavut",
+    "departments": [
+      "Indigenous Services Canada"
+    ],
+    "programs": [
+      "Community Infrastructure Partnerships"
+    ],
+    "recipient_types": [
+      "Non-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-2025-031",
+        "agreement_value": 375000.0,
+        "agreement_start_date": "2025-04-12",
+        "department": "Indigenous Services Canada",
+        "program_name": "Community Infrastructure Partnerships",
+        "description": "Planning support for housing renewal project."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1420005-2",
+      "legal_name": "Northern Housing Renewal Foundation",
+      "status": "Dissolved",
+      "dissolution_date": "2026-03-01",
+      "jurisdiction": "Federal",
+      "source_url": "Demo cache: replace with Corporations Canada record URL after validation"
+    },
+    "is_zombie_candidate": true,
+    "months_to_dissolution": 11,
+    "roi_score": 69,
+    "score_breakdown": {
+      "recoverable_amount": 10,
+      "evidence_strength": 30,
+      "pursuit_cost": 20,
+      "public_value_exposure": 9
+    },
+    "recommendation": "Compliance letter",
+    "priority": "Medium",
+    "confidence": "High",
+    "flags": [
+      "Dissolved within 24 months of last award",
+      "Strict 12-month zombie window"
+    ],
+    "estimated_recoverable": 157500.0,
+    "case_summary": "Northern Housing Renewal Foundation received $375,000 across 1 disclosed grant or contribution award(s), with the last award dated 2025-04-12. The matched federal corporation record shows status 'Dissolved' and dissolution date 2026-03-01, creating a 11 months award-to-dissolution interval; key risk signals are: Dissolved within 24 months of last award, Strict 12-month zombie window. Recommended action: Compliance letter based on an ROI score of 69/100 and high evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "CHARLOTTETOWN FARM AUTOMATION",
+    "display_name": "Charlottetown Farm Automation Inc.",
+    "total_awarded": 6432000.0,
+    "num_grants": 3,
+    "first_award_date": "2025-03-14",
+    "last_award_date": "2025-09-24",
+    "province": "Prince Edward Island",
+    "departments": [
+      "Innovation, Science and Economic Development Canada",
+      "National Research Council Canada",
+      "Regional Development Agency"
+    ],
+    "programs": [
+      "Agri-Tech Commercialization",
+      "Agri-Tech Commercialization Extension"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-023-3",
+        "agreement_value": 2284000.0,
+        "agreement_start_date": "2025-09-24",
+        "department": "Innovation, Science and Economic Development Canada",
+        "program_name": "Agri-Tech Commercialization Extension",
+        "description": "Representative demo award for agri-tech commercialization."
+      },
+      {
+        "agreement_number": "GC-DEMO-023-2",
+        "agreement_value": 2144000.0,
+        "agreement_start_date": "2025-06-19",
+        "department": "National Research Council Canada",
+        "program_name": "Agri-Tech Commercialization Extension",
+        "description": "Representative demo award for agri-tech commercialization."
+      },
+      {
+        "agreement_number": "GC-DEMO-023-1",
+        "agreement_value": 2004000.0,
+        "agreement_start_date": "2025-03-14",
+        "department": "Regional Development Agency",
+        "program_name": "Agri-Tech Commercialization",
+        "description": "Representative demo award for agri-tech commercialization."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500023-3",
+      "legal_name": "Charlottetown Farm Automation Inc.",
+      "status": "Active",
+      "dissolution_date": null,
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": false,
+    "months_to_dissolution": null,
+    "roi_score": 39,
+    "score_breakdown": {
+      "recoverable_amount": 23,
+      "evidence_strength": 18,
+      "pursuit_cost": 12,
+      "public_value_exposure": 15
+    },
+    "recommendation": "Write off / monitor",
+    "priority": "Low",
+    "confidence": "Medium",
+    "flags": [
+      "Multiple awards",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 514560.0,
+    "case_summary": "Charlottetown Farm Automation Inc. received $6,432,000 across 3 disclosed grant or contribution award(s), with the last award dated 2025-09-24. The matched federal corporation record shows status 'Active' and dissolution date not available, creating a an unknown interval award-to-dissolution interval; key risk signals are: Multiple awards, Multiple programs, Large total award exposure. Recommended action: Write off / monitor based on an ROI score of 39/100 and medium evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "WINNIPEG CHILDCARE EXPANSION",
+    "display_name": "Winnipeg Childcare Expansion Foundation",
+    "total_awarded": 4938000.0,
+    "num_grants": 3,
+    "first_award_date": "2024-09-09",
+    "last_award_date": "2025-03-22",
+    "province": "Manitoba",
+    "departments": [
+      "Environment and Climate Change Canada",
+      "National Research Council Canada",
+      "Regional Development Agency"
+    ],
+    "programs": [
+      "Community Infrastructure Partnerships",
+      "Community Infrastructure Partnerships Extension"
+    ],
+    "recipient_types": [
+      "Non-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-017-3",
+        "agreement_value": 1786000.0,
+        "agreement_start_date": "2025-03-22",
+        "department": "National Research Council Canada",
+        "program_name": "Community Infrastructure Partnerships Extension",
+        "description": "Representative demo award for community infrastructure partnerships."
+      },
+      {
+        "agreement_number": "GC-DEMO-017-2",
+        "agreement_value": 1646000.0,
+        "agreement_start_date": "2024-12-15",
+        "department": "Regional Development Agency",
+        "program_name": "Community Infrastructure Partnerships Extension",
+        "description": "Representative demo award for community infrastructure partnerships."
+      },
+      {
+        "agreement_number": "GC-DEMO-017-1",
+        "agreement_value": 1506000.0,
+        "agreement_start_date": "2024-09-09",
+        "department": "Environment and Climate Change Canada",
+        "program_name": "Community Infrastructure Partnerships",
+        "description": "Representative demo award for community infrastructure partnerships."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500017-7",
+      "legal_name": "Winnipeg Childcare Expansion Foundation",
+      "status": "Active",
+      "dissolution_date": null,
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": false,
+    "months_to_dissolution": null,
+    "roi_score": 39,
+    "score_breakdown": {
+      "recoverable_amount": 17,
+      "evidence_strength": 18,
+      "pursuit_cost": 12,
+      "public_value_exposure": 15
+    },
+    "recommendation": "Write off / monitor",
+    "priority": "Low",
+    "confidence": "Medium",
+    "flags": [
+      "Multiple awards",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 395040.0,
+    "case_summary": "Winnipeg Childcare Expansion Foundation received $4,938,000 across 3 disclosed grant or contribution award(s), with the last award dated 2025-03-22. The matched federal corporation record shows status 'Active' and dissolution date not available, creating a an unknown interval award-to-dissolution interval; key risk signals are: Multiple awards, Multiple programs, Large total award exposure. Recommended action: Write off / monitor based on an ROI score of 39/100 and medium evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "NUNAVUT LOGISTICS RENEWAL",
+    "display_name": "Nunavut Logistics Renewal Corporation",
+    "total_awarded": 3444000.0,
+    "num_grants": 3,
+    "first_award_date": "2024-03-07",
+    "last_award_date": "2024-09-17",
+    "province": "Nunavut",
+    "departments": [
+      "Employment and Social Development Canada",
+      "Environment and Climate Change Canada",
+      "Regional Development Agency"
+    ],
+    "programs": [
+      "Arctic Supply Chain Fund",
+      "Arctic Supply Chain Fund Extension"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-011-3",
+        "agreement_value": 1288000.0,
+        "agreement_start_date": "2024-09-17",
+        "department": "Regional Development Agency",
+        "program_name": "Arctic Supply Chain Fund Extension",
+        "description": "Representative demo award for arctic supply chain fund."
+      },
+      {
+        "agreement_number": "GC-DEMO-011-2",
+        "agreement_value": 1148000.0,
+        "agreement_start_date": "2024-06-12",
+        "department": "Environment and Climate Change Canada",
+        "program_name": "Arctic Supply Chain Fund Extension",
+        "description": "Representative demo award for arctic supply chain fund."
+      },
+      {
+        "agreement_number": "GC-DEMO-011-1",
+        "agreement_value": 1008000.0,
+        "agreement_start_date": "2024-03-07",
+        "department": "Employment and Social Development Canada",
+        "program_name": "Arctic Supply Chain Fund",
+        "description": "Representative demo award for arctic supply chain fund."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500011-1",
+      "legal_name": "Nunavut Logistics Renewal Corporation",
+      "status": "Active",
+      "dissolution_date": null,
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": false,
+    "months_to_dissolution": null,
+    "roi_score": 39,
+    "score_breakdown": {
+      "recoverable_amount": 17,
+      "evidence_strength": 18,
+      "pursuit_cost": 12,
+      "public_value_exposure": 15
+    },
+    "recommendation": "Write off / monitor",
+    "priority": "Low",
+    "confidence": "Medium",
+    "flags": [
+      "Multiple awards",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 275520.0,
+    "case_summary": "Nunavut Logistics Renewal Corporation received $3,444,000 across 3 disclosed grant or contribution award(s), with the last award dated 2024-09-17. The matched federal corporation record shows status 'Active' and dissolution date not available, creating a an unknown interval award-to-dissolution interval; key risk signals are: Multiple awards, Multiple programs, Large total award exposure. Recommended action: Write off / monitor based on an ROI score of 39/100 and medium evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "AURORA QUANTUM ANALYTICS",
+    "display_name": "Aurora Quantum Analytics Corporation",
+    "total_awarded": 2650000.0,
+    "num_grants": 1,
+    "first_award_date": "2025-06-05",
+    "last_award_date": "2025-06-05",
+    "province": "British Columbia",
+    "departments": [
+      "National Research Council Canada"
+    ],
+    "programs": [
+      "Industrial Research Assistance Program"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-2025-091",
+        "agreement_value": 2650000.0,
+        "agreement_start_date": "2025-06-05",
+        "department": "National Research Council Canada",
+        "program_name": "Industrial Research Assistance Program",
+        "description": "Research and development support for analytics software."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1420004-4",
+      "legal_name": "Aurora Quantum Analytics Corporation",
+      "status": "Active",
+      "dissolution_date": null,
+      "jurisdiction": "Federal",
+      "source_url": "Demo cache: replace with Corporations Canada record URL after validation"
+    },
+    "is_zombie_candidate": false,
+    "months_to_dissolution": null,
+    "roi_score": 39,
+    "score_breakdown": {
+      "recoverable_amount": 17,
+      "evidence_strength": 18,
+      "pursuit_cost": 12,
+      "public_value_exposure": 9
+    },
+    "recommendation": "Write off / monitor",
+    "priority": "Low",
+    "confidence": "Medium",
+    "flags": [
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 212000.0,
+    "case_summary": "Aurora Quantum Analytics Corporation received $2,650,000 across 1 disclosed grant or contribution award(s), with the last award dated 2025-06-05. The matched federal corporation record shows status 'Active' and dissolution date not available, creating a an unknown interval award-to-dissolution interval; key risk signals are: Large total award exposure. Recommended action: Write off / monitor based on an ROI score of 39/100 and medium evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "HALIFAX QUANTUM SAFETY",
+    "display_name": "Halifax Quantum Safety Corporation",
+    "total_awarded": 2087000.0,
+    "num_grants": 1,
+    "first_award_date": "2025-04-14",
+    "last_award_date": "2025-04-14",
+    "province": "Nova Scotia",
+    "departments": [
+      "National Research Council Canada"
+    ],
+    "programs": [
+      "Industrial Research Assistance Program"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-024-1",
+        "agreement_value": 2087000.0,
+        "agreement_start_date": "2025-04-14",
+        "department": "National Research Council Canada",
+        "program_name": "Industrial Research Assistance Program",
+        "description": "Representative demo award for industrial research assistance program."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500024-4",
+      "legal_name": "Halifax Quantum Safety Corporation",
+      "status": "Active",
+      "dissolution_date": null,
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": false,
+    "months_to_dissolution": null,
+    "roi_score": 39,
+    "score_breakdown": {
+      "recoverable_amount": 17,
+      "evidence_strength": 18,
+      "pursuit_cost": 12,
+      "public_value_exposure": 9
+    },
+    "recommendation": "Write off / monitor",
+    "priority": "Low",
+    "confidence": "Medium",
+    "flags": [
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 166960.0,
+    "case_summary": "Halifax Quantum Safety Corporation received $2,087,000 across 1 disclosed grant or contribution award(s), with the last award dated 2025-04-14. The matched federal corporation record shows status 'Active' and dissolution date not available, creating a an unknown interval award-to-dissolution interval; key risk signals are: Large total award exposure. Recommended action: Write off / monitor based on an ROI score of 39/100 and medium evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "ST LAWRENCE CIRCULAR PLASTICS",
+    "display_name": "St. Lawrence Circular Plastics Society",
+    "total_awarded": 1950000.0,
+    "num_grants": 3,
+    "first_award_date": "2023-09-03",
+    "last_award_date": "2024-03-15",
+    "province": "Quebec",
+    "departments": [
+      "Employment and Social Development Canada",
+      "Environment and Climate Change Canada",
+      "Innovation, Science and Economic Development Canada"
+    ],
+    "programs": [
+      "Circular Economy Pilot",
+      "Circular Economy Pilot Extension"
+    ],
+    "recipient_types": [
+      "Non-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-005-3",
+        "agreement_value": 790000.0,
+        "agreement_start_date": "2024-03-15",
+        "department": "Environment and Climate Change Canada",
+        "program_name": "Circular Economy Pilot Extension",
+        "description": "Representative demo award for circular economy pilot."
+      },
+      {
+        "agreement_number": "GC-DEMO-005-2",
+        "agreement_value": 650000.0,
+        "agreement_start_date": "2023-12-09",
+        "department": "Employment and Social Development Canada",
+        "program_name": "Circular Economy Pilot Extension",
+        "description": "Representative demo award for circular economy pilot."
+      },
+      {
+        "agreement_number": "GC-DEMO-005-1",
+        "agreement_value": 510000.0,
+        "agreement_start_date": "2023-09-03",
+        "department": "Innovation, Science and Economic Development Canada",
+        "program_name": "Circular Economy Pilot",
+        "description": "Representative demo award for circular economy pilot."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500005-5",
+      "legal_name": "St. Lawrence Circular Plastics Society",
+      "status": "Active",
+      "dissolution_date": null,
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": false,
+    "months_to_dissolution": null,
+    "roi_score": 39,
+    "score_breakdown": {
+      "recoverable_amount": 17,
+      "evidence_strength": 18,
+      "pursuit_cost": 12,
+      "public_value_exposure": 15
+    },
+    "recommendation": "Write off / monitor",
+    "priority": "Low",
+    "confidence": "Medium",
+    "flags": [
+      "Multiple awards",
+      "Multiple programs",
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 156000.0,
+    "case_summary": "St. Lawrence Circular Plastics Society received $1,950,000 across 3 disclosed grant or contribution award(s), with the last award dated 2024-03-15. The matched federal corporation record shows status 'Active' and dissolution date not available, creating a an unknown interval award-to-dissolution interval; key risk signals are: Multiple awards, Multiple programs, Large total award exposure. Recommended action: Write off / monitor based on an ROI score of 39/100 and medium evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "REGINA CLOUD ROBOTICS",
+    "display_name": "Regina Cloud Robotics Inc.",
+    "total_awarded": 1589000.0,
+    "num_grants": 1,
+    "first_award_date": "2024-10-10",
+    "last_award_date": "2024-10-10",
+    "province": "Saskatchewan",
+    "departments": [
+      "Regional Development Agency"
+    ],
+    "programs": [
+      "Industrial Research Assistance Program"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-018-1",
+        "agreement_value": 1589000.0,
+        "agreement_start_date": "2024-10-10",
+        "department": "Regional Development Agency",
+        "program_name": "Industrial Research Assistance Program",
+        "description": "Representative demo award for industrial research assistance program."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500018-8",
+      "legal_name": "Regina Cloud Robotics Inc.",
+      "status": "Active",
+      "dissolution_date": null,
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": false,
+    "months_to_dissolution": null,
+    "roi_score": 39,
+    "score_breakdown": {
+      "recoverable_amount": 17,
+      "evidence_strength": 18,
+      "pursuit_cost": 12,
+      "public_value_exposure": 9
+    },
+    "recommendation": "Write off / monitor",
+    "priority": "Low",
+    "confidence": "Medium",
+    "flags": [
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 127120.0,
+    "case_summary": "Regina Cloud Robotics Inc. received $1,589,000 across 1 disclosed grant or contribution award(s), with the last award dated 2024-10-10. The matched federal corporation record shows status 'Active' and dissolution date not available, creating a an unknown interval award-to-dissolution interval; key risk signals are: Large total award exposure. Recommended action: Write off / monitor based on an ROI score of 39/100 and medium evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "NORTH COAST OCEAN DATA",
+    "display_name": "North Coast Ocean Data Inc.",
+    "total_awarded": 1091000.0,
+    "num_grants": 1,
+    "first_award_date": "2024-04-07",
+    "last_award_date": "2024-04-07",
+    "province": "British Columbia",
+    "departments": [
+      "Environment and Climate Change Canada"
+    ],
+    "programs": [
+      "Ocean Supercluster Support"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-012-1",
+        "agreement_value": 1091000.0,
+        "agreement_start_date": "2024-04-07",
+        "department": "Environment and Climate Change Canada",
+        "program_name": "Ocean Supercluster Support",
+        "description": "Representative demo award for ocean supercluster support."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500012-2",
+      "legal_name": "North Coast Ocean Data Inc.",
+      "status": "Active",
+      "dissolution_date": null,
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": false,
+    "months_to_dissolution": null,
+    "roi_score": 39,
+    "score_breakdown": {
+      "recoverable_amount": 17,
+      "evidence_strength": 18,
+      "pursuit_cost": 12,
+      "public_value_exposure": 9
+    },
+    "recommendation": "Write off / monitor",
+    "priority": "Low",
+    "confidence": "Medium",
+    "flags": [
+      "Large total award exposure"
+    ],
+    "estimated_recoverable": 87280.0,
+    "case_summary": "North Coast Ocean Data Inc. received $1,091,000 across 1 disclosed grant or contribution award(s), with the last award dated 2024-04-07. The matched federal corporation record shows status 'Active' and dissolution date not available, creating a an unknown interval award-to-dissolution interval; key risk signals are: Large total award exposure. Recommended action: Write off / monitor based on an ROI score of 39/100 and medium evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  },
+  {
+    "entity_key": "PACIFIC SKILLS ACCELERATOR",
+    "display_name": "Pacific Skills Accelerator Inc.",
+    "total_awarded": 593000.0,
+    "num_grants": 1,
+    "first_award_date": "2023-10-04",
+    "last_award_date": "2023-10-04",
+    "province": "British Columbia",
+    "departments": [
+      "Employment and Social Development Canada"
+    ],
+    "programs": [
+      "Workforce Digital Adoption"
+    ],
+    "recipient_types": [
+      "For-profit organization"
+    ],
+    "grant_evidence": [
+      {
+        "agreement_number": "GC-DEMO-006-1",
+        "agreement_value": 593000.0,
+        "agreement_start_date": "2023-10-04",
+        "department": "Employment and Social Development Canada",
+        "program_name": "Workforce Digital Adoption",
+        "description": "Representative demo award for workforce digital adoption."
+      }
+    ],
+    "match": {
+      "matched": true,
+      "confidence": 1.0,
+      "corporation_number": "1500006-6",
+      "legal_name": "Pacific Skills Accelerator Inc.",
+      "status": "Active",
+      "dissolution_date": null,
+      "jurisdiction": "Federal",
+      "source_url": "Demo expansion: replace with validated corporate record URL"
+    },
+    "is_zombie_candidate": false,
+    "months_to_dissolution": null,
+    "roi_score": 39,
+    "score_breakdown": {
+      "recoverable_amount": 10,
+      "evidence_strength": 18,
+      "pursuit_cost": 12,
+      "public_value_exposure": 9
+    },
+    "recommendation": "Write off / monitor",
+    "priority": "Low",
+    "confidence": "Medium",
+    "flags": [],
+    "estimated_recoverable": 47440.0,
+    "case_summary": "Pacific Skills Accelerator Inc. received $593,000 across 1 disclosed grant or contribution award(s), with the last award dated 2023-10-04. The matched federal corporation record shows status 'Active' and dissolution date not available, creating a an unknown interval award-to-dissolution interval; key risk signals are: no elevated flags. Recommended action: Write off / monitor based on an ROI score of 39/100 and medium evidence confidence.",
+    "case_summary_provider": "template",
+    "case_summary_model": "deterministic-template"
+  }
+]
