@@ -1,0 +1,112 @@
+[
+  {
+    "recipient_legal_name": "Northstar Clean Materials Inc.",
+    "agreement_number": "GC-2025-001",
+    "agreement_value": 1250000,
+    "agreement_start_date": "2025-02-15",
+    "recipient_province": "Ontario",
+    "owner_org": "Innovation, Science and Economic Development Canada",
+    "program_name": "Clean Technology Demonstration Program",
+    "recipient_type": "For-profit organization",
+    "description_en": "Support for pilot-scale recovery of industrial materials."
+  },
+  {
+    "recipient_legal_name": "Northstar Clean Materials Inc.",
+    "agreement_number": "GC-2025-019",
+    "agreement_value": 780000,
+    "agreement_start_date": "2025-05-09",
+    "recipient_province": "Ontario",
+    "owner_org": "Environment and Climate Change Canada",
+    "program_name": "Low Carbon Economy Fund",
+    "recipient_type": "For-profit organization",
+    "description_en": "Contribution toward emissions reduction equipment."
+  },
+  {
+    "recipient_legal_name": "Prairie Skills Bridge Society",
+    "agreement_number": "GC-2024-112",
+    "agreement_value": 450000,
+    "agreement_start_date": "2024-11-01",
+    "recipient_province": "Manitoba",
+    "owner_org": "Employment and Social Development Canada",
+    "program_name": "Workforce Readiness Initiative",
+    "recipient_type": "Non-profit organization",
+    "description_en": "Training placements for underemployed workers."
+  },
+  {
+    "recipient_legal_name": "Prairie Skills Bridge Society",
+    "agreement_number": "GC-2025-044",
+    "agreement_value": 225000,
+    "agreement_start_date": "2025-03-20",
+    "recipient_province": "Manitoba",
+    "owner_org": "Prairies Economic Development Canada",
+    "program_name": "Community Economic Development Fund",
+    "recipient_type": "Non-profit organization",
+    "description_en": "Regional skills partnership expansion."
+  },
+  {
+    "recipient_legal_name": "Atlantic Bioharvest Limited",
+    "agreement_number": "GC-2023-076",
+    "agreement_value": 910000,
+    "agreement_start_date": "2023-08-12",
+    "recipient_province": "Nova Scotia",
+    "owner_org": "Atlantic Canada Opportunities Agency",
+    "program_name": "Business Scale-up and Productivity",
+    "recipient_type": "For-profit organization",
+    "description_en": "Scale-up support for food processing equipment."
+  },
+  {
+    "recipient_legal_name": "Atlantic Bioharvest Limited",
+    "agreement_number": "GC-2024-006",
+    "agreement_value": 210000,
+    "agreement_start_date": "2024-01-30",
+    "recipient_province": "Nova Scotia",
+    "owner_org": "Fisheries and Oceans Canada",
+    "program_name": "Aquaculture Innovation Support",
+    "recipient_type": "For-profit organization",
+    "description_en": "Operational trial for marine biomass processing."
+  },
+  {
+    "recipient_legal_name": "Aurora Quantum Analytics Corporation",
+    "agreement_number": "GC-2025-091",
+    "agreement_value": 2650000,
+    "agreement_start_date": "2025-06-05",
+    "recipient_province": "British Columbia",
+    "owner_org": "National Research Council Canada",
+    "program_name": "Industrial Research Assistance Program",
+    "recipient_type": "For-profit organization",
+    "description_en": "Research and development support for analytics software."
+  },
+  {
+    "recipient_legal_name": "Northern Housing Renewal Foundation",
+    "agreement_number": "GC-2025-031",
+    "agreement_value": 375000,
+    "agreement_start_date": "2025-04-12",
+    "recipient_province": "Nunavut",
+    "owner_org": "Indigenous Services Canada",
+    "program_name": "Community Infrastructure Partnerships",
+    "recipient_type": "Non-profit organization",
+    "description_en": "Planning support for housing renewal project."
+  },
+  {
+    "recipient_legal_name": "Maple Robotics Incorporated",
+    "agreement_number": "GC-2024-222",
+    "agreement_value": 185000,
+    "agreement_start_date": "2024-09-17",
+    "recipient_province": "Quebec",
+    "owner_org": "Canada Economic Development for Quebec Regions",
+    "program_name": "Regional Innovation Fund",
+    "recipient_type": "For-profit organization",
+    "description_en": "Commercialization support for robotics tooling."
+  },
+  {
+    "recipient_legal_name": "Maple Robotics Incorporated",
+    "agreement_number": "GC-2025-057",
+    "agreement_value": 320000,
+    "agreement_start_date": "2025-05-28",
+    "recipient_province": "Quebec",
+    "owner_org": "Innovation, Science and Economic Development Canada",
+    "program_name": "Advanced Manufacturing Adoption",
+    "recipient_type": "For-profit organization",
+    "description_en": "Automation adoption and product validation."
+  }
+]

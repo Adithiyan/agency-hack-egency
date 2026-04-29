@@ -1,0 +1,56 @@
+[
+  {
+    "legal_name": "Northstar Clean Materials Inc.",
+    "corporation_number": "1420001-0",
+    "business_number": "700000001",
+    "status": "Dissolved",
+    "dissolution_date": "2025-11-22",
+    "jurisdiction": "Federal",
+    "source_url": "Demo cache: replace with Corporations Canada record URL after validation"
+  },
+  {
+    "legal_name": "Prairie Skills Bridge Society",
+    "corporation_number": "1420002-8",
+    "business_number": "700000002",
+    "status": "Dissolved",
+    "dissolution_date": "2025-10-10",
+    "jurisdiction": "Federal",
+    "source_url": "Demo cache: replace with Corporations Canada record URL after validation"
+  },
+  {
+    "legal_name": "Atlantic Bioharvest Ltd.",
+    "corporation_number": "1420003-6",
+    "business_number": "700000003",
+    "status": "Dissolved",
+    "dissolution_date": "2025-09-01",
+    "jurisdiction": "Federal",
+    "source_url": "Demo cache: replace with Corporations Canada record URL after validation"
+  },
+  {
+    "legal_name": "Aurora Quantum Analytics Corporation",
+    "corporation_number": "1420004-4",
+    "business_number": "700000004",
+    "status": "Active",
+    "dissolution_date": null,
+    "jurisdiction": "Federal",
+    "source_url": "Demo cache: replace with Corporations Canada record URL after validation"
+  },
+  {
+    "legal_name": "Northern Housing Renewal Foundation",
+    "corporation_number": "1420005-2",
+    "business_number": "700000005",
+    "status": "Dissolved",
+    "dissolution_date": "2026-03-01",
+    "jurisdiction": "Federal",
+    "source_url": "Demo cache: replace with Corporations Canada record URL after validation"
+  },
+  {
+    "legal_name": "Maple Robotics Inc.",
+    "corporation_number": "1420006-0",
+    "business_number": "700000006",
+    "status": "Inactive",
+    "dissolution_date": "2025-07-15",
+    "jurisdiction": "Federal",
+    "source_url": "Demo cache: replace with Corporations Canada record URL after validation"
+  }
+]
